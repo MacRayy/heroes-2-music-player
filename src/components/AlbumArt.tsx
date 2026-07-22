@@ -9,6 +9,9 @@ const EMBLEMS: Record<TrackCategory, React.ReactNode> = {
   town: <path d="M4 20V9l2-2V4h3v2h6V4h3v3l2 2v11h-5v-5h-6v5H4zm6-9h4V9h-4v2z" />,
   terrain: <path d="M2 20l6-11 4 6 3-5 7 10H2zm4-9a2 2 0 100-4 2 2 0 000 4z" />,
   victory: <path d="M12 2l2.5 5.5L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L12 2z" />,
+  sting: (
+    <path d="M12 2a2 2 0 012 2v.6a6 6 0 014 5.6v3.8l2 2V19H4v-3.4l2-2v-3.8a6 6 0 014-5.6V4a2 2 0 012-2zM9 20h6a3 3 0 01-6 0z" />
+  ),
 }
 
 interface AlbumArtProps {

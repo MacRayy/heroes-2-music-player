@@ -8,6 +8,7 @@ import { GearIcon } from '@/ui/icons'
 
 import { AlbumArt } from './AlbumArt'
 import { ProgressBar } from './ProgressBar'
+import { ScopeChips } from './ScopeChips'
 import { SettingsDialog } from './SettingsDialog'
 import { ThemeToggle } from './ThemeToggle'
 import { TransportControls } from './TransportControls'
@@ -42,6 +43,7 @@ export function PlayerPanel(): React.JSX.Element {
         <p className="now-playing__category">{categoryLabel}</p>
       </div>
 
+      <ScopeChips />
       <ProgressBar />
       <TransportControls />
 
