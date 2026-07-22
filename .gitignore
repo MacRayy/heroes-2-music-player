@@ -26,3 +26,6 @@ public/audio/
 # misc
 *.log
 .DS_Store
+
+# raw art source (optimized derivative committed instead)
+public/art/h2map.png

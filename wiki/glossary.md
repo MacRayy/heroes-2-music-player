@@ -1,28 +1,45 @@
 # Glossary
 
-> Domain terms used across the codebase. Alphabetical, with code references where a clean home
-> exists.
+> Domain terms specific to this project. See `architecture.md` for how they fit together.
 
-<!-- Use this page for words that mean something specific in your domain — words that
-non-domain-experts would misunderstand, or words where the codebase uses one term for what the
-business calls something else. Don't pad with generic engineering terms ("React component",
-"REST endpoint") — those belong in the README or onboarding doc, not here.
+## Good / Evil theme
 
-Format per entry:
+The two interface skins mirroring HOMM2's interface styles: **Good** (blue/silver + gold) and
+**Evil** (red/ember + dark iron). A single toggle swaps `data-theme` on `<html>`; all colors are
+semantic CSS vars remapped per theme.
+**Code:** `src/theme/themes.css`, `src/theme/useTheme.ts`. **Related:** [[2026-07-22-theming]].
 
-## <Term>
+## Category
 
-One- or two-sentence definition in the project's own voice.
-**Code:** `<path/to/file>:<line>` if the term has a canonical type/constant.
-**Related:** [[Other Term]], [[Another Term]] — link to other glossary entries that share context.
+The grouping of soundtrack tracks: `menu | battle | town | terrain | victory`. Drives the album-art
+emblem and the header label.
+**Code:** `TrackCategory` in `src/data/tracks.ts`.
 
-Keep entries short. If an entry grows past a paragraph, it probably wants its own `features/`
-or `decisions/` page, with the glossary just pointing at it. -->
+## Track id
 
-## <First term>
+A stable slug (e.g. `town-knight`) that is also the MP3 basename. Joins the editorial track record
+to its generated manifest entry.
+**Code:** `Track.id` in `src/data/tracks.ts`.
 
-TODO: what this means in your domain.
+## Manifest
 
-## <Second term>
+The committed `audio-manifest.json` — a build receipt mapping track id → `{ file, durationSec }`.
+Metadata only; the MP3 binaries are gitignored.
+**Code:** `src/data/audio-manifest.json`, `src/data/manifest.ts`. **Related:** [[2026-07-22-audio-pipeline]].
 
-TODO.
+## epoch
+
+A counter in player state bumped on every fresh (re)start of the current track — including
+repeat-one replays — so the load effect re-fires even when `currentId` is unchanged.
+**Code:** `PlayerState.epoch` in `src/hooks/usePlayer.ts`.
+
+## Scrubbing
+
+The state while the user drags the seek handle; incoming `timeupdate` events are ignored so they
+don't fight the drag position.
+**Code:** `scrubbingRef` in `src/components/ProgressBar.tsx`.
+
+## VITE_AUDIO_BASE_URL
+
+Build-time env var for where MP3s are served (unset → `/audio/` in dev; a CDN/bucket origin in
+prod). **Code:** `resolveAudioUrl` in `src/data/manifest.ts`. **Related:** [[audio-hosting]].

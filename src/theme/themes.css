@@ -1,0 +1,46 @@
+/*
+ * Theme overrides. GOOD is the default (see tokens.css :root).
+ * Only the semantic vars that differ are overridden here per [data-theme].
+ */
+
+/* Explicit good block so switching back from evil is unambiguous. */
+:root[data-theme='good'] {
+  --bg-base: #0a0f18;
+  --bg-tint: rgba(14, 32, 58, 0.55);
+  --bg-vignette: rgba(4, 10, 22, 0.75);
+  --gold: #d8b24c;
+  --gold-hi: #f2dd93;
+  --gold-lo: #866321;
+  --frame-edge: #1c1206;
+  --panel-top: #6c5836;
+  --panel-bot: #3d2e19;
+  --btn-hi: #4d86c6;
+  --btn-mid: #2f5f96;
+  --btn-lo: #1c3c64;
+  --btn-border: #d8b24c;
+  --accent: #ecc766;
+  --accent-soft: rgba(236, 199, 102, 0.22);
+  --text: #f4e8c6;
+  --text-dim: #bcaa80;
+}
+
+/* EVIL — red/ember over dark iron. */
+:root[data-theme='evil'] {
+  --bg-base: #140705;
+  --bg-tint: rgba(58, 10, 6, 0.58);
+  --bg-vignette: rgba(18, 3, 2, 0.8);
+  --gold: #c68a3a;
+  --gold-hi: #e8bf78;
+  --gold-lo: #6e441a;
+  --frame-edge: #140705;
+  --panel-top: #3c211a;
+  --panel-bot: #1d0e0a;
+  --btn-hi: #c14a34;
+  --btn-mid: #8c2a1c;
+  --btn-lo: #55160e;
+  --btn-border: #c68a3a;
+  --accent: #e77a42;
+  --accent-soft: rgba(231, 122, 66, 0.24);
+  --text: #f2ddc6;
+  --text-dim: #b8917a;
+}

@@ -1,0 +1,72 @@
+.game-button {
+  --face-hi: var(--btn-hi);
+  --face-mid: var(--btn-mid);
+  --face-lo: var(--btn-lo);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  color: var(--text);
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: 2px solid var(--frame-edge);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--face-hi) 0%, var(--face-mid) 45%, var(--face-lo) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.55),
+    0 0 0 2px var(--btn-border),
+    0 3px 5px rgba(0, 0, 0, 0.5);
+  transition:
+    transform 0.05s ease,
+    filter 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.game-button:hover {
+  filter: brightness(1.12);
+}
+
+.game-button:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.7),
+    0 0 0 2px var(--btn-border),
+    0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.game-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.game-button--sm {
+  width: 38px;
+  height: 38px;
+}
+
+.game-button--lg {
+  width: 60px;
+  height: 60px;
+}
+
+.game-button[aria-pressed='true'],
+.game-button[data-active='true'] {
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.7),
+    0 0 0 2px var(--accent),
+    0 0 10px 1px var(--accent-soft);
+  filter: brightness(1.08) saturate(1.15);
+}
+
+.game-button__icon {
+  width: 54%;
+  height: 54%;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}

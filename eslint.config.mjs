@@ -115,6 +115,7 @@ export default [
       '**/*.d.ts',
       'public/**',
       'wiki/**',
+      'scripts/**',
     ],
   },
   {

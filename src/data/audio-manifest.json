@@ -1,0 +1,78 @@
+{
+  "menu-main": {
+    "file": "menu-main.mp3",
+    "durationSec": 78
+  },
+  "battle-1": {
+    "file": "battle-1.mp3",
+    "durationSec": 113
+  },
+  "battle-2": {
+    "file": "battle-2.mp3",
+    "durationSec": 118
+  },
+  "battle-3": {
+    "file": "battle-3.mp3",
+    "durationSec": 109
+  },
+  "town-knight": {
+    "file": "town-knight.mp3",
+    "durationSec": 171
+  },
+  "town-barbarian": {
+    "file": "town-barbarian.mp3",
+    "durationSec": 157
+  },
+  "town-sorceress": {
+    "file": "town-sorceress.mp3",
+    "durationSec": 155
+  },
+  "town-warlock": {
+    "file": "town-warlock.mp3",
+    "durationSec": 145
+  },
+  "town-wizard": {
+    "file": "town-wizard.mp3",
+    "durationSec": 152
+  },
+  "town-necromancer": {
+    "file": "town-necromancer.mp3",
+    "durationSec": 174
+  },
+  "terrain-lava": {
+    "file": "terrain-lava.mp3",
+    "durationSec": 118
+  },
+  "terrain-wasteland": {
+    "file": "terrain-wasteland.mp3",
+    "durationSec": 128
+  },
+  "terrain-desert": {
+    "file": "terrain-desert.mp3",
+    "durationSec": 117
+  },
+  "terrain-snow": {
+    "file": "terrain-snow.mp3",
+    "durationSec": 127
+  },
+  "terrain-swamp": {
+    "file": "terrain-swamp.mp3",
+    "durationSec": 148
+  },
+  "terrain-ocean": {
+    "file": "terrain-ocean.mp3",
+    "durationSec": 110
+  },
+  "terrain-dirt": {
+    "file": "terrain-dirt.mp3",
+    "durationSec": 120
+  },
+  "terrain-grass": {
+    "file": "terrain-grass.mp3",
+    "durationSec": 130
+  },
+  "victory-scenario": {
+    "file": "victory-scenario.mp3",
+    "durationSec": 74
+  }
+}
