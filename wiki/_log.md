@@ -15,3 +15,6 @@ Format: `- [<title>](<path>) — <category> — <one-sentence summary>`
 - 2026-07-22 — Architecture — reference — Filled the module map, layered model, and "play a track" worked example — commit `📝 populate wiki architecture + glossary`.
 - 2026-07-22 — Glossary — reference — Defined domain terms: Good/Evil theme, category, track id, manifest, epoch, scrubbing, VITE_AUDIO_BASE_URL — commit `📝 populate wiki architecture + glossary`.
 - 2026-07-22 — Music player — feature — Documented the single-screen player; noted the track list was removed (navigation via transport) — commit `♻️ address solution-critic findings`.
+- 2026-07-22 — Castle labeling fix — bug — Repointed base castle `src` to authoritative fheroes2 mapping (homm2_04=Sorceress…09=Wizard); added `src→title` guard test — commit `🐛 fix mislabeled castle themes`.
+- 2026-07-22 — Extended soundtrack — decision/feature — Added 6 Succession Wars castle alternates + 20 event stings (45 tracks); stings behind a scope-chip filter; manual next/prev now wrap — commit `✨ add … + category scope`.
+- 2026-07-22 — Glossary/architecture/backlog — reference — Added sting/scope/SW-variant terms, `scope` in the reducer model, struck completed backlog items — same commits.

@@ -17,27 +17,51 @@
   },
   "town-knight": {
     "file": "town-knight.mp3",
-    "durationSec": 171
+    "durationSec": 145
+  },
+  "town-knight-sw": {
+    "file": "town-knight-sw.mp3",
+    "durationSec": 148
   },
   "town-barbarian": {
     "file": "town-barbarian.mp3",
-    "durationSec": 157
+    "durationSec": 152
+  },
+  "town-barbarian-sw": {
+    "file": "town-barbarian-sw.mp3",
+    "durationSec": 124
   },
   "town-sorceress": {
     "file": "town-sorceress.mp3",
-    "durationSec": 155
+    "durationSec": 171
+  },
+  "town-sorceress-sw": {
+    "file": "town-sorceress-sw.mp3",
+    "durationSec": 250
   },
   "town-warlock": {
     "file": "town-warlock.mp3",
-    "durationSec": 145
+    "durationSec": 157
+  },
+  "town-warlock-sw": {
+    "file": "town-warlock-sw.mp3",
+    "durationSec": 117
   },
   "town-wizard": {
     "file": "town-wizard.mp3",
-    "durationSec": 152
+    "durationSec": 174
+  },
+  "town-wizard-sw": {
+    "file": "town-wizard-sw.mp3",
+    "durationSec": 124
   },
   "town-necromancer": {
     "file": "town-necromancer.mp3",
-    "durationSec": 174
+    "durationSec": 155
+  },
+  "town-necromancer-sw": {
+    "file": "town-necromancer-sw.mp3",
+    "durationSec": 143
   },
   "terrain-lava": {
     "file": "terrain-lava.mp3",
@@ -74,5 +98,85 @@
   "victory-scenario": {
     "file": "victory-scenario.mp3",
     "durationSec": 74
+  },
+  "sting-lost-game": {
+    "file": "sting-lost-game.mp3",
+    "durationSec": 22
+  },
+  "sting-new-week": {
+    "file": "sting-new-week.mp3",
+    "durationSec": 6
+  },
+  "sting-new-month": {
+    "file": "sting-new-month.mp3",
+    "durationSec": 8
+  },
+  "sting-archibald": {
+    "file": "sting-archibald.mp3",
+    "durationSec": 57
+  },
+  "sting-puzzle": {
+    "file": "sting-puzzle.mp3",
+    "durationSec": 11
+  },
+  "sting-roland": {
+    "file": "sting-roland.mp3",
+    "durationSec": 54
+  },
+  "sting-ai-turn": {
+    "file": "sting-ai-turn.mp3",
+    "durationSec": 64
+  },
+  "sting-battle-won": {
+    "file": "sting-battle-won.mp3",
+    "durationSec": 7
+  },
+  "sting-battle-lost": {
+    "file": "sting-battle-lost.mp3",
+    "durationSec": 6
+  },
+  "sting-dungeon": {
+    "file": "sting-dungeon.mp3",
+    "durationSec": 6
+  },
+  "sting-waterspring": {
+    "file": "sting-waterspring.mp3",
+    "durationSec": 6
+  },
+  "sting-arabian": {
+    "file": "sting-arabian.mp3",
+    "durationSec": 8
+  },
+  "sting-hillfort": {
+    "file": "sting-hillfort.mp3",
+    "durationSec": 6
+  },
+  "sting-treehouse": {
+    "file": "sting-treehouse.mp3",
+    "durationSec": 6
+  },
+  "sting-demoncave": {
+    "file": "sting-demoncave.mp3",
+    "durationSec": 7
+  },
+  "sting-experience": {
+    "file": "sting-experience.mp3",
+    "durationSec": 6
+  },
+  "sting-skill": {
+    "file": "sting-skill.mp3",
+    "durationSec": 6
+  },
+  "sting-watchtower": {
+    "file": "sting-watchtower.mp3",
+    "durationSec": 7
+  },
+  "sting-xanadu": {
+    "file": "sting-xanadu.mp3",
+    "durationSec": 6
+  },
+  "sting-ultimate-artifact": {
+    "file": "sting-ultimate-artifact.mp3",
+    "durationSec": 6
   }
 }
