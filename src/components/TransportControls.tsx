@@ -1,3 +1,5 @@
+import type { ReactElement } from 'react'
+
 import { usePlayerContext } from '@/state/PlayerContext'
 import { GameButton } from '@/ui/GameButton'
 import {
@@ -10,8 +12,8 @@ import {
   ShuffleIcon,
 } from '@/ui/icons'
 
-export function TransportControls(): React.JSX.Element {
-  const { isPlaying, shuffle, repeat, togglePlay, next, prev, toggleShuffle, cycleRepeat } =
+export const TransportControls = (): ReactElement => {
+  const { isPlaying, isShuffle, repeat, togglePlay, next, prev, toggleShuffle, cycleRepeat } =
     usePlayerContext()
 
   const repeatLabel =
@@ -19,7 +21,7 @@ export function TransportControls(): React.JSX.Element {
 
   return (
     <div className="transport">
-      <GameButton label="Shuffle" size="sm" isPressed={shuffle} onClick={toggleShuffle}>
+      <GameButton label="Shuffle" size="sm" isPressed={isShuffle} onClick={toggleShuffle}>
         <ShuffleIcon />
       </GameButton>
       <GameButton label="Previous track" onClick={prev}>

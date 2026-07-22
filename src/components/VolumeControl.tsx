@@ -1,7 +1,9 @@
+import type { ReactElement } from 'react'
+
 import { usePlayerContext } from '@/state/PlayerContext'
 import { VolumeIcon } from '@/ui/icons'
 
-export function VolumeControl(): React.JSX.Element {
+export const VolumeControl = (): ReactElement => {
   const { volume, setVolume } = usePlayerContext()
   return (
     <div className="volume">

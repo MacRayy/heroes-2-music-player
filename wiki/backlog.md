@@ -8,11 +8,12 @@ strike it here.
 
 ## Soundtrack coverage
 
-- **Event stings (`homm2_18`–`homm2_40`)** — the ~6 s jingles (battle won/lost, treasure, level-up,
-  new week, AI turn…). Excluded from Phase 1 as they aren't listening music. Could surface as a
-  separate "Stings" category or an SFX toggle. Source already on disk (see [[project setup]]).
-- **Expansion variants (`music/sw/`, `music/pol/`)** — Succession Wars / Price of Loyalty alternate
-  versions of 6 tracks. Add as per-track variant selection once the base player is solid.
+- ~~Event stings (`homm2_18`–`homm2_40`)~~ — **DONE (Phase 2)**: added as the `sting` category,
+  reachable via the Stings scope chip. See [[2026-07-22-soundtrack-scope]].
+- ~~Succession Wars castle alternates (`music/sw/`)~~ — **DONE (Phase 2)**: 6 alternates in rotation.
+- **Price of Loyalty variants (`music/pol/`)** — still deferred; `pol/` is byte-identical to the
+  shipped base castle recordings, so it adds nothing until a genuinely different PoL source appears.
+- **Alternate main menu** — not present in the fheroes2 source; would need external sourcing.
 
 ## Fidelity / art
 

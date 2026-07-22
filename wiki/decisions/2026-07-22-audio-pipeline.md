@@ -23,7 +23,8 @@ without ffmpeg or the game files (CI has neither).
 ## Decision
 
 **C.** `src/data/tracks.ts` (an ordered `Track[]`) owns id/src/file/title/category.
-`scripts/build-audio.ts` (run via `tsx`) reads it, transcodes each `src` OGG → `file` MP3 into
+`scripts/build-audio.ts` (run via `tsx`) reads it, transcodes each `src` OGG (`src` may include a
+subfolder, e.g. `sw/homm2_04` for Succession Wars variants) → `file` MP3 into
 `public/audio/` (gitignored), probes durations with `ffprobe`, and writes
 `src/data/audio-manifest.json` (metadata only, ~1 KB, **committed**, prettier-conformant).
 `src/data/manifest.ts` types the JSON and exposes `resolveAudioUrl(file)`.

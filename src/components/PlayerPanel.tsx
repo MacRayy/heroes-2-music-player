@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type ReactElement, useState } from 'react'
 
 import { CATEGORY_LABELS } from '@/data/tracks'
 import { usePlayerContext } from '@/state/PlayerContext'
@@ -8,13 +8,14 @@ import { GearIcon } from '@/ui/icons'
 
 import { AlbumArt } from './AlbumArt'
 import { ProgressBar } from './ProgressBar'
+import { ScopeChips } from './ScopeChips'
 import { SettingsDialog } from './SettingsDialog'
 import { ThemeToggle } from './ThemeToggle'
 import { TransportControls } from './TransportControls'
 
-export function PlayerPanel(): React.JSX.Element {
+export const PlayerPanel = (): ReactElement => {
   const { currentTrack } = usePlayerContext()
-  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
   const category = currentTrack?.category ?? null
   const categoryLabel = category === null ? 'Soundtrack' : CATEGORY_LABELS[category]
@@ -28,7 +29,7 @@ export function PlayerPanel(): React.JSX.Element {
           label="Settings"
           size="sm"
           onClick={() => {
-            setSettingsOpen(true)
+            setIsSettingsOpen(true)
           }}
         >
           <GearIcon />
@@ -42,13 +43,14 @@ export function PlayerPanel(): React.JSX.Element {
         <p className="now-playing__category">{categoryLabel}</p>
       </div>
 
+      <ScopeChips />
       <ProgressBar />
       <TransportControls />
 
-      {settingsOpen ? (
+      {isSettingsOpen ? (
         <SettingsDialog
           onClose={() => {
-            setSettingsOpen(false)
+            setIsSettingsOpen(false)
           }}
         />
       ) : null}

@@ -1,78 +1,227 @@
 {
   "menu-main": {
     "file": "menu-main.mp3",
+    "src": "homm2_41",
     "durationSec": 78
   },
   "battle-1": {
     "file": "battle-1.mp3",
+    "src": "homm2_01",
     "durationSec": 113
   },
   "battle-2": {
     "file": "battle-2.mp3",
+    "src": "homm2_02",
     "durationSec": 118
   },
   "battle-3": {
     "file": "battle-3.mp3",
+    "src": "homm2_03",
     "durationSec": 109
   },
   "town-knight": {
     "file": "town-knight.mp3",
-    "durationSec": 171
+    "src": "homm2_07",
+    "durationSec": 145
+  },
+  "town-knight-sw": {
+    "file": "town-knight-sw.mp3",
+    "src": "sw/homm2_07",
+    "durationSec": 148
   },
   "town-barbarian": {
     "file": "town-barbarian.mp3",
-    "durationSec": 157
+    "src": "homm2_08",
+    "durationSec": 152
+  },
+  "town-barbarian-sw": {
+    "file": "town-barbarian-sw.mp3",
+    "src": "sw/homm2_08",
+    "durationSec": 124
   },
   "town-sorceress": {
     "file": "town-sorceress.mp3",
-    "durationSec": 155
+    "src": "homm2_04",
+    "durationSec": 171
+  },
+  "town-sorceress-sw": {
+    "file": "town-sorceress-sw.mp3",
+    "src": "sw/homm2_04",
+    "durationSec": 250
   },
   "town-warlock": {
     "file": "town-warlock.mp3",
-    "durationSec": 145
+    "src": "homm2_05",
+    "durationSec": 157
+  },
+  "town-warlock-sw": {
+    "file": "town-warlock-sw.mp3",
+    "src": "sw/homm2_05",
+    "durationSec": 117
   },
   "town-wizard": {
     "file": "town-wizard.mp3",
-    "durationSec": 152
+    "src": "homm2_09",
+    "durationSec": 174
+  },
+  "town-wizard-sw": {
+    "file": "town-wizard-sw.mp3",
+    "src": "sw/homm2_09",
+    "durationSec": 124
   },
   "town-necromancer": {
     "file": "town-necromancer.mp3",
-    "durationSec": 174
+    "src": "homm2_06",
+    "durationSec": 155
+  },
+  "town-necromancer-sw": {
+    "file": "town-necromancer-sw.mp3",
+    "src": "sw/homm2_06",
+    "durationSec": 143
   },
   "terrain-lava": {
     "file": "terrain-lava.mp3",
+    "src": "homm2_10",
     "durationSec": 118
   },
   "terrain-wasteland": {
     "file": "terrain-wasteland.mp3",
+    "src": "homm2_11",
     "durationSec": 128
   },
   "terrain-desert": {
     "file": "terrain-desert.mp3",
+    "src": "homm2_12",
     "durationSec": 117
   },
   "terrain-snow": {
     "file": "terrain-snow.mp3",
+    "src": "homm2_13",
     "durationSec": 127
   },
   "terrain-swamp": {
     "file": "terrain-swamp.mp3",
+    "src": "homm2_14",
     "durationSec": 148
   },
   "terrain-ocean": {
     "file": "terrain-ocean.mp3",
+    "src": "homm2_15",
     "durationSec": 110
   },
   "terrain-dirt": {
     "file": "terrain-dirt.mp3",
+    "src": "homm2_16",
     "durationSec": 120
   },
   "terrain-grass": {
     "file": "terrain-grass.mp3",
+    "src": "homm2_17",
     "durationSec": 130
   },
   "victory-scenario": {
     "file": "victory-scenario.mp3",
+    "src": "homm2_42",
     "durationSec": 74
+  },
+  "sting-lost-game": {
+    "file": "sting-lost-game.mp3",
+    "src": "homm2_18",
+    "durationSec": 22
+  },
+  "sting-new-week": {
+    "file": "sting-new-week.mp3",
+    "src": "homm2_19",
+    "durationSec": 6
+  },
+  "sting-new-month": {
+    "file": "sting-new-month.mp3",
+    "src": "homm2_20",
+    "durationSec": 8
+  },
+  "sting-archibald": {
+    "file": "sting-archibald.mp3",
+    "src": "homm2_21",
+    "durationSec": 57
+  },
+  "sting-puzzle": {
+    "file": "sting-puzzle.mp3",
+    "src": "homm2_22",
+    "durationSec": 11
+  },
+  "sting-roland": {
+    "file": "sting-roland.mp3",
+    "src": "homm2_23",
+    "durationSec": 54
+  },
+  "sting-ai-turn": {
+    "file": "sting-ai-turn.mp3",
+    "src": "homm2_27",
+    "durationSec": 64
+  },
+  "sting-battle-won": {
+    "file": "sting-battle-won.mp3",
+    "src": "homm2_28",
+    "durationSec": 7
+  },
+  "sting-battle-lost": {
+    "file": "sting-battle-lost.mp3",
+    "src": "homm2_29",
+    "durationSec": 6
+  },
+  "sting-dungeon": {
+    "file": "sting-dungeon.mp3",
+    "src": "homm2_30",
+    "durationSec": 6
+  },
+  "sting-waterspring": {
+    "file": "sting-waterspring.mp3",
+    "src": "homm2_31",
+    "durationSec": 6
+  },
+  "sting-arabian": {
+    "file": "sting-arabian.mp3",
+    "src": "homm2_32",
+    "durationSec": 8
+  },
+  "sting-hillfort": {
+    "file": "sting-hillfort.mp3",
+    "src": "homm2_33",
+    "durationSec": 6
+  },
+  "sting-treehouse": {
+    "file": "sting-treehouse.mp3",
+    "src": "homm2_34",
+    "durationSec": 6
+  },
+  "sting-demoncave": {
+    "file": "sting-demoncave.mp3",
+    "src": "homm2_35",
+    "durationSec": 7
+  },
+  "sting-experience": {
+    "file": "sting-experience.mp3",
+    "src": "homm2_36",
+    "durationSec": 6
+  },
+  "sting-skill": {
+    "file": "sting-skill.mp3",
+    "src": "homm2_37",
+    "durationSec": 6
+  },
+  "sting-watchtower": {
+    "file": "sting-watchtower.mp3",
+    "src": "homm2_38",
+    "durationSec": 7
+  },
+  "sting-xanadu": {
+    "file": "sting-xanadu.mp3",
+    "src": "homm2_39",
+    "durationSec": 6
+  },
+  "sting-ultimate-artifact": {
+    "file": "sting-ultimate-artifact.mp3",
+    "src": "homm2_40",
+    "durationSec": 6
   }
 }

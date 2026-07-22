@@ -24,7 +24,8 @@ theme/volume.
 keeping `currentTime`/seek **local to `ProgressBar`** (its own `useState` fed by the audio
 element's `timeupdate`). It never enters Context, so play/pause/track-change are the only
 (infrequent) global updates. Persistence is a few lines of `localStorage` (volume here, theme in
-`useTheme`). Not worth a dependency for a 19-track app.
+`useTheme`). Not worth a dependency for an app this small (the catalog grew to 45 tracks in
+Phase 2, but the fan-out argument is unchanged — `currentTime` stays local to `ProgressBar`).
 
 ## Consequences
 

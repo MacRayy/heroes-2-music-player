@@ -131,6 +131,47 @@
   border: 1px solid var(--frame-edge);
 }
 
+/* ---- Scope chips --------------------------------------------------------- */
+.scopes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.scope-chip {
+  padding: 3px 10px;
+  border: 1px solid var(--gold-lo);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.scope-chip:hover {
+  color: var(--text);
+}
+
+.scope-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.scope-chip[aria-pressed='true'] {
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 0 6px var(--accent-soft),
+    0 0 4px var(--accent-soft);
+}
+
 /* ---- Transport ----------------------------------------------------------- */
 .transport {
   display: flex;

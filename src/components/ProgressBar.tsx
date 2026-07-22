@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { type ReactElement, useEffect, useRef, useState } from 'react'
 
 import { usePlayerContext } from '@/state/PlayerContext'
 
-function formatTime(seconds: number): string {
+const formatTime = (seconds: number): string => {
   if (!Number.isFinite(seconds) || seconds < 0) {
     return '0:00'
   }
@@ -12,15 +12,11 @@ function formatTime(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`
 }
 
-/**
- * Owns the high-frequency `currentTime` locally (fed by the audio element's `timeupdate`) so the
- * ~4 Hz tick never enters global state. While scrubbing, incoming ticks are ignored.
- */
-export function ProgressBar(): React.JSX.Element {
+export const ProgressBar = (): ReactElement => {
   const { audioRef, currentId } = usePlayerContext()
   const [current, setCurrent] = useState(0)
   const [duration, setDuration] = useState(0)
-  const scrubbingRef = useRef(false)
+  const isScrubbingRef = useRef(false)
 
   useEffect(() => {
     const el = audioRef.current
@@ -28,7 +24,7 @@ export function ProgressBar(): React.JSX.Element {
       return
     }
     const onTime = (): void => {
-      if (!scrubbingRef.current) {
+      if (!isScrubbingRef.current) {
         setCurrent(el.currentTime)
       }
     }
@@ -45,7 +41,6 @@ export function ProgressBar(): React.JSX.Element {
     }
   }, [audioRef])
 
-  // Reset the displayed position when the track changes.
   useEffect(() => {
     setCurrent(0)
   }, [currentId])
@@ -70,10 +65,10 @@ export function ProgressBar(): React.JSX.Element {
         value={current}
         aria-label="Seek"
         onPointerDown={() => {
-          scrubbingRef.current = true
+          isScrubbingRef.current = true
         }}
         onPointerUp={() => {
-          scrubbingRef.current = false
+          isScrubbingRef.current = false
         }}
         onChange={(e) => {
           seekTo(Number(e.target.value))
