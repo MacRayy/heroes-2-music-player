@@ -1,0 +1,8 @@
+wiki/
+.claude/
+public/audio/
+dist/
+build/
+node_modules/
+.yarn/
+yarn.lock
