@@ -1,0 +1,42 @@
+/*
+ * Design tokens. Structural tokens live in :root and don't change with theme.
+ * The semantic palette in :root is the GOOD (blue/gold) theme — the default.
+ * The EVIL theme overrides the changed semantic vars in themes.css.
+ */
+:root {
+  /* Structure (theme-independent) */
+  --font-display: 'Trajan Pro', 'Times New Roman', Georgia, serif;
+  --font-body: 'Times New Roman', Georgia, serif;
+  --radius: 6px;
+  --panel-width: 340px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+
+  /* Semantic palette — GOOD theme (default) */
+  --bg-tint: rgba(14, 32, 58, 0.55);
+  --bg-vignette: rgba(4, 10, 22, 0.75);
+
+  --gold: #d8b24c;
+  --gold-hi: #f2dd93;
+  --gold-lo: #866321;
+  --frame-edge: #1c1206;
+  --panel-top: #6c5836;
+  --panel-bot: #3d2e19;
+
+  --btn-hi: #4d86c6;
+  --btn-mid: #2f5f96;
+  --btn-lo: #1c3c64;
+  --btn-border: #d8b24c;
+
+  --accent: #ecc766;
+  --accent-soft: rgba(236, 199, 102, 0.22);
+
+  --text: #f4e8c6;
+  --text-dim: #bcaa80;
+  --text-shadow: rgba(0, 0, 0, 0.75);
+
+  --shadow-panel: 0 18px 48px rgba(0, 0, 0, 0.6);
+}

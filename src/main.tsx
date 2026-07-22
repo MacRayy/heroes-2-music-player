@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client'
 
 import { App } from '@/App'
 import '@/styles/globals.css'
+import '@/theme/themes.css'
+import '@/theme/tokens.css'
 
 const rootElement = document.getElementById('root')
 if (rootElement === null) {
