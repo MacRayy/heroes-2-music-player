@@ -18,7 +18,7 @@ const sharedRules = {
 
   // Existing overrides from love
   '@typescript-eslint/unified-signatures': 'off',
-  '@typescript-eslint/consistent-type-definitions': 'off',
+  '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
   '@typescript-eslint/dot-notation': ['off'],
   '@typescript-eslint/no-magic-numbers': 'off',
   '@typescript-eslint/no-explicit-any': 'off',
@@ -73,6 +73,10 @@ const sharedRules = {
   'react/react-in-jsx-scope': 'off',
   'react/no-array-index-key': 'warn',
   'react/no-unstable-nested-components': 'error',
+  'react/function-component-definition': [
+    'error',
+    { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
+  ],
 
   // React Hooks
   'react-hooks/rules-of-hooks': 'error',
@@ -81,6 +85,7 @@ const sharedRules = {
   // General
   'eol-last': ['error', 'always'],
   curly: ['error', 'all'],
+  'func-style': ['error', 'expression', { allowArrowFunctions: true }],
   // TypeScript — strict
   '@typescript-eslint/strict-boolean-expressions': 'error',
   '@typescript-eslint/switch-exhaustiveness-check': 'error',

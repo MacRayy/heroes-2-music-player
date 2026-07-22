@@ -1,7 +1,8 @@
+import type { ReactElement, ReactNode } from 'react'
+
 import type { TrackCategory } from '@/data/tracks'
 
-// Heraldic placeholder emblems per category (authentic per-track art is deferred; see backlog).
-const EMBLEMS: Record<TrackCategory, React.ReactNode> = {
+const EMBLEMS: Record<TrackCategory, ReactNode> = {
   menu: <path d="M4 8l4 4 4-7 4 7 4-4-1.5 10H5.5L4 8z" />,
   battle: (
     <path d="M12 2l8 3v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V5l8-3zm-3.2 5.1L7.4 8.5l6 6 1.4-1.4-6-6z" />
@@ -14,17 +15,15 @@ const EMBLEMS: Record<TrackCategory, React.ReactNode> = {
   ),
 }
 
-interface AlbumArtProps {
+type AlbumArtProps = {
   readonly category: TrackCategory | null
   readonly title: string
 }
 
-export function AlbumArt({ category, title }: AlbumArtProps): React.JSX.Element {
-  return (
-    <div className="album-art" role="img" aria-label={`${title} artwork`}>
-      <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
-        {category === null ? EMBLEMS.menu : EMBLEMS[category]}
-      </svg>
-    </div>
-  )
-}
+export const AlbumArt = ({ category, title }: AlbumArtProps): ReactElement => (
+  <div className="album-art" role="img" aria-label={`${title} artwork`}>
+    <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
+      {category === null ? EMBLEMS.menu : EMBLEMS[category]}
+    </svg>
+  </div>
+)

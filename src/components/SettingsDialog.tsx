@@ -1,15 +1,15 @@
-import { useEffect } from 'react'
+import { type ReactElement, useEffect } from 'react'
 
 import { GameFrame } from '@/ui/GameFrame'
 
 import { ThemeToggle } from './ThemeToggle'
 import { VolumeControl } from './VolumeControl'
 
-interface SettingsDialogProps {
+type SettingsDialogProps = {
   readonly onClose: () => void
 }
 
-export function SettingsDialog({ onClose }: SettingsDialogProps): React.JSX.Element {
+export const SettingsDialog = ({ onClose }: SettingsDialogProps): ReactElement => {
   useEffect(() => {
     const onKey = (e: KeyboardEvent): void => {
       if (e.key === 'Escape') {

@@ -92,6 +92,20 @@ divergence in the PR description before requesting human review.
 Skip this for typical bugfix or feature-extension PRs — the cost-to-value is bad when the shape is
 not in question.
 
+## Code conventions
+
+Enforced by ESLint (`func-style`, `react/function-component-definition`,
+`consistent-type-definitions`, `react/boolean-prop-naming`) and checked by the critics:
+
+- Component return type is `ReactElement` (not `JSX.Element`).
+- Import React names directly (`ReactNode`, `RefObject`, …) — never `React.Foo`.
+- Everything is a `const` arrow — components and all helper functions; no `function` declarations.
+- `type`, not `interface` (exception: `.d.ts` global augmentation must use `interface`).
+- Functional style — avoid mutation and `let` reassignment; prefer `map`/`reduce`/spreads.
+- Boolean props **and** variables use `is`/`has`/`should` (`can`/`are`/`have`) prefixes.
+- `children` props use React's `PropsWithChildren`, not a hand-written `children: ReactNode`.
+- Minimal comments — only for a non-obvious _why_ or a required directive (e.g. `eslint-disable`).
+
 ## Tooling
 
 - **Package manager:** yarn.

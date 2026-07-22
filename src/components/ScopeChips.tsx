@@ -1,8 +1,9 @@
+import type { ReactElement } from 'react'
+
 import { SCOPE_LABELS, SCOPE_ORDER } from '@/data/tracks'
 import { usePlayerContext } from '@/state/PlayerContext'
 
-/** A small filter row that scopes what the transport (next/prev/shuffle) walks. Not a track list. */
-export function ScopeChips(): React.JSX.Element {
+export const ScopeChips = (): ReactElement => {
   const { scope, setScope } = usePlayerContext()
   return (
     <div className="scopes" role="group" aria-label="Filter tracks by category">

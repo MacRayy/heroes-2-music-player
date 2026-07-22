@@ -1,12 +1,12 @@
+import type { PropsWithChildren, ReactElement } from 'react'
+
 import './GameFrame.css'
 
-interface GameFrameProps {
-  readonly children: React.ReactNode
+type GameFrameProps = PropsWithChildren<{
   readonly className?: string
-}
+}>
 
-/** Ornate gold-on-wood panel frame, themed via CSS custom properties. */
-export function GameFrame({ children, className = '' }: GameFrameProps): React.JSX.Element {
+export const GameFrame = ({ children, className = '' }: GameFrameProps): ReactElement => {
   const classes = ['game-frame', className].filter((c) => c !== '').join(' ')
   return (
     <div className={classes}>

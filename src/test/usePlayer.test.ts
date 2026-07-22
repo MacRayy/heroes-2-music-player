@@ -13,7 +13,7 @@ import {
 const MUSIC = tracksInScope('all')
 const STINGS = tracksInScope('sting')
 
-function req(ids: readonly string[], index: number): string {
+const req = (ids: readonly string[], index: number): string => {
   const value = ids[index]
   if (value === undefined) {
     throw new Error(`no id at index ${index}`)
@@ -25,9 +25,11 @@ const FIRST = req(MUSIC, 0)
 const SECOND = req(MUSIC, 1)
 const LAST = req(MUSIC, MUSIC.length - 1)
 
-function stateAt(id: string, overrides: Partial<PlayerState> = {}): PlayerState {
-  return { ...createInitialState(), currentId: id, ...overrides }
-}
+const stateAt = (id: string, overrides: Partial<PlayerState> = {}): PlayerState => ({
+  ...createInitialState(),
+  currentId: id,
+  ...overrides,
+})
 
 describe('tracksInScope', () => {
   it('all = music only (excludes stings), sting = stings only', () => {
@@ -128,7 +130,7 @@ describe('playerReducer', () => {
       value: 'sting',
       order: STINGS,
       currentId: req(STINGS, 0),
-      restart: true,
+      shouldRestart: true,
     })
     expect(restarted.scope).toBe('sting')
     expect(restarted.order).toEqual(STINGS)
@@ -139,7 +141,7 @@ describe('playerReducer', () => {
       value: 'all',
       order: MUSIC,
       currentId: base.currentId,
-      restart: false,
+      shouldRestart: false,
     })
     expect(kept.epoch).toBe(base.epoch)
   })
@@ -149,7 +151,7 @@ describe('planScopeChange', () => {
   it('jumps to the first track when the current is out of the new scope (restart)', () => {
     const plan = planScopeChange('sting', FIRST, false)
     expect(plan.currentId).toBe(req(STINGS, 0))
-    expect(plan.restart).toBe(true)
+    expect(plan.shouldRestart).toBe(true)
     expect(plan.order).toEqual(STINGS)
   })
 
@@ -157,7 +159,7 @@ describe('planScopeChange', () => {
     const townId = req(tracksInScope('town'), 0)
     const plan = planScopeChange('town', townId, false)
     expect(plan.currentId).toBe(townId)
-    expect(plan.restart).toBe(false)
+    expect(plan.shouldRestart).toBe(false)
   })
 
   it('reshuffles within the new scope when shuffle is on, kept track first', () => {
@@ -180,8 +182,12 @@ describe('shuffledOrder', () => {
 
   it('setShuffle swaps in the provided order', () => {
     const order = [SECOND, FIRST]
-    const after = playerReducer(createInitialState(), { type: 'setShuffle', value: true, order })
-    expect(after.shuffle).toBe(true)
+    const after = playerReducer(createInitialState(), {
+      type: 'setShuffle',
+      isShuffle: true,
+      order,
+    })
+    expect(after.isShuffle).toBe(true)
     expect(after.order).toEqual(order)
   })
 })

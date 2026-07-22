@@ -1,17 +1,8 @@
-// Editorial source of truth for the soundtrack (45 tracks: 25 music + 20 event stings).
-// `homm2_XX.ogg` = original HOMM2 CD track XX+1 (GOG/DOS scheme, file = musmap index − 1),
-// verified against fheroes2 src/fheroes2/agg/mus.cpp. Succession Wars alternate castle
-// recordings live in the `sw/` subfolder. The build pipeline (scripts/build-audio.ts)
-// transcodes each `src` OGG to `file` (MP3) and emits audio-manifest.json.
-
 export type TrackCategory = 'menu' | 'battle' | 'town' | 'terrain' | 'victory' | 'sting'
 
-export interface Track {
-  /** Stable app id / slug (also the MP3 basename minus extension). */
+export type Track = {
   readonly id: string
-  /** Source OGG path relative to the music dir, no extension (may include a subfolder, e.g. `sw/homm2_04`). */
   readonly src: string
-  /** Output MP3 filename served to the app. */
   readonly file: string
   readonly title: string
   readonly category: TrackCategory
@@ -26,10 +17,8 @@ export const CATEGORY_LABELS: Record<TrackCategory, string> = {
   sting: 'Stings',
 }
 
-/** A playback "scope" filter: `all` = all music (excludes stings); otherwise a single category. */
 export type Scope = 'all' | TrackCategory
 
-/** Scope chips shown in the UI, in order. Single-track menu/victory are reachable via `all`. */
 export const SCOPE_ORDER: readonly Scope[] = ['all', 'battle', 'town', 'terrain', 'sting']
 
 export const SCOPE_LABELS: Record<Scope, string> = {
@@ -50,7 +39,6 @@ export const TRACKS: readonly Track[] = [
   { id: 'battle-2', src: 'homm2_02', file: 'battle-2.mp3', title: 'Battle 2', category: 'battle' },
   { id: 'battle-3', src: 'homm2_03', file: 'battle-3.mp3', title: 'Battle 3', category: 'battle' },
 
-  // Base castle themes (Price of Loyalty recordings). Each is followed by its Succession Wars variant.
   { id: 'town-knight', src: 'homm2_07', file: 'town-knight.mp3', title: 'Knight Castle', category: 'town' },
   { id: 'town-knight-sw', src: 'sw/homm2_07', file: 'town-knight-sw.mp3', title: 'Knight Castle (Succession Wars)', category: 'town' },
   { id: 'town-barbarian', src: 'homm2_08', file: 'town-barbarian.mp3', title: 'Barbarian Castle', category: 'town' },
@@ -75,7 +63,6 @@ export const TRACKS: readonly Track[] = [
 
   { id: 'victory-scenario', src: 'homm2_42', file: 'victory-scenario.mp3', title: 'Scenario Victory', category: 'victory' },
 
-  // Event stings (short jingles). Excludes the 3 "not in use" Caravans clips (homm2_24/25/26).
   { id: 'sting-lost-game', src: 'homm2_18', file: 'sting-lost-game.mp3', title: 'Lost Game', category: 'sting' },
   { id: 'sting-new-week', src: 'homm2_19', file: 'sting-new-week.mp3', title: 'New Week', category: 'sting' },
   { id: 'sting-new-month', src: 'homm2_20', file: 'sting-new-month.mp3', title: 'New Month', category: 'sting' },

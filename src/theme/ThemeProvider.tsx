@@ -1,15 +1,15 @@
-import { createContext, useContext } from 'react'
+import { createContext, type PropsWithChildren, type ReactElement, useContext } from 'react'
 
 import { type ThemeApi, useTheme } from './useTheme'
 
 const ThemeContext = createContext<ThemeApi | null>(null)
 
-export function ThemeProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
+export const ThemeProvider = ({ children }: PropsWithChildren): ReactElement => {
   const theme = useTheme()
   return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
 }
 
-export function useThemeContext(): ThemeApi {
+export const useThemeContext = (): ThemeApi => {
   const ctx = useContext(ThemeContext)
   if (ctx === null) {
     throw new Error('useThemeContext must be used within a ThemeProvider')

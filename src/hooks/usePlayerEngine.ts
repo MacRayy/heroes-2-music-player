@@ -1,37 +1,25 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { type RefObject, useCallback, useEffect, useRef } from 'react'
 
-export interface PlayerEngineHandlers {
-  /** Fired when the current track finishes (does not fire for repeat-one replays). */
+export type PlayerEngineHandlers = {
   onEnded: () => void
-  /** Fired on a media error (missing/undecodable source). */
   onError: (message: string) => void
 }
 
-export interface PlayerEngine {
-  /** The single long-lived audio element. Exposed so the ProgressBar can read time locally. */
-  audioRef: React.RefObject<HTMLAudioElement | null>
-  /** Point the element at a new URL; optionally start playing once it can. */
-  load: (url: string, autoplay: boolean) => void
+export type PlayerEngine = {
+  audioRef: RefObject<HTMLAudioElement | null>
+  load: (url: string, shouldAutoplay: boolean) => void
   play: () => void
   pause: () => void
   seek: (seconds: number) => void
   setVolume: (value: number) => void
 }
 
-function getAudio(): HTMLAudioElement | null {
-  return typeof Audio === 'undefined' ? null : new Audio()
-}
+const getAudio = (): HTMLAudioElement | null => (typeof Audio === 'undefined' ? null : new Audio())
 
-/**
- * Owns one `HTMLAudioElement` for the app's lifetime and exposes imperative controls.
- * Event listeners are registered once and cleaned up on unmount. Playback is fired as
- * `void el.play().catch(...)` so a blocked-autoplay rejection never throws.
- */
-export function usePlayerEngine(handlers: PlayerEngineHandlers): PlayerEngine {
+export const usePlayerEngine = (handlers: PlayerEngineHandlers): PlayerEngine => {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   audioRef.current ??= getAudio()
 
-  // Keep the latest handlers without re-binding listeners every render.
   const handlersRef = useRef(handlers)
   handlersRef.current = handlers
 
@@ -61,7 +49,7 @@ export function usePlayerEngine(handlers: PlayerEngineHandlers): PlayerEngine {
       return
     }
     void el.play().catch(() => {
-      // Autoplay blocked before a user gesture — state stays paused; ignore.
+      /* autoplay blocked before a user gesture — stays paused */
     })
   }, [])
 
@@ -70,14 +58,14 @@ export function usePlayerEngine(handlers: PlayerEngineHandlers): PlayerEngine {
   }, [])
 
   const load = useCallback(
-    (url: string, autoplay: boolean): void => {
+    (url: string, shouldAutoplay: boolean): void => {
       const el = audioRef.current
       if (el === null) {
         return
       }
       el.src = url
       el.load()
-      if (autoplay) {
+      if (shouldAutoplay) {
         play()
       }
     },
