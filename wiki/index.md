@@ -32,7 +32,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 
 ## Bugs
 
-<!-- Postmortems for non-obvious bugs. Date-prefixed: YYYY-MM-DD-slug.md. -->
+- [`bugs/2026-07-22-castle-theme-mislabel.md`](bugs/2026-07-22-castle-theme-mislabel.md) — base castle themes mapped to the wrong source OGGs.
 
 ## Runbooks
 

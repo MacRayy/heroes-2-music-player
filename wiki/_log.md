@@ -18,3 +18,4 @@ Format: `- [<title>](<path>) — <category> — <one-sentence summary>`
 - 2026-07-22 — Castle labeling fix — bug — Repointed base castle `src` to authoritative fheroes2 mapping (homm2_04=Sorceress…09=Wizard); added `src→title` guard test — commit `🐛 fix mislabeled castle themes`.
 - 2026-07-22 — Extended soundtrack — decision/feature — Added 6 Succession Wars castle alternates + 20 event stings (45 tracks); stings behind a scope-chip filter; manual next/prev now wrap — commit `✨ add … + category scope`.
 - 2026-07-22 — Glossary/architecture/backlog — reference — Added sting/scope/SW-variant terms, `scope` in the reducer model, struck completed backlog items — same commits.
+- 2026-07-22 — Castle theme mislabel — bug — Postmortem: base castles mapped to wrong OGGs since Phase 1 (bad WebFetch summary + false "verified" comment); fixed + guard test — commit `📝 add castle-mislabel postmortem`.
