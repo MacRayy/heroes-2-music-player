@@ -38,7 +38,7 @@ export function SettingsDialog({ onClose }: SettingsDialogProps): React.JSX.Elem
           Heroes of Might &amp; Magic II soundtrack player. Music from the game by New World
           Computing. A fan project.
         </p>
-        <button type="button" className="tracklist__item dialog__close" onClick={onClose}>
+        <button type="button" className="dialog__close" onClick={onClose}>
           Close
         </button>
       </GameFrame>

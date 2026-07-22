@@ -10,7 +10,6 @@ import { AlbumArt } from './AlbumArt'
 import { ProgressBar } from './ProgressBar'
 import { SettingsDialog } from './SettingsDialog'
 import { ThemeToggle } from './ThemeToggle'
-import { TrackList } from './TrackList'
 import { TransportControls } from './TransportControls'
 
 export function PlayerPanel(): React.JSX.Element {
@@ -45,7 +44,6 @@ export function PlayerPanel(): React.JSX.Element {
 
       <ProgressBar />
       <TransportControls />
-      <TrackList />
 
       {settingsOpen ? (
         <SettingsDialog
