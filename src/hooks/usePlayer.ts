@@ -267,6 +267,9 @@ export function usePlayer(): PlayerApi {
     dispatch({ type: 'setShuffle', value, order })
   }, [])
   const setScope = useCallback((value: Scope): void => {
+    if (value === stateRef.current.scope) {
+      return
+    }
     const { currentId, shuffle } = stateRef.current
     const plan = planScopeChange(value, currentId, shuffle)
     dispatch({

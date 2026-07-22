@@ -3,6 +3,8 @@ import manifestJson from './audio-manifest.json'
 export interface AudioManifestEntry {
   /** Output MP3 filename. */
   readonly file: string
+  /** Source OGG path (relative to the music dir, no extension) this MP3 was transcoded from. */
+  readonly src: string
   /** Duration in seconds (from ffprobe at build time). */
   readonly durationSec: number
 }

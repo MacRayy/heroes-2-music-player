@@ -22,3 +22,8 @@
 - MP3 (not OGG) is mandatory — Safari can't decode OGG Vorbis. See [[2026-07-22-audio-pipeline]].
 - The ~52 MB of MP3s are gitignored; uploading them to the bucket is a separate deploy step
   (deferred — see `backlog.md`).
+- **Relabel/re-record caveat:** if a track's `src` is repointed to a different recording while its
+  output `file` name stays the same, `yarn build:audio` re-transcodes automatically (it compares the
+  manifest's recorded `src`). But the bucket/CDN will keep serving the old bytes under that filename
+  until you re-upload and bust the CDN/browser cache. Treat same-name content changes as needing a
+  forced re-upload + cache invalidation.

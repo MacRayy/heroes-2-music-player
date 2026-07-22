@@ -9,7 +9,7 @@
  * written to src/data/audio-manifest.json (committed, prettier-conformant).
  */
 import { spawnSync } from 'node:child_process'
-import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -86,7 +86,27 @@ if (!existsSync(musicDir)) {
 mkdirSync(outDir, { recursive: true })
 
 // --- transcode + probe ---------------------------------------------------
-const manifest: Record<string, { file: string; durationSec: number }> = {}
+interface ManifestEntry {
+  file: string
+  src: string
+  durationSec: number
+}
+
+// Prior manifest lets us re-transcode when a track's `src` is repointed to a different OGG
+// even though its output filename is unchanged (otherwise a non-`--force` run would keep stale audio).
+let priorManifest: Record<string, Partial<ManifestEntry>> = {}
+if (existsSync(manifestPath)) {
+  try {
+    priorManifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as Record<
+      string,
+      Partial<ManifestEntry>
+    >
+  } catch {
+    priorManifest = {}
+  }
+}
+
+const manifest: Record<string, ManifestEntry> = {}
 let transcoded = 0
 let skipped = 0
 
@@ -96,13 +116,14 @@ for (const track of TRACKS) {
   if (!existsSync(srcPath)) {
     fail(`missing source OGG for "${track.id}": ${srcPath}`)
   }
-  if (force || !existsSync(outPath)) {
+  const upToDate = existsSync(outPath) && priorManifest[track.id]?.src === track.src
+  if (force || !upToDate) {
     transcode(srcPath, outPath)
     transcoded += 1
   } else {
     skipped += 1
   }
-  manifest[track.id] = { file: track.file, durationSec: probeDurationSec(outPath) }
+  manifest[track.id] = { file: track.file, src: track.src, durationSec: probeDurationSec(outPath) }
 }
 
 // --- warn about orphan MP3s not referenced by tracks.ts ------------------

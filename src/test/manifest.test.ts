@@ -28,11 +28,12 @@ describe('audio manifest coverage', () => {
     expect(TRACKS.length - stings.length).toBe(25)
   })
 
-  it('manifest file matches the track file and duration is positive', () => {
+  it('manifest file/src match the track and duration is positive', () => {
     for (const track of TRACKS) {
       const entry = audioManifest[track.id]
       expect(entry).toBeDefined()
       expect(entry?.file).toBe(track.file)
+      expect(entry?.src).toBe(track.src)
       expect(entry?.durationSec).toBeGreaterThan(0)
     }
   })
