@@ -1,33 +1,16 @@
-import { PlayerProvider, usePlayerContext } from '@/state/PlayerContext'
+import { Background } from '@/components/Background'
+import { PlayerPanel } from '@/components/PlayerPanel'
+import { PlayerProvider } from '@/state/PlayerContext'
 
-function NowPlaying(): React.JSX.Element {
-  const { currentTrack, isPlaying, togglePlay, next, prev } = usePlayerContext()
-  return (
-    <section>
-      <p>
-        {currentTrack === null ? 'No track' : currentTrack.title} —{' '}
-        {isPlaying ? 'playing' : 'paused'}
-      </p>
-      <button type="button" onClick={prev}>
-        Prev
-      </button>
-      <button type="button" onClick={togglePlay}>
-        Play/Pause
-      </button>
-      <button type="button" onClick={next}>
-        Next
-      </button>
-    </section>
-  )
-}
+import './components/player.css'
 
 export function App(): React.JSX.Element {
   return (
     <PlayerProvider>
-      <main>
-        <h1>Heroes of Might &amp; Magic II — Music Player</h1>
-        <NowPlaying />
-      </main>
+      <Background />
+      <div className="app">
+        <PlayerPanel />
+      </div>
     </PlayerProvider>
   )
 }
