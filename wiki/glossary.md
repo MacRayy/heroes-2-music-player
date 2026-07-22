@@ -11,9 +11,27 @@ semantic CSS vars remapped per theme.
 
 ## Category
 
-The grouping of soundtrack tracks: `menu | battle | town | terrain | victory`. Drives the album-art
-emblem and the header label.
+The grouping of soundtrack tracks: `menu | battle | town | terrain | victory | sting`. Drives the
+album-art emblem and the header label.
 **Code:** `TrackCategory` in `src/data/tracks.ts`.
+
+## Rotation scope
+
+A filter (`all | battle | town | terrain | sting`) that determines which tracks the transport
+(next/prev/shuffle) walks. `all` = all music, **excluding** stings; stings are only reachable via
+the Stings scope. Set by the `ScopeChips` row.
+**Code:** `Scope`/`tracksInScope`/`planScopeChange` in `src/hooks/usePlayer.ts`. **Related:** [[2026-07-22-soundtrack-scope]].
+
+## Succession Wars variant
+
+An alternate castle recording from the original HOMM2 (base game), distinct from the shipped Price
+of Loyalty version — e.g. a 4:09 Sorceress vs 2:51. Sourced from `music/sw/`, `category: 'town'`,
+title suffixed "(Succession Wars)".
+
+## Sting
+
+A short (~6 s) event jingle (Battle Won, New Week, Ultimate Artifact, …). `category: 'sting'`,
+excluded from the default music rotation.
 
 ## Track id
 

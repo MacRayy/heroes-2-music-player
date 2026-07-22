@@ -33,7 +33,7 @@ Pure data/logic (`data/`, `hooks/usePlayer` reducer) has no React-DOM dependency
 flowchart TD
   UI["components/* (read usePlayerContext)"]
   Ctx["state/PlayerContext → hooks/usePlayer"]
-  Reducer["playerReducer (pure): currentId, isPlaying, shuffle, repeat, volume, epoch"]
+  Reducer["playerReducer (pure): scope, order, currentId, isPlaying, shuffle, repeat, volume, epoch"]
   Engine["hooks/usePlayerEngine (one HTMLAudioElement)"]
   Data["data/: tracks.ts + audio-manifest.json → resolveAudioUrl"]
   Audio["<audio> element (not in DOM)"]

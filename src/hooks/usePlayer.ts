@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react'
 
 import { resolveAudioUrl } from '@/data/manifest'
-import { type Track, TRACKS } from '@/data/tracks'
+import { type Scope, type Track, TRACKS } from '@/data/tracks'
 
 import { usePlayerEngine } from './usePlayerEngine'
 
@@ -9,10 +9,18 @@ export type RepeatMode = 'off' | 'all' | 'one'
 
 const VOLUME_STORAGE_KEY = 'h2mp-volume'
 const DEFAULT_VOLUME = 0.7
-const DEFAULT_ORDER: readonly string[] = TRACKS.map((track) => track.id)
+
+/** Track ids within a scope. `all` = all music (excludes stings); otherwise a single category. */
+export function tracksInScope(scope: Scope): readonly string[] {
+  return TRACKS.filter((track) =>
+    scope === 'all' ? track.category !== 'sting' : track.category === scope,
+  ).map((track) => track.id)
+}
 
 export interface PlayerState {
-  /** Playback order of track ids (a shuffled permutation when `shuffle` is on). */
+  /** Active scope filter. */
+  readonly scope: Scope
+  /** Playback order of track ids within the scope (shuffled when `shuffle` is on). */
   readonly order: readonly string[]
   readonly currentId: string | null
   readonly isPlaying: boolean
@@ -29,6 +37,13 @@ export type PlayerAction =
   | { readonly type: 'prev' }
   | { readonly type: 'ended' }
   | { readonly type: 'setShuffle'; readonly value: boolean; readonly order: readonly string[] }
+  | {
+      readonly type: 'setScope'
+      readonly value: Scope
+      readonly order: readonly string[]
+      readonly currentId: string | null
+      readonly restart: boolean
+    }
   | { readonly type: 'cycleRepeat' }
   | { readonly type: 'setVolume'; readonly value: number }
 
@@ -49,30 +64,37 @@ function nextRepeat(mode: RepeatMode): RepeatMode {
   }
 }
 
-/** Move `delta` steps through `order`, honoring repeat mode. Stops (pauses) past the end. */
-function advance(state: PlayerState, delta: number): PlayerState {
+/**
+ * Move `delta` steps through `order`. When `circular` (manual next/prev), it always wraps around
+ * the ends. Otherwise (auto-advance on `ended`) it honors repeat: wrap only under repeat 'all',
+ * else stop (pause) past the end.
+ */
+function advance(state: PlayerState, delta: number, circular: boolean): PlayerState {
   const { order, currentId, repeat } = state
   if (order.length === 0) {
     return state
   }
+  const wrap = circular || repeat === 'all'
   const idx = currentId === null ? -1 : order.indexOf(currentId)
   let nextIdx = idx + delta
   if (nextIdx >= order.length) {
-    if (repeat !== 'all') {
+    if (!wrap) {
       return { ...state, isPlaying: false }
     }
     nextIdx = 0
   } else if (nextIdx < 0) {
-    nextIdx = repeat === 'all' ? order.length - 1 : 0
+    nextIdx = wrap ? order.length - 1 : 0
   }
   const nextId = order[nextIdx] ?? currentId
   return { ...state, currentId: nextId, isPlaying: true, epoch: state.epoch + 1 }
 }
 
 export function createInitialState(volume: number = DEFAULT_VOLUME): PlayerState {
+  const order = tracksInScope('all')
   return {
-    order: DEFAULT_ORDER,
-    currentId: DEFAULT_ORDER[0] ?? null,
+    scope: 'all',
+    order,
+    currentId: order[0] ?? null,
     isPlaying: false,
     shuffle: false,
     repeat: 'off',
@@ -86,15 +108,25 @@ export function playerReducer(state: PlayerState, action: PlayerAction): PlayerS
     case 'togglePlay':
       return state.currentId === null ? state : { ...state, isPlaying: !state.isPlaying }
     case 'next':
-      return advance(state, 1)
+      // Manual next always wraps around the end.
+      return advance(state, 1, true)
     case 'prev':
-      return advance(state, -1)
+      // Manual prev always wraps around the start.
+      return advance(state, -1, true)
     case 'ended':
-      // Repeat-one is handled imperatively in the engine (seek 0 + play) and never dispatches
-      // 'ended', so here 'ended' is always a plain advance.
-      return advance(state, 1)
+      // Auto-advance honors repeat (stop at end when 'off'). Repeat-one is handled imperatively
+      // in the engine (seek 0 + play) and never dispatches 'ended'.
+      return advance(state, 1, false)
     case 'setShuffle':
       return { ...state, shuffle: action.value, order: action.order }
+    case 'setScope':
+      return {
+        ...state,
+        scope: action.value,
+        order: action.order,
+        currentId: action.currentId,
+        epoch: action.restart ? state.epoch + 1 : state.epoch,
+      }
     case 'cycleRepeat':
       return { ...state, repeat: nextRepeat(state.repeat) }
     case 'setVolume':
@@ -119,6 +151,19 @@ export function shuffledOrder(ids: readonly string[], first: string | null): str
   return first === null ? rest : [first, ...rest]
 }
 
+/** Pure plan for a scope switch: keep the current track if still in scope, else jump to the first. */
+export function planScopeChange(
+  nextScope: Scope,
+  currentId: string | null,
+  shuffle: boolean,
+): { order: readonly string[]; currentId: string | null; restart: boolean } {
+  const ids = tracksInScope(nextScope)
+  const keep = currentId !== null && ids.includes(currentId)
+  const nextId = keep ? currentId : (ids[0] ?? null)
+  const order = shuffle ? shuffledOrder(ids, nextId) : ids
+  return { order, currentId: nextId, restart: !keep }
+}
+
 function readStoredVolume(): number {
   try {
     const raw = localStorage.getItem(VOLUME_STORAGE_KEY)
@@ -141,6 +186,7 @@ export interface PlayerApi extends PlayerState {
   readonly prev: () => void
   readonly cycleRepeat: () => void
   readonly toggleShuffle: () => void
+  readonly setScope: (scope: Scope) => void
   readonly setVolume: (value: number) => void
 }
 
@@ -214,10 +260,22 @@ export function usePlayer(): PlayerApi {
     dispatch({ type: 'setVolume', value })
   }, [])
   const toggleShuffle = useCallback((): void => {
-    const { shuffle, currentId } = stateRef.current
+    const { shuffle, currentId, scope } = stateRef.current
     const value = !shuffle
-    const order = value ? shuffledOrder(DEFAULT_ORDER, currentId) : DEFAULT_ORDER
+    const ids = tracksInScope(scope)
+    const order = value ? shuffledOrder(ids, currentId) : ids
     dispatch({ type: 'setShuffle', value, order })
+  }, [])
+  const setScope = useCallback((value: Scope): void => {
+    const { currentId, shuffle } = stateRef.current
+    const plan = planScopeChange(value, currentId, shuffle)
+    dispatch({
+      type: 'setScope',
+      value,
+      order: plan.order,
+      currentId: plan.currentId,
+      restart: plan.restart,
+    })
   }, [])
 
   return {
@@ -230,6 +288,7 @@ export function usePlayer(): PlayerApi {
     prev,
     cycleRepeat,
     toggleShuffle,
+    setScope,
     setVolume,
   }
 }
