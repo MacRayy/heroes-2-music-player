@@ -8,6 +8,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 - [`glossary.md`](glossary.md) — domain vocabulary with code references.
 - [`CLAUDE.md`](CLAUDE.md) — schema: when to update, how to write pages.
 - [`_log.md`](_log.md) — chronological changelog of wiki updates.
+- [`backlog.md`](backlog.md) — deferred / out-of-scope work parked for later phases.
 
 <!-- As you add pages, group them under the headers below. Each entry should be:
      - [`path/to/page.md`](path/to/page.md) — **<title>** — <one-line summary copied from the page>
