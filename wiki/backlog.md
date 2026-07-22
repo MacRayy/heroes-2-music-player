@@ -25,6 +25,12 @@ strike it here.
 - **Click / hover SFX** — the reference plays a click sound on buttons (game-authentic). Button
   sounds live in `HEROES2.AGG`. Low effort once we have an asset for it.
 
+## Accessibility
+
+- **Settings dialog focus management** — the dialog has `role="dialog"`/`aria-modal`/`aria-labelledby`
+  and closes on Esc + Close button, but lacks a focus trap and focus-restore-on-close. Add both when
+  hardening a11y.
+
 ## UX parity with the reference
 
 - **Intro / consent gate** — the reference has language select → privacy accept → welcome dialog →

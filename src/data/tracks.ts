@@ -16,14 +16,6 @@ export interface Track {
   readonly category: TrackCategory
 }
 
-export const CATEGORY_ORDER: readonly TrackCategory[] = [
-  'menu',
-  'battle',
-  'town',
-  'terrain',
-  'victory',
-]
-
 export const CATEGORY_LABELS: Record<TrackCategory, string> = {
   menu: 'Main',
   battle: 'Battle',

@@ -6,9 +6,10 @@
 
 ## Context
 
-Transport, track list, and settings all read/mutate one now-playing state. The architect
-recommended Zustand, mainly so selector subscriptions could isolate the ~4 Hz `currentTime` tick
-from context fan-out, plus `persist` for theme/volume.
+Transport and settings all read/mutate one now-playing state (the app also had a track list at the
+time this was decided; it was later removed). The architect recommended Zustand, mainly so selector
+subscriptions could isolate the ~4 Hz `currentTime` tick from context fan-out, plus `persist` for
+theme/volume.
 
 ## Options considered
 

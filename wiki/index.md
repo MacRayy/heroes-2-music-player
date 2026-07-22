@@ -20,7 +20,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 
 ## Features
 
-<!-- User-visible capabilities, top-down: route → component → API. -->
+- [`features/player.md`](features/player.md) — the single-screen music player (transport, themes, settings).
 
 ## Decisions
 

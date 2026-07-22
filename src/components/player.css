@@ -3,7 +3,7 @@
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: #0a0f18 url('/art/map-bg.jpg') center / cover no-repeat;
+  background: var(--bg-base) url('/art/map-bg.jpg') center / cover no-repeat;
   filter: blur(7px) saturate(1.05);
   transform: scale(1.08);
 }
@@ -108,7 +108,7 @@
   height: 8px;
   border-radius: 999px;
   border: 1px solid var(--frame-edge);
-  background: linear-gradient(180deg, var(--panel-bot), #000);
+  background: linear-gradient(180deg, var(--panel-bot), var(--frame-edge));
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }

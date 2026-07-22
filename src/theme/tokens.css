@@ -16,6 +16,7 @@
   --space-5: 24px;
 
   /* Semantic palette — GOOD theme (default) */
+  --bg-base: #0a0f18;
   --bg-tint: rgba(14, 32, 58, 0.55);
   --bg-vignette: rgba(4, 10, 22, 0.75);
 

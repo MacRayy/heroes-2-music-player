@@ -5,6 +5,7 @@
 
 /* Explicit good block so switching back from evil is unambiguous. */
 :root[data-theme='good'] {
+  --bg-base: #0a0f18;
   --bg-tint: rgba(14, 32, 58, 0.55);
   --bg-vignette: rgba(4, 10, 22, 0.75);
   --gold: #d8b24c;
@@ -25,6 +26,7 @@
 
 /* EVIL — red/ember over dark iron. */
 :root[data-theme='evil'] {
+  --bg-base: #140705;
   --bg-tint: rgba(58, 10, 6, 0.58);
   --bg-vignette: rgba(18, 3, 2, 0.8);
   --gold: #c68a3a;

@@ -24,7 +24,6 @@ export interface PlayerState {
 }
 
 export type PlayerAction =
-  | { readonly type: 'select'; readonly id: string }
   | { readonly type: 'togglePlay' }
   | { readonly type: 'next' }
   | { readonly type: 'prev' }
@@ -84,8 +83,6 @@ export function createInitialState(volume: number = DEFAULT_VOLUME): PlayerState
 
 export function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
   switch (action.type) {
-    case 'select':
-      return { ...state, currentId: action.id, isPlaying: true, epoch: state.epoch + 1 }
     case 'togglePlay':
       return state.currentId === null ? state : { ...state, isPlaying: !state.isPlaying }
     case 'next':
@@ -93,10 +90,9 @@ export function playerReducer(state: PlayerState, action: PlayerAction): PlayerS
     case 'prev':
       return advance(state, -1)
     case 'ended':
-      // Repeat-one replays are handled imperatively in the engine; here 'ended' == advance.
-      return state.repeat === 'one'
-        ? { ...state, isPlaying: true, epoch: state.epoch + 1 }
-        : advance(state, 1)
+      // Repeat-one is handled imperatively in the engine (seek 0 + play) and never dispatches
+      // 'ended', so here 'ended' is always a plain advance.
+      return advance(state, 1)
     case 'setShuffle':
       return { ...state, shuffle: action.value, order: action.order }
     case 'cycleRepeat':
@@ -140,7 +136,6 @@ export interface PlayerApi extends PlayerState {
   readonly tracks: readonly Track[]
   readonly currentTrack: Track | null
   readonly audioRef: React.RefObject<HTMLAudioElement | null>
-  readonly select: (id: string) => void
   readonly togglePlay: () => void
   readonly next: () => void
   readonly prev: () => void
@@ -203,9 +198,6 @@ export function usePlayer(): PlayerApi {
     }
   }, [state.volume, engine])
 
-  const select = useCallback((id: string): void => {
-    dispatch({ type: 'select', id })
-  }, [])
   const togglePlay = useCallback((): void => {
     dispatch({ type: 'togglePlay' })
   }, [])
@@ -233,7 +225,6 @@ export function usePlayer(): PlayerApi {
     tracks: TRACKS,
     currentTrack,
     audioRef: engine.audioRef,
-    select,
     togglePlay,
     next,
     prev,
