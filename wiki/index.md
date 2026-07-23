@@ -50,6 +50,8 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 ## Integrations
 
 - [`integrations/audio-hosting.md`](integrations/audio-hosting.md) — `VITE_AUDIO_BASE_URL` contract for serving MP3s.
+- [`integrations/asset-extraction.md`](integrations/asset-extraction.md) — HEROES2.AGG → UI sprite PNGs (frame/page/buttons), decoded at build time.
+- [`integrations/homm2-font.md`](integrations/homm2-font.md) — game bitmap fonts (`FONT.ICN`/`SMALFONT.ICN`) → TTF webfonts.
 
 ## Workflows
 

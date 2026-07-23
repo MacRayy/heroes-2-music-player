@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { cropSprite, decodeIcn, loadPalette } from '../../scripts/icn'
+import { cropSprite, decodeIcn, loadPalette, scaleSprite } from '../../scripts/icn'
 
 // A synthetic 1-sprite ICN: 3×2, header offsetData=13, data = colored/skip/end opcodes.
 const buildIcn = (): Uint8Array => {
@@ -58,6 +58,26 @@ describe('decodeIcn', () => {
     expect(pixel(sprite, 2, 0)[3]).toBe(0) // end-of-line → transparent
     expect(pixel(sprite, 0, 1)).toEqual([0, 0, 255, 255]) // idx3 blue
     expect(pixel(sprite, 2, 1)[3]).toBe(0) // untouched → transparent
+  })
+})
+
+describe('scaleSprite', () => {
+  it('nearest-neighbour upscales each pixel into a factor×factor block', () => {
+    const src = {
+      width: 2,
+      height: 1,
+      offsetX: 0,
+      offsetY: 0,
+      rgba: Uint8Array.from([255, 0, 0, 255, 0, 0, 255, 255]), // red, blue
+    }
+    const scaled = scaleSprite(src, 2)
+    expect(scaled.width).toBe(4)
+    expect(scaled.height).toBe(2)
+    // left pixel replicated into the left 2×2 block, right into the right 2×2 block
+    expect(pixel(scaled, 0, 0)).toEqual([255, 0, 0, 255])
+    expect(pixel(scaled, 1, 1)).toEqual([255, 0, 0, 255])
+    expect(pixel(scaled, 2, 0)).toEqual([0, 0, 255, 255])
+    expect(pixel(scaled, 3, 1)).toEqual([0, 0, 255, 255])
   })
 })
 

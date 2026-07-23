@@ -32,3 +32,6 @@ public/art/h2map.png
 
 # extracted UI art (regenerate with yarn extract:art)
 public/art/ui/
+
+# extracted fonts (regenerate with yarn extract:font)
+public/fonts/

@@ -12,9 +12,15 @@
 - Decodes ICN sprites (`uint16 count`, `uint32 size`, `count×13` `ICNHeader`, then RLE) — RLE +
   transform/shadow layer ported from fheroes2 `src/engine/image_tool.cpp::decodeICNSprite`
   (see header comment in the script for exact upstream files, for future diffing).
-- Reads the role map `src/data/assets.ts` (`ASSETS: role → { good, evil } → {icn, index, slice?}`),
-  writes `public/art/ui/<role>-<theme>.png` (gitignored) + committed `src/data/art-manifest.json`
-  (`"<role>.<theme>" → {file, width, height, slice?}`).
+- Reads the role map `src/data/assets.ts` (`ASSETS: role → { good, evil } → {icn, index, slice?,
+  trim?}`), writes `public/art/ui/<role>-<theme>.png` (gitignored) + committed
+  `src/data/art-manifest.json` (`"<role>.<theme>" → {file, width, height, slice?}`).
+- Roles: `frame`/`page` (border-image sheets, `slice` = 9-slice inset), `btn`/`btn-pressed`, and
+  `cursor` (the pointer, `ADVMCO.ICN` #0). `trim` crops pixels off an edge before writing — used to
+  drop `frame`'s baked shadow and to crop `page` (`ADVBORD`) down to its wood map-frame, dropping the
+  right-side control panel (`trim.right: 160`, 640×480 → 480×480). `scale` nearest-neighbour upscales
+  (cursor uses `scale: 2`, 15×21 → 30×42, so the CSS `cursor:` image is visible). See
+  [[2026-07-23-ui-art]].
 - `--dump ICN…` mode dumps every sprite of an ICN for exploration.
 
 **Guard** — `src/test/art-manifest.test.ts` asserts a `role×theme ↔ manifest` bijection. CI-safe

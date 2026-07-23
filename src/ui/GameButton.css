@@ -6,7 +6,7 @@
   height: 42px;
   padding: 0;
   color: var(--frame-edge);
-  cursor: pointer;
+  cursor: var(--cursor, pointer);
   background: none;
   border-style: solid;
   border-width: 6px;
@@ -34,14 +34,9 @@
   height: 34px;
 }
 
-.game-button--lg {
-  width: 52px;
-  height: 52px;
-}
-
 .game-button__icon {
-  width: 52%;
-  height: 52%;
+  width: 44%;
+  height: 44%;
   fill: currentColor;
   image-rendering: auto;
   pointer-events: none;

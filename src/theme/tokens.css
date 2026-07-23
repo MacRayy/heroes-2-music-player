@@ -5,8 +5,8 @@
  */
 :root {
   /* Structure (theme-independent) */
-  --font-display: 'Trajan Pro', 'Times New Roman', Georgia, serif;
-  --font-body: 'Times New Roman', Georgia, serif;
+  --font-display: 'HOMM2 Big', 'Trajan Pro', 'Times New Roman', Georgia, serif;
+  --font-body: 'HOMM2 Small', 'Times New Roman', Georgia, serif;
   --radius: 6px;
   --panel-width: 340px;
   --space-1: 4px;

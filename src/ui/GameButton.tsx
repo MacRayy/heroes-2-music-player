@@ -2,7 +2,7 @@ import type { PropsWithChildren, ReactElement } from 'react'
 
 import './GameButton.css'
 
-type ButtonSize = 'sm' | 'md' | 'lg'
+type ButtonSize = 'sm' | 'md'
 
 type GameButtonProps = PropsWithChildren<{
   readonly label: string
@@ -15,7 +15,6 @@ type GameButtonProps = PropsWithChildren<{
 const SIZE_CLASS: Record<ButtonSize, string> = {
   sm: 'game-button--sm',
   md: '',
-  lg: 'game-button--lg',
 }
 
 export const GameButton = ({

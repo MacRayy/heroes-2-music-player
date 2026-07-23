@@ -1,7 +1,7 @@
 // HOMM2 UI art extractor: reads HEROES2.AGG, decodes chosen ICN sprites → transparent PNGs.
 // Pure decode lives in ./icn.ts (unit-tested). AGG record table ported from fheroes2
 // src/engine/agg_file.cpp; ICN/palette from ./icn.ts.
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -9,24 +9,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { PNG } from 'pngjs'
 
 import { ASSET_THEMES, type AssetRole, ASSETS } from '../src/data/assets'
-import { cropSprite, decodeIcn, loadPalette, type Sprite } from './icn'
-
-type AggRecord = { offset: number; size: number }
-
-const openAgg = (path: string): { data: Buffer; records: Map<string, AggRecord> } => {
-  const data = readFileSync(path)
-  const count = data.readUInt16LE(0)
-  const nameStart = data.length - 15 * count
-  const records = new Map<string, AggRecord>()
-  for (let i = 0; i < count; i += 1) {
-    const rawName = data.subarray(nameStart + i * 15, nameStart + i * 15 + 15)
-    const nulPos = rawName.indexOf(0)
-    const name = rawName.toString('latin1', 0, nulPos === -1 ? 15 : nulPos)
-    const fat = 2 + i * 12
-    records.set(name, { offset: data.readUInt32LE(fat + 4), size: data.readUInt32LE(fat + 8) })
-  }
-  return { data, records }
-}
+import { openAgg } from './agg'
+import { cropSprite, decodeIcn, loadPalette, scaleSprite, type Sprite } from './icn'
 
 const writeSpritePng = (sprite: Sprite, outPath: string): void => {
   const png = new PNG({ width: sprite.width, height: sprite.height })
@@ -93,7 +77,8 @@ const main = (): void => {
         console.error(`sprite ${source.index} missing in ${source.icn}`)
         process.exit(1)
       }
-      const sprite = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
+      const cropped = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
+      const sprite = source.scale === undefined ? cropped : scaleSprite(cropped, source.scale)
       const file = `${role}-${theme}.png`
       writeSpritePng(sprite, join(outDir, file))
       manifest[`${role}.${theme}`] = {

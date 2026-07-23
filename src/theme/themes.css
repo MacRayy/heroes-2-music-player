@@ -21,8 +21,11 @@
 
   --frame-src: url('/art/ui/frame-good.png');
   --frame-repeat: round;
+  --page-frame-src: url('/art/ui/page-good.png');
   --btn-face: url('/art/ui/btn-good.png');
   --btn-face-pressed: url('/art/ui/btn-pressed-good.png');
+  /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
+  --cursor: url('/art/ui/cursor-good.png') 2 2, auto;
 }
 
 /* EVIL — red/ember over dark iron. */
@@ -43,6 +46,9 @@
 
   --frame-src: url('/art/ui/frame-evil.png');
   --frame-repeat: stretch;
+  --page-frame-src: url('/art/ui/page-evil.png');
   --btn-face: url('/art/ui/btn-evil.png');
   --btn-face-pressed: url('/art/ui/btn-pressed-evil.png');
+  /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
+  --cursor: url('/art/ui/cursor-evil.png') 2 2, auto;
 }

@@ -4,7 +4,7 @@ import { CATEGORY_LABELS } from '@/data/tracks'
 import { usePlayerContext } from '@/state/PlayerContext'
 import { GameButton } from '@/ui/GameButton'
 import { GameFrame } from '@/ui/GameFrame'
-import { GearIcon } from '@/ui/icons'
+import { SettingsIcon } from '@/ui/icons'
 
 import { AlbumArt } from './AlbumArt'
 import { ProgressBar } from './ProgressBar'
@@ -32,7 +32,7 @@ export const PlayerPanel = (): ReactElement => {
             setIsSettingsOpen(true)
           }}
         >
-          <GearIcon />
+          <SettingsIcon />
         </GameButton>
       </div>
 

@@ -115,6 +115,20 @@ export const decodeIcn = (buf: Uint8Array, palette: Uint8Array): Sprite[] => {
   })
 }
 
+/** Nearest-neighbour integer upscale (keeps pixel art crisp; used for cursors). */
+export const scaleSprite = (sprite: Sprite, factor: number): Sprite => {
+  const width = sprite.width * factor
+  const height = sprite.height * factor
+  const rgba = new Uint8Array(width * height * 4)
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const src = (Math.floor(y / factor) * sprite.width + Math.floor(x / factor)) * 4
+      rgba.set(sprite.rgba.subarray(src, src + 4), (y * width + x) * 4)
+    }
+  }
+  return { width, height, offsetX: sprite.offsetX, offsetY: sprite.offsetY, rgba }
+}
+
 export const cropSprite = (sprite: Sprite, trim: Trim): Sprite => {
   const width = sprite.width - trim.left - trim.right
   const height = sprite.height - trim.top - trim.bottom
