@@ -17,7 +17,7 @@ strike it here.
 
 ## Fidelity / art
 
-- **Authentic UI art from `HEROES2.AGG`** — replace the CSS-recreated buttons/frame with extracted
+- ~~Authentic UI art from `HEROES2.AGG`~~ — **DONE (Phase 3)**: extracted frame/buttons per theme; see [[2026-07-23-ui-art]]. Prev: — replace the CSS-recreated buttons/frame with extracted
   ICN sprites for pixel-perfect Good/Evil skins. Needs an ICN/AGG extraction pipeline (custom
   parser or a community tool). Heavier: two full sprite sets + fixed-resolution assets.
 - **Per-track real album art** — Phase 1 uses per-category placeholder emblems. Real art = town

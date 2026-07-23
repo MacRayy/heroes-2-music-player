@@ -91,7 +91,7 @@
 .now-playing__title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: clamp(1.1rem, 4.5vw, 1.35rem);
   color: var(--text);
   text-shadow: 0 2px 2px var(--text-shadow);
 }
@@ -259,4 +259,31 @@
   height: 22px;
   fill: var(--gold-hi);
   flex: none;
+}
+
+/* ---- Responsive / mobile ------------------------------------------------- */
+@media (max-width: 520px) {
+  .app {
+    padding: var(--space-3);
+  }
+  .page-frame {
+    border-width: 10px;
+  }
+  .player {
+    width: min(96vw, 360px);
+    gap: var(--space-2);
+  }
+  .scope-chip {
+    padding: 5px 11px;
+    font-size: 0.7rem;
+  }
+  .transport {
+    gap: var(--space-1);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .scope-chip {
+    min-height: 34px;
+  }
 }
