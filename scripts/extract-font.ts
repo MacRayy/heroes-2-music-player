@@ -22,20 +22,30 @@ const SCALE = 1000 / EM_PX
 const isOpaque = (sprite: Sprite, x: number, y: number): boolean =>
   (sprite.rgba[(y * sprite.width + x) * 4 + 3] ?? 0) > 128
 
+// One rectangle per horizontal run of opaque pixels (not per pixel) — no internal
+// seams, so the rasteriser renders clean glyph edges instead of a muddy pixel grid.
 const glyphPath = (sprite: Sprite): opentype.Path => {
   const path = new opentype.Path()
   for (let y = 0; y < sprite.height; y += 1) {
-    for (let x = 0; x < sprite.width; x += 1) {
+    let x = 0
+    while (x < sprite.width) {
       if (!isOpaque(sprite, x, y)) {
+        x += 1
         continue
+      }
+      let run = 1
+      while (x + run < sprite.width && isOpaque(sprite, x + run, y)) {
+        run += 1
       }
       const fx = (sprite.offsetX + x) * SCALE
       const fy = (ASCENT_PX - (sprite.offsetY + y) - 1) * SCALE
+      const w = run * SCALE
       path.moveTo(fx, fy)
-      path.lineTo(fx + SCALE, fy)
-      path.lineTo(fx + SCALE, fy + SCALE)
+      path.lineTo(fx + w, fy)
+      path.lineTo(fx + w, fy + SCALE)
       path.lineTo(fx, fy + SCALE)
       path.close()
+      x += run
     }
   }
   return path

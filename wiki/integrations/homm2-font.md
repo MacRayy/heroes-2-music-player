@@ -15,8 +15,9 @@ Each ICN is a sequence of glyph sprites for **ASCII 32–127** (index `i` → co
 extractor reuses the shared decode in `scripts/icn.ts` (see [[asset-extraction]]).
 
 **How it works** (`scripts/extract-font.ts`, run via `yarn extract:font`):
-- Each **opaque** glyph pixel (alpha > 128) becomes one filled 1×1 square in the outline; the font
-  is monochrome, so CSS `color` tints it. `image-rendering` is irrelevant — it's real vector now.
+- Each row's **opaque** pixels (alpha > 128) are merged into one filled rectangle per horizontal run
+  (not one square per pixel) — this removes internal seams that otherwise make the rasterised glyph
+  look muddy/blurry at UI sizes. The font is monochrome, so CSS `color` tints it.
 - Coordinate mapping: `EM_PX = 16`, `ASCENT_PX = 12`, `SCALE = 1000/16` (unitsPerEm 1000). A pixel at
   `(x, y)` maps to em-x `(offsetX + x)·SCALE`, em-y `(ASCENT_PX − (offsetY + y) − 1)·SCALE`
   (y flips: bitmap top-down → font baseline-up). The sprite's `offsetX/offsetY` position the glyph.
