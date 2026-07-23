@@ -29,3 +29,6 @@ public/audio/
 
 # raw art source (optimized derivative committed instead)
 public/art/h2map.png
+
+# extracted UI art (regenerate with yarn extract:art)
+public/art/ui/

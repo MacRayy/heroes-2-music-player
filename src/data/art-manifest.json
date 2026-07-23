@@ -1,0 +1,34 @@
+{
+  "frame.good": {
+    "file": "frame-good.png",
+    "width": 476,
+    "height": 215,
+    "slice": 26
+  },
+  "frame.evil": {
+    "file": "frame-evil.png",
+    "width": 476,
+    "height": 215,
+    "slice": 26
+  },
+  "btn.good": {
+    "file": "btn-good.png",
+    "width": 96,
+    "height": 25
+  },
+  "btn.evil": {
+    "file": "btn-evil.png",
+    "width": 96,
+    "height": 25
+  },
+  "btn-pressed.good": {
+    "file": "btn-pressed-good.png",
+    "width": 96,
+    "height": 25
+  },
+  "btn-pressed.evil": {
+    "file": "btn-pressed-evil.png",
+    "width": 96,
+    "height": 25
+  }
+}
