@@ -72,7 +72,7 @@
   border: 2px solid var(--frame-edge);
   background:
     radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.08), transparent 62%),
-    linear-gradient(180deg, #34302a, #17130f);
+    linear-gradient(180deg, var(--inset-top), var(--inset-bot));
   box-shadow: inset 0 0 0 2px var(--gold-lo);
 }
 
@@ -284,6 +284,18 @@
 
 @media (hover: none) and (pointer: coarse) {
   .scope-chip {
-    min-height: 34px;
+    min-height: 36px;
+  }
+  .game-button {
+    width: 46px;
+    height: 46px;
+  }
+  .game-button--sm {
+    width: 44px;
+    height: 44px;
+  }
+  .game-button--lg {
+    width: 56px;
+    height: 56px;
   }
 }

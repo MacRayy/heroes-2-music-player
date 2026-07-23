@@ -24,3 +24,4 @@ Format: `- [<title>](<path>) — <category> — <one-sentence summary>`
 - 2026-07-23 — Authentic UI reskin — feature — Frame (SURDRBKG/E border-image, good=round/evil=stretch, baked shadow cropped) + game button faces via asset tokens; viewport page-frame; neutral album inset; de-reddened evil bg — commit `💄 reskin frame + buttons with extracted art`.
 - 2026-07-23 — UI art decision — decision — Extract HOMM2 sprites (border-image frame, per-theme repeat, cropped shadow, button faces); responsive; font deferred — commit `📝 wiki: authentic UI art`.
 - 2026-07-23 — Glossary — reference — Added AGG, ICN, Asset manifest terms — commit `📝 wiki: authentic UI art`.
+- 2026-07-23 — Address solution-critic — refactor — Pure decode split to scripts/icn.ts + unit tests; pruned dead tokens; hex→--inset token; frame fallback bg; coarse-pointer 44px targets — commit `♻️ address solution-critic findings`.

@@ -27,10 +27,9 @@
   --panel-top: #6c5836;
   --panel-bot: #3d2e19;
 
-  --btn-hi: #4d86c6;
-  --btn-mid: #2f5f96;
-  --btn-lo: #1c3c64;
-  --btn-border: #d8b24c;
+  /* Album-art inset (theme-independent neutral). */
+  --inset-top: #34302a;
+  --inset-bot: #17130f;
 
   --accent: #ecc766;
   --accent-soft: rgba(236, 199, 102, 0.22);
@@ -38,6 +37,4 @@
   --text: #f4e8c6;
   --text-dim: #bcaa80;
   --text-shadow: rgba(0, 0, 0, 0.75);
-
-  --shadow-panel: 0 18px 48px rgba(0, 0, 0, 0.6);
 }

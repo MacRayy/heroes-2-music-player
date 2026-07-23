@@ -3,6 +3,8 @@
   border-style: solid;
   border-width: 20px;
   border-image: var(--frame-src) 22 fill var(--frame-repeat, round);
+  /* Fallback panel colour if the extracted sprite is unavailable (e.g. not yet uploaded). */
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
   image-rendering: pixelated;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
 }
