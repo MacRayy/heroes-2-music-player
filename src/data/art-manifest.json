@@ -1,15 +1,15 @@
 {
   "frame.good": {
     "file": "frame-good.png",
-    "width": 476,
-    "height": 215,
-    "slice": 26
+    "width": 460,
+    "height": 199,
+    "slice": 22
   },
   "frame.evil": {
     "file": "frame-evil.png",
-    "width": 476,
-    "height": 215,
-    "slice": 26
+    "width": 460,
+    "height": 199,
+    "slice": 22
   },
   "btn.good": {
     "file": "btn-good.png",

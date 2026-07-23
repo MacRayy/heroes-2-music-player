@@ -22,13 +22,18 @@
   --accent-soft: rgba(236, 199, 102, 0.22);
   --text: #f4e8c6;
   --text-dim: #bcaa80;
+
+  --frame-src: url('/art/ui/frame-good.png');
+  --frame-repeat: round;
+  --btn-face: url('/art/ui/btn-good.png');
+  --btn-face-pressed: url('/art/ui/btn-pressed-good.png');
 }
 
 /* EVIL — red/ember over dark iron. */
 :root[data-theme='evil'] {
-  --bg-base: #140705;
-  --bg-tint: rgba(58, 10, 6, 0.58);
-  --bg-vignette: rgba(18, 3, 2, 0.8);
+  --bg-base: #100f0d;
+  --bg-tint: rgba(20, 18, 16, 0.55);
+  --bg-vignette: rgba(6, 5, 4, 0.8);
   --gold: #c68a3a;
   --gold-hi: #e8bf78;
   --gold-lo: #6e441a;
@@ -43,4 +48,9 @@
   --accent-soft: rgba(231, 122, 66, 0.24);
   --text: #f2ddc6;
   --text-dim: #b8917a;
+
+  --frame-src: url('/art/ui/frame-evil.png');
+  --frame-repeat: stretch;
+  --btn-face: url('/art/ui/btn-evil.png');
+  --btn-face-pressed: url('/art/ui/btn-pressed-evil.png');
 }

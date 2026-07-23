@@ -138,6 +138,20 @@ const decodeIcn = (buf: Buffer, palette: Uint8Array): Sprite[] => {
   })
 }
 
+const cropSprite = (
+  sprite: Sprite,
+  trim: { top: number; right: number; bottom: number; left: number },
+): Sprite => {
+  const width = sprite.width - trim.left - trim.right
+  const height = sprite.height - trim.top - trim.bottom
+  const rgba = Buffer.alloc(width * height * 4)
+  for (let y = 0; y < height; y += 1) {
+    const srcStart = ((y + trim.top) * sprite.width + trim.left) * 4
+    sprite.rgba.copy(rgba, y * width * 4, srcStart, srcStart + width * 4)
+  }
+  return { width, height, offsetX: sprite.offsetX, offsetY: sprite.offsetY, rgba }
+}
+
 const writeSpritePng = (sprite: Sprite, outPath: string): void => {
   const png = new PNG({ width: sprite.width, height: sprite.height })
   sprite.rgba.copy(png.data)
@@ -205,7 +219,8 @@ if (dumpFlag !== -1) {
   for (const role of roles) {
     for (const theme of ASSET_THEMES) {
       const source = ASSETS[role][theme]
-      const sprite = spriteFromRole(source.icn, source.index)
+      const decoded = spriteFromRole(source.icn, source.index)
+      const sprite = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
       const file = `${role}-${theme}.png`
       writeSpritePng(sprite, join(outDir, file))
       manifest[`${role}.${theme}`] = {
