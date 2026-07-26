@@ -10,7 +10,15 @@ import { PNG } from 'pngjs'
 
 import { ASSET_THEMES, type AssetRole, ASSETS } from '../src/data/assets'
 import { openAgg } from './agg'
-import { cropSprite, decodeIcn, loadPalette, scaleSprite, type Sprite } from './icn'
+import {
+  cropSprite,
+  decodeIcn,
+  loadPalette,
+  rotateSprite,
+  scaleSprite,
+  type Sprite,
+  tintSprite,
+} from './icn'
 
 const writeSpritePng = (sprite: Sprite, outPath: string): void => {
   const png = new PNG({ width: sprite.width, height: sprite.height })
@@ -78,7 +86,9 @@ const main = (): void => {
         process.exit(1)
       }
       const cropped = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
-      const sprite = source.scale === undefined ? cropped : scaleSprite(cropped, source.scale)
+      const scaled = source.scale === undefined ? cropped : scaleSprite(cropped, source.scale)
+      const rotated = source.rotate === undefined ? scaled : rotateSprite(scaled, source.rotate)
+      const sprite = source.tint === undefined ? rotated : tintSprite(rotated, source.tint)
       const file = `${role}-${theme}.png`
       writeSpritePng(sprite, join(outDir, file))
       manifest[`${role}.${theme}`] = {

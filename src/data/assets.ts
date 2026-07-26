@@ -1,4 +1,4 @@
-export type AssetRole = 'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor'
+export type AssetRole = 'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow'
 
 export type Trim = {
   readonly top: number
@@ -13,6 +13,8 @@ export type AssetSource = {
   readonly slice?: number
   readonly trim?: Trim
   readonly scale?: number
+  readonly rotate?: 90 | 180 | 270
+  readonly tint?: readonly [number, number, number]
 }
 
 const SHADOW_TRIM: Trim = { top: 0, right: 0, bottom: 16, left: 16 }
@@ -50,6 +52,12 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
     cursor: {
       good: { icn: 'ADVMCO.ICN', index: 0, scale: 2 },
       evil: { icn: 'ADVMCO.ICN', index: 0, scale: 2 },
+    },
+    // The game's up-arrow (RECRUIT quantity control), rotated to point right — CSS mirrors it for
+    // left. Reused for prev/play/next. Tinted dark brown to match the transport glyphs.
+    arrow: {
+      good: { icn: 'RECRUIT.ICN', index: 0, scale: 2, rotate: 90, tint: [0x55, 0x2b, 0x0d] },
+      evil: { icn: 'RECRUIT.ICN', index: 0, scale: 2, rotate: 90, tint: [0x55, 0x2b, 0x0d] },
     },
   }
 

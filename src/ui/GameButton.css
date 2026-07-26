@@ -41,3 +41,25 @@
   image-rendering: auto;
   pointer-events: none;
 }
+
+/* Play / prev / next: the game's own arrow sprite (single = play, double = skip). */
+.game-arrows {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  height: 52%;
+  pointer-events: none;
+}
+
+.game-arrows--left {
+  transform: scaleX(-1);
+}
+
+.game-arrows__tri {
+  display: block;
+  height: 100%;
+  aspect-ratio: 1 / 2;
+  background: var(--arrow-src) center / contain no-repeat;
+  image-rendering: pixelated;
+}

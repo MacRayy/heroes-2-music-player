@@ -52,5 +52,15 @@
     "file": "cursor-evil.png",
     "width": 30,
     "height": 42
+  },
+  "arrow.good": {
+    "file": "arrow-good.png",
+    "width": 20,
+    "height": 40
+  },
+  "arrow.evil": {
+    "file": "arrow-evil.png",
+    "width": 20,
+    "height": 40
   }
 }

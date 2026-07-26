@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { cropSprite, decodeIcn, loadPalette, scaleSprite } from '../../scripts/icn'
+import {
+  cropSprite,
+  decodeIcn,
+  loadPalette,
+  rotateSprite,
+  scaleSprite,
+  tintSprite,
+} from '../../scripts/icn'
 
 // A synthetic 1-sprite ICN: 3×2, header offsetData=13, data = colored/skip/end opcodes.
 const buildIcn = (): Uint8Array => {
@@ -78,6 +85,52 @@ describe('scaleSprite', () => {
     expect(pixel(scaled, 1, 1)).toEqual([255, 0, 0, 255])
     expect(pixel(scaled, 2, 0)).toEqual([0, 0, 255, 255])
     expect(pixel(scaled, 3, 1)).toEqual([0, 0, 255, 255])
+  })
+})
+
+describe('rotateSprite', () => {
+  const src = {
+    width: 2,
+    height: 1,
+    offsetX: 0,
+    offsetY: 0,
+    rgba: Uint8Array.from([255, 0, 0, 255, 0, 0, 255, 255]), // red(left), blue(right)
+  }
+
+  it('rotates 90° clockwise (a horizontal pair becomes a vertical column)', () => {
+    const rotated = rotateSprite(src, 90)
+    expect([rotated.width, rotated.height]).toEqual([1, 2])
+    expect(pixel(rotated, 0, 0)).toEqual([255, 0, 0, 255]) // left edge → top
+    expect(pixel(rotated, 0, 1)).toEqual([0, 0, 255, 255]) // right edge → bottom
+  })
+
+  it('rotates 180° (the pair reverses in place)', () => {
+    const rotated = rotateSprite(src, 180)
+    expect([rotated.width, rotated.height]).toEqual([2, 1])
+    expect(pixel(rotated, 0, 0)).toEqual([0, 0, 255, 255]) // right → left
+    expect(pixel(rotated, 1, 0)).toEqual([255, 0, 0, 255])
+  })
+
+  it('rotates 270° clockwise (left edge → bottom)', () => {
+    const rotated = rotateSprite(src, 270)
+    expect([rotated.width, rotated.height]).toEqual([1, 2])
+    expect(pixel(rotated, 0, 0)).toEqual([0, 0, 255, 255]) // right edge → top
+    expect(pixel(rotated, 0, 1)).toEqual([255, 0, 0, 255]) // left edge → bottom
+  })
+})
+
+describe('tintSprite', () => {
+  it('recolours opaque pixels to a flat RGB and leaves transparent ones alone', () => {
+    const src = {
+      width: 2,
+      height: 1,
+      offsetX: 0,
+      offsetY: 0,
+      rgba: Uint8Array.from([255, 200, 0, 255, 0, 0, 0, 0]), // gold, transparent
+    }
+    const tinted = tintSprite(src, [0x55, 0x2b, 0x0d])
+    expect(pixel(tinted, 0, 0)).toEqual([0x55, 0x2b, 0x0d, 255]) // recoloured, alpha kept
+    expect(pixel(tinted, 1, 0)).toEqual([0, 0, 0, 0]) // transparent untouched
   })
 })
 

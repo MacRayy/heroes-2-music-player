@@ -19,8 +19,10 @@ const EM_PX = 16
 const ASCENT_PX = 12
 const SCALE = 1000 / EM_PX
 
+// Only the solid letter (alpha 255) — NOT the baked drop-shadow (alpha ~178), which would
+// otherwise fatten every glyph and make the text look doubled/muddy.
 const isOpaque = (sprite: Sprite, x: number, y: number): boolean =>
-  (sprite.rgba[(y * sprite.width + x) * 4 + 3] ?? 0) > 128
+  (sprite.rgba[(y * sprite.width + x) * 4 + 3] ?? 0) > 200
 
 // One rectangle per horizontal run of opaque pixels (not per pixel) — no internal
 // seams, so the rasteriser renders clean glyph edges instead of a muddy pixel grid.

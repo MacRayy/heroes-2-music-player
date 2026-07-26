@@ -47,20 +47,20 @@ const PixelIcon = ({
   </svg>
 )
 
-const PLAY_GRID = [
-  '#...........',
-  '##..........',
-  '####........',
-  '######......',
-  '########....',
-  '##########..',
-  '##########..',
-  '########....',
-  '######......',
-  '####........',
-  '##..........',
-  '#...........',
-]
+// Play / prev / next use the game's own arrow sprite (RECRUIT up-arrow, rotated to point right in
+// the extractor); the `game-arrows--left` modifier mirrors it. Single = play, double = skip.
+const ArrowGlyph = ({
+  isLeft = false,
+  isDouble = false,
+}: {
+  isLeft?: boolean
+  isDouble?: boolean
+}): ReactElement => (
+  <span className={`game-arrows${isLeft ? ' game-arrows--left' : ''}`} aria-hidden="true">
+    <span className="game-arrows__tri" />
+    {isDouble ? <span className="game-arrows__tri" /> : null}
+  </span>
+)
 
 const PAUSE_GRID = [
   '............',
@@ -75,36 +75,6 @@ const PAUSE_GRID = [
   '.###...###..',
   '.###...###..',
   '............',
-]
-
-const NEXT_GRID = [
-  '#.........##',
-  '##........##',
-  '###.......##',
-  '####......##',
-  '######....##',
-  '#######...##',
-  '#######...##',
-  '######....##',
-  '####......##',
-  '###.......##',
-  '##........##',
-  '#.........##',
-]
-
-const PREV_GRID = [
-  '##.........#',
-  '##........##',
-  '##.......###',
-  '##......####',
-  '##....######',
-  '##...#######',
-  '##...#######',
-  '##....######',
-  '##......####',
-  '##.......###',
-  '##........##',
-  '##.........#',
 ]
 
 const SHUFFLE_GRID = [
@@ -168,18 +138,12 @@ const SETTINGS_GRID = [
   '............',
 ]
 
-export const PlayIcon = (props: IconProps): ReactElement => (
-  <PixelIcon grid={PLAY_GRID} {...props} />
-)
+export const PlayIcon = (): ReactElement => <ArrowGlyph />
 export const PauseIcon = (props: IconProps): ReactElement => (
   <PixelIcon grid={PAUSE_GRID} {...props} />
 )
-export const PrevIcon = (props: IconProps): ReactElement => (
-  <PixelIcon grid={PREV_GRID} {...props} />
-)
-export const NextIcon = (props: IconProps): ReactElement => (
-  <PixelIcon grid={NEXT_GRID} {...props} />
-)
+export const PrevIcon = (): ReactElement => <ArrowGlyph isLeft isDouble />
+export const NextIcon = (): ReactElement => <ArrowGlyph isDouble />
 export const ShuffleIcon = (props: IconProps): ReactElement => (
   <PixelIcon grid={SHUFFLE_GRID} {...props} />
 )

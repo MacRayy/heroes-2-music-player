@@ -26,6 +26,7 @@
   --btn-face-pressed: url('/art/ui/btn-pressed-good.png');
   /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
   --cursor: url('/art/ui/cursor-good.png') 2 2, auto;
+  --arrow-src: url('/art/ui/arrow-good.png');
 }
 
 /* EVIL — red/ember over dark iron. */
@@ -51,4 +52,5 @@
   --btn-face-pressed: url('/art/ui/btn-pressed-evil.png');
   /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
   --cursor: url('/art/ui/cursor-evil.png') 2 2, auto;
+  --arrow-src: url('/art/ui/arrow-evil.png');
 }

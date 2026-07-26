@@ -115,6 +115,49 @@ export const decodeIcn = (buf: Uint8Array, palette: Uint8Array): Sprite[] => {
   })
 }
 
+/** Rotate a sprite by a multiple of 90° clockwise (used to turn game up-arrows sideways). */
+export const rotateSprite = (sprite: Sprite, degrees: 90 | 180 | 270): Sprite => {
+  const quarter = ((degrees / 90) % 4) as 0 | 1 | 2 | 3
+  const swaps = quarter === 1 || quarter === 3
+  const width = swaps ? sprite.height : sprite.width
+  const height = swaps ? sprite.width : sprite.height
+  const rgba = new Uint8Array(width * height * 4)
+  for (let dy = 0; dy < height; dy += 1) {
+    for (let dx = 0; dx < width; dx += 1) {
+      const [sx, sy] =
+        quarter === 1
+          ? [dy, sprite.height - 1 - dx]
+          : quarter === 2
+            ? [sprite.width - 1 - dx, sprite.height - 1 - dy]
+            : [sprite.width - 1 - dy, dx]
+      rgba.set(
+        sprite.rgba.subarray((sy * sprite.width + sx) * 4, (sy * sprite.width + sx) * 4 + 4),
+        (dy * width + dx) * 4,
+      )
+    }
+  }
+  return { width, height, offsetX: 0, offsetY: 0, rgba }
+}
+
+/** Recolour every non-transparent pixel to a flat RGB (keeps alpha) — e.g. tint the gold arrow. */
+export const tintSprite = (sprite: Sprite, rgb: readonly [number, number, number]): Sprite => {
+  const rgba = new Uint8Array(sprite.rgba)
+  for (let i = 0; i < rgba.length; i += 4) {
+    if (rgba[i + 3] !== 0) {
+      rgba[i] = rgb[0]
+      rgba[i + 1] = rgb[1]
+      rgba[i + 2] = rgb[2]
+    }
+  }
+  return {
+    width: sprite.width,
+    height: sprite.height,
+    offsetX: sprite.offsetX,
+    offsetY: sprite.offsetY,
+    rgba,
+  }
+}
+
 /** Nearest-neighbour integer upscale (keeps pixel art crisp; used for cursors). */
 export const scaleSprite = (sprite: Sprite, factor: number): Sprite => {
   const width = sprite.width * factor

@@ -23,6 +23,15 @@
   --gold: #d8b24c;
   --gold-hi: #f2dd93;
   --gold-lo: #866321;
+  /* Fixed gold for display text (both themes), per design direction. */
+  --font-gold: #dcc132;
+  /* Dark brown ink for the transport control glyphs (matches the tinted arrow sprite). */
+  --control-ink: #552b0d;
+  /* Scope-chip (map-size button) label ink. */
+  --chip-ink: #6c4327;
+  /* Progress bar styled like the game's scroll bar: black groove + beige beveled grip. */
+  --groove-bg: #0a0603;
+  --thumb-face: linear-gradient(180deg, #ecd9b4 0%, #c9a878 55%, #a07c4e 100%);
   --frame-edge: #1c1206;
   --panel-top: #6c5836;
   --panel-bot: #3d2e19;
