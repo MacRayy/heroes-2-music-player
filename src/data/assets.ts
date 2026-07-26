@@ -57,7 +57,7 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
     // left. Reused for prev/play/next. Tinted dark brown to match the transport glyphs.
     arrow: {
       good: { icn: 'RECRUIT.ICN', index: 0, scale: 2, rotate: 90, tint: [0x55, 0x2b, 0x0d] },
-      evil: { icn: 'RECRUIT.ICN', index: 0, scale: 2, rotate: 90, tint: [0x55, 0x2b, 0x0d] },
+      evil: { icn: 'RECRUIT.ICN', index: 0, scale: 2, rotate: 90, tint: [0x50, 0x50, 0x50] },
     },
   }
 

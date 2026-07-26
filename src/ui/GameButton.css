@@ -12,6 +12,7 @@
   border-width: 6px;
   border-image: var(--btn-face) 6 fill repeat;
   image-rendering: pixelated;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
   transition: filter 0.1s ease;
 }
 

@@ -29,6 +29,12 @@
   --control-ink: #552b0d;
   /* Scope-chip (map-size button) label ink. */
   --chip-ink: #6c4327;
+  /* CSS text-button palette (matches the beige btn sprite; overridden gray in evil). */
+  --btn-beige: #dbba9a;
+  --btn-hi: #ffefdf;
+  --btn-sh: #9e693d;
+  /* Fill for the active/selected button. */
+  --btn-active: #b7885e;
   /* Progress bar styled like the game's scroll bar: black groove + beige beveled grip. */
   --groove-bg: #0a0603;
   --thumb-face: linear-gradient(180deg, #ecd9b4 0%, #c9a878 55%, #a07c4e 100%);
