@@ -21,6 +21,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 ## Features
 
 - [`features/player.md`](features/player.md) — the single-screen music player (transport, themes, settings).
+- [`features/start-gate.md`](features/start-gate.md) — fog-of-war intro modal that reveals the map + starts playback.
 
 ## Decisions
 

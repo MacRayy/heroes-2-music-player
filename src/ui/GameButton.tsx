@@ -1,4 +1,4 @@
-import type { PropsWithChildren, ReactElement } from 'react'
+import type { PropsWithChildren, ReactElement, Ref } from 'react'
 
 import './GameButton.css'
 
@@ -10,6 +10,7 @@ type GameButtonProps = PropsWithChildren<{
   readonly size?: ButtonSize
   readonly isPressed?: boolean
   readonly className?: string
+  readonly ref?: Ref<HTMLButtonElement>
 }>
 
 const SIZE_CLASS: Record<ButtonSize, string> = {
@@ -24,10 +25,12 @@ export const GameButton = ({
   size = 'md',
   isPressed,
   className = '',
+  ref,
 }: GameButtonProps): ReactElement => {
   const classes = ['game-button', SIZE_CLASS[size], className].filter((c) => c !== '').join(' ')
   return (
     <button
+      ref={ref}
       type="button"
       className={classes}
       onClick={onClick}

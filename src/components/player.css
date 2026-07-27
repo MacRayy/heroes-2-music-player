@@ -4,8 +4,17 @@
   inset: 0;
   z-index: -2;
   background: var(--bg-base) url('/art/map-bg.jpg') center / cover no-repeat;
-  filter: blur(7px) saturate(1.05);
-  transform: scale(1.08);
+  /* Fogged/blurred until the Start gate reveals the map. */
+  filter: blur(9px) brightness(0.5) saturate(0.85);
+  transform: scale(1.12);
+  transition:
+    filter 1.6s ease,
+    transform 1.6s ease;
+}
+
+.bg--revealed {
+  filter: blur(0) brightness(1) saturate(1.05);
+  transform: scale(1.04);
 }
 
 .bg__tint {
@@ -14,6 +23,78 @@
   z-index: -1;
   background:
     radial-gradient(120% 120% at 50% 40%, transparent 40%, var(--bg-vignette) 100%), var(--bg-tint);
+}
+
+/* ---- Start gate (fog-of-war intro) --------------------------------------- */
+.start-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.start-gate--closed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.start-gate__fog {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg-base) url('/art/map-bg.jpg') center / cover no-repeat;
+  filter: brightness(0.2) blur(4px) grayscale(0.35);
+}
+
+/* Uneven darkness = fog of war. */
+.start-gate__fog::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(65% 55% at 50% 42%, transparent, rgba(0, 0, 0, 0.9) 82%),
+    radial-gradient(40% 40% at 22% 70%, rgba(0, 0, 0, 0.5), transparent 60%),
+    radial-gradient(45% 45% at 80% 30%, rgba(0, 0, 0, 0.55), transparent 60%);
+}
+
+.start-gate__panel {
+  width: min(92vw, 380px);
+  text-align: center;
+  color: var(--text);
+}
+
+.start-gate__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  color: var(--text);
+  text-shadow: 0 2px 2px var(--text-shadow);
+}
+
+.start-gate__subtitle {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.start-gate__about {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.game-button.start-gate__button {
+  align-self: center;
+  width: 84px;
+  height: 84px;
 }
 
 /* ---- App layout ---------------------------------------------------------- */

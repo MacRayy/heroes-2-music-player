@@ -82,5 +82,15 @@
     "file": "hero-evil.png",
     "width": 101,
     "height": 93
+  },
+  "horse.good": {
+    "file": "horse-good.png",
+    "width": 52,
+    "height": 52
+  },
+  "horse.evil": {
+    "file": "horse-evil.png",
+    "width": 52,
+    "height": 52
   }
 }

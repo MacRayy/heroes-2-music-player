@@ -1,5 +1,5 @@
 export type AssetRole =
-  'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow' | 'settings' | 'hero'
+  'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow' | 'settings' | 'hero' | 'horse'
 
 export type Trim = {
   readonly top: number
@@ -85,6 +85,25 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
     hero: {
       good: { icn: 'PORT0057.ICN', index: 0 },
       evil: { icn: 'PORT0054.ICN', index: 0 },
+    },
+    // The game's horse glyph (ADVBTNS "next hero"), keyed off its button face — the Start button.
+    horse: {
+      good: {
+        icn: 'ADVBTNS.ICN',
+        index: 2,
+        trim: { top: 5, right: 5, bottom: 5, left: 5 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x55, 0x2b, 0x0d],
+      },
+      evil: {
+        icn: 'ADVBTNS.ICN',
+        index: 2,
+        trim: { top: 5, right: 5, bottom: 5, left: 5 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x50, 0x50, 0x50],
+      },
     },
   }
 

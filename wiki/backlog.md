@@ -36,8 +36,8 @@ strike it here.
 
 ## UX parity with the reference
 
-- **Intro / consent gate** — the reference has language select → privacy accept → welcome dialog →
-  Start. Optional; adds ceremony. Revisit if we localize or add a landing experience.
+- ~~**Intro / consent gate**~~ — **DONE**: a fog-of-war Start gate (welcome + horse Start button that
+  reveals the map and begins playback). See [[start-gate]]. Language/privacy steps still optional.
 - **Multi-language UI** — the reference supports ~10 languages. Only worth it with an audience.
 
 ## Robustness

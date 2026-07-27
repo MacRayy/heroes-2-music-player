@@ -1,20 +1,38 @@
-import type { ReactElement } from 'react'
+import { type ReactElement, useState } from 'react'
 
 import { Background } from '@/components/Background'
 import { PlayerPanel } from '@/components/PlayerPanel'
-import { PlayerProvider } from '@/state/PlayerContext'
+import { StartGate } from '@/components/StartGate'
+import { PlayerProvider, usePlayerContext } from '@/state/PlayerContext'
 import { ThemeProvider } from '@/theme/ThemeProvider'
 
 import './components/player.css'
 
-export const App = (): ReactElement => (
-  <ThemeProvider>
-    <PlayerProvider>
-      <Background />
+const Shell = (): ReactElement => {
+  const [hasStarted, setHasStarted] = useState(false)
+  const { togglePlay } = usePlayerContext()
+
+  const handleStart = (): void => {
+    setHasStarted(true)
+    togglePlay()
+  }
+
+  return (
+    <>
+      <Background isRevealed={hasStarted} />
       <div className="app">
         <PlayerPanel />
       </div>
       <div className="page-frame" aria-hidden="true" />
+      <StartGate isOpen={!hasStarted} onStart={handleStart} />
+    </>
+  )
+}
+
+export const App = (): ReactElement => (
+  <ThemeProvider>
+    <PlayerProvider>
+      <Shell />
     </PlayerProvider>
   </ThemeProvider>
 )
