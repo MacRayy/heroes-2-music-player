@@ -42,12 +42,12 @@
   pointer-events: none;
 }
 
-/* Step 1: a solid black screen. On confirm it fades out, revealing the (unblurring) map. */
+/* Step 1: a solid black screen. On confirm it fades out, revealing the (unblurring) map.
+ * No negative z-index — that would paint it behind the map layer (specks show through). */
 .start-gate__fog {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background: #05070c;
+  background: #000;
   transition: opacity 1.4s ease;
 }
 
