@@ -63,5 +63,6 @@
   --control-ink: #505050;
   --thumb-face: linear-gradient(180deg, #dcdcdc 0%, #b0b0b0 55%, #8a8a8a 100%);
   --groove-border: #808080;
+  --art-border: #808080;
   --text: #f2ede1;
 }
