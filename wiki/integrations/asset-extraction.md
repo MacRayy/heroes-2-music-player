@@ -30,8 +30,8 @@
 - `--dump ICN…` mode dumps every sprite of an ICN for exploration.
 
 **Album covers** — a second map `COVERS` (`src/data/assets.ts`, un-themed, keyed by cover id) maps
-tracks to real game elements: town songs → the faction's **adventure-map castle** (`MINITOWN.ICN`
-0..5 = Knight/Barbarian/Sorceress/Warlock/Wizard/Necromancer); other categories → a representative
+tracks to real game elements: town songs → the faction's **castle building** sprite (`TWN?CSTL.ICN`
+#0, no surrounding scenery — K/B/S/W/Z/N); other categories → a representative
 `MONS32` creature (menu=Paladin, battle=Champion, terrain=Unicorn, victory=Titan, sting=Sprite).
 Extracted (same transform chain via `applyTransforms`) to `public/art/covers/<key>.png` (gitignored)
 + committed `src/data/cover-manifest.json`. `AlbumArt` resolves the cover by the track id (minus the

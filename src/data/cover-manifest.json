@@ -1,27 +1,27 @@
 {
   "town-knight": {
-    "width": 230,
-    "height": 110
+    "width": 378,
+    "height": 139
   },
   "town-barbarian": {
-    "width": 230,
-    "height": 110
+    "width": 222,
+    "height": 189
   },
   "town-sorceress": {
-    "width": 230,
-    "height": 110
+    "width": 245,
+    "height": 191
   },
   "town-warlock": {
-    "width": 230,
-    "height": 110
+    "width": 251,
+    "height": 191
   },
   "town-wizard": {
-    "width": 230,
-    "height": 110
+    "width": 205,
+    "height": 106
   },
   "town-necromancer": {
-    "width": 230,
-    "height": 110
+    "width": 423,
+    "height": 246
   },
   "menu": {
     "width": 78,
