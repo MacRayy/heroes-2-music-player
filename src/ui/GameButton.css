@@ -20,9 +20,13 @@
   filter: brightness(1.09);
 }
 
-.game-button:active,
-.game-button[aria-pressed='true'] {
+.game-button:active {
   border-image: var(--btn-face-pressed) 6 fill repeat;
+}
+
+/* Toggled-on (active) icon buttons darken — same active style as the text buttons. */
+.game-button[aria-pressed='true'] {
+  filter: brightness(0.8);
 }
 
 .game-button:focus-visible {
@@ -36,11 +40,28 @@
 }
 
 .game-button__icon {
-  width: 44%;
-  height: 44%;
+  width: 60%;
+  height: 60%;
   fill: currentColor;
   image-rendering: auto;
   pointer-events: none;
+}
+
+/* Sprite-backed glyph (e.g. the extracted System-Options computer / theme creature). */
+.game-button__glyph {
+  width: 78%;
+  height: 78%;
+  background: center / contain no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.game-button__glyph--settings {
+  background-image: var(--settings-src);
+}
+
+.game-button__glyph--creature {
+  background-image: var(--creature-src);
 }
 
 /* Play / prev / next: the game's own arrow sprite (single = play, double = skip). */
@@ -49,7 +70,7 @@
   align-items: center;
   justify-content: center;
   gap: 1px;
-  height: 52%;
+  height: 66%;
   pointer-events: none;
 }
 

@@ -1,4 +1,5 @@
-export type AssetRole = 'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow'
+export type AssetRole =
+  'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow' | 'settings' | 'creature'
 
 export type Trim = {
   readonly top: number
@@ -14,6 +15,7 @@ export type AssetSource = {
   readonly trim?: Trim
   readonly scale?: number
   readonly rotate?: 90 | 180 | 270
+  readonly keyLuma?: number
   readonly tint?: readonly [number, number, number]
 }
 
@@ -58,6 +60,30 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
     arrow: {
       good: { icn: 'RECRUIT.ICN', index: 0, scale: 2, rotate: 90, tint: [0x55, 0x2b, 0x0d] },
       evil: { icn: 'RECRUIT.ICN', index: 0, scale: 2, rotate: 90, tint: [0x50, 0x50, 0x50] },
+    },
+    // The game's System-Options computer glyph (ADVBTNS #14), keyed out of its button face + tinted.
+    settings: {
+      good: {
+        icn: 'ADVBTNS.ICN',
+        index: 14,
+        trim: { top: 6, right: 6, bottom: 6, left: 6 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x55, 0x2b, 0x0d],
+      },
+      evil: {
+        icn: 'ADVBTNS.ICN',
+        index: 14,
+        trim: { top: 6, right: 6, bottom: 6, left: 6 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x50, 0x50, 0x50],
+      },
+    },
+    // Theme-toggle creature icons (MONS32 army icons): Good = Phoenix, Evil = Black Dragon.
+    creature: {
+      good: { icn: 'MONS32.ICN', index: 28, scale: 2 },
+      evil: { icn: 'MONS32.ICN', index: 37, scale: 2 },
     },
   }
 

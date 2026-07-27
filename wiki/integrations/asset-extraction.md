@@ -16,14 +16,17 @@
   trim?}`), writes `public/art/ui/<role>-<theme>.png` (gitignored) + committed
   `src/data/art-manifest.json` (`"<role>.<theme>" → {file, width, height, slice?}`).
 - Roles: `frame`/`page` (border-image sheets, `slice` = 9-slice inset), `btn`/`btn-pressed`,
-  `cursor` (the pointer, `ADVMCO.ICN` #0), and `arrow` (the up-arrow `RECRUIT.ICN` #0, rotated to
-  point right — reused for prev/play/next transport glyphs). `trim` crops pixels off an edge before
+  `cursor` (`ADVMCO.ICN` #0), `arrow` (`RECRUIT.ICN` up-arrow, rotated → prev/play/next), `settings`
+  (the System-Options computer `ADVBTNS.ICN` #14, keyed out of its button face + tinted), and
+  `creature` (theme-toggle icons — `MONS32.ICN` #28 Phoenix / #37 Black Dragon). `trim` crops an edge
+  before
   writing — used to drop `frame`'s baked shadow and to crop `page` (`ADVBORD`) down to its wood
   map-frame, dropping the right-side control panel (`trim.right: 160`, 640×480 → 480×480). `scale`
   nearest-neighbour upscales (cursor uses `scale: 2`). `rotate` (90/180/270° CW) reorients a sprite
-  (arrow uses `rotate: 90`). `tint` recolours all opaque pixels to a flat RGB (the arrow is tinted
-  dark brown `#552b0d` to match the transport glyphs). Transform order: trim → scale → rotate →
-  tint. See [[2026-07-23-ui-art]].
+  (arrow uses `rotate: 90`). `keyLuma` makes pixels at/above a luminance threshold transparent (to
+  lift a dark glyph off a light button face — `settings` uses it). `tint` recolours all opaque pixels
+  to a flat RGB (per-theme). Transform order: trim → scale → rotate → keyLuma → tint. See
+  [[2026-07-23-ui-art]].
 - `--dump ICN…` mode dumps every sprite of an ICN for exploration.
 
 **Guard** — `src/test/art-manifest.test.ts` asserts a `role×theme ↔ manifest` bijection. CI-safe

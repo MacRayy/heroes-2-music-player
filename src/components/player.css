@@ -55,7 +55,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   letter-spacing: 0.08em;
-  color: var(--font-gold);
+  color: var(--text);
   text-shadow: 0 2px 2px var(--text-shadow);
 }
 
@@ -89,7 +89,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 5vw, 1.7rem);
   letter-spacing: 0.03em;
-  color: var(--font-gold);
+  color: var(--text);
   text-shadow: 0 2px 2px var(--text-shadow);
 }
 
@@ -98,7 +98,7 @@
   font-family: var(--font-body);
   font-size: 1.05rem;
   letter-spacing: 0.12em;
-  color: var(--font-gold);
+  color: var(--text);
   text-shadow: 0 1px 2px var(--text-shadow);
 }
 
@@ -151,8 +151,9 @@
 .scope-chip,
 .dialog__close {
   display: inline-flex;
-  align-items: center;
+  align-items: normal;
   justify-content: center;
+  max-height: 26px;
   padding: 4px 14px;
   line-height: 1;
   background: none;
@@ -162,6 +163,7 @@
   color: var(--chip-ink);
   font-family: var(--font-body);
   font-size: 0.85rem;
+  text-transform: uppercase;
   cursor: var(--cursor, pointer);
   image-rendering: pixelated;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
@@ -218,7 +220,7 @@
 .dialog__title {
   margin: 0;
   font-family: var(--font-display);
-  color: var(--font-gold);
+  color: var(--text);
   text-align: center;
 }
 

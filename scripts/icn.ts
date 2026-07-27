@@ -139,6 +139,25 @@ export const rotateSprite = (sprite: Sprite, degrees: 90 | 180 | 270): Sprite =>
   return { width, height, offsetX: 0, offsetY: 0, rgba }
 }
 
+/** Make pixels at/above a luminance threshold transparent — isolates a dark glyph from a light
+ * button face (e.g. the System-Options computer from its beige button). */
+export const keyLumaSprite = (sprite: Sprite, maxLuma: number): Sprite => {
+  const rgba = new Uint8Array(sprite.rgba)
+  for (let i = 0; i < rgba.length; i += 4) {
+    const luma = 0.3 * (rgba[i] ?? 0) + 0.59 * (rgba[i + 1] ?? 0) + 0.11 * (rgba[i + 2] ?? 0)
+    if (luma >= maxLuma) {
+      rgba[i + 3] = 0
+    }
+  }
+  return {
+    width: sprite.width,
+    height: sprite.height,
+    offsetX: sprite.offsetX,
+    offsetY: sprite.offsetY,
+    rgba,
+  }
+}
+
 /** Recolour every non-transparent pixel to a flat RGB (keeps alpha) — e.g. tint the gold arrow. */
 export const tintSprite = (sprite: Sprite, rgb: readonly [number, number, number]): Sprite => {
   const rgba = new Uint8Array(sprite.rgba)

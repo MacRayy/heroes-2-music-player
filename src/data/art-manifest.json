@@ -62,5 +62,25 @@
     "file": "arrow-evil.png",
     "width": 20,
     "height": 40
+  },
+  "settings.good": {
+    "file": "settings-good.png",
+    "width": 48,
+    "height": 48
+  },
+  "settings.evil": {
+    "file": "settings-evil.png",
+    "width": 48,
+    "height": 48
+  },
+  "creature.good": {
+    "file": "creature-good.png",
+    "width": 62,
+    "height": 74
+  },
+  "creature.evil": {
+    "file": "creature-evil.png",
+    "width": 82,
+    "height": 78
   }
 }

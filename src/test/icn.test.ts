@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   cropSprite,
   decodeIcn,
+  keyLumaSprite,
   loadPalette,
   rotateSprite,
   scaleSprite,
@@ -116,6 +117,21 @@ describe('rotateSprite', () => {
     expect([rotated.width, rotated.height]).toEqual([1, 2])
     expect(pixel(rotated, 0, 0)).toEqual([0, 0, 255, 255]) // right edge → top
     expect(pixel(rotated, 0, 1)).toEqual([255, 0, 0, 255]) // left edge → bottom
+  })
+})
+
+describe('keyLumaSprite', () => {
+  it('makes pixels at/above the luminance threshold transparent, keeps darker ones', () => {
+    const src = {
+      width: 2,
+      height: 1,
+      offsetX: 0,
+      offsetY: 0,
+      rgba: Uint8Array.from([48, 48, 48, 255, 208, 208, 208, 255]), // dark, light
+    }
+    const keyed = keyLumaSprite(src, 120)
+    expect(pixel(keyed, 0, 0)[3]).toBe(255) // dark glyph kept
+    expect(pixel(keyed, 1, 0)[3]).toBe(0) // light face keyed out
   })
 })
 

@@ -27,6 +27,8 @@
   /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
   --cursor: url('/art/ui/cursor-good.png') 2 2, auto;
   --arrow-src: url('/art/ui/arrow-good.png');
+  --settings-src: url('/art/ui/settings-good.png');
+  --creature-src: url('/art/ui/creature-good.png');
 }
 
 /* EVIL — red/ember over dark iron. */
@@ -53,9 +55,12 @@
   /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
   --cursor: url('/art/ui/cursor-evil.png') 2 2, auto;
   --arrow-src: url('/art/ui/arrow-evil.png');
+  --settings-src: url('/art/ui/settings-evil.png');
+  --creature-src: url('/art/ui/creature-evil.png');
 
   /* Evil buttons are grey iron; glyphs/labels are dark grey, scroll grip is grey. */
   --chip-ink: #505050;
   --control-ink: #505050;
   --thumb-face: linear-gradient(180deg, #dcdcdc 0%, #b0b0b0 55%, #8a8a8a 100%);
+  --text: #f2ede1;
 }

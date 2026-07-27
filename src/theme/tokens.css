@@ -23,8 +23,6 @@
   --gold: #d8b24c;
   --gold-hi: #f2dd93;
   --gold-lo: #866321;
-  /* Fixed gold for display text (both themes), per design direction. */
-  --font-gold: #dcc132;
   /* Dark brown ink for the transport control glyphs (matches the tinted arrow sprite). */
   --control-ink: #552b0d;
   /* Scope-chip (map-size button) label ink. */
@@ -43,7 +41,7 @@
   --accent: #ecc766;
   --accent-soft: rgba(236, 199, 102, 0.22);
 
-  --text: #f4e8c6;
+  --text: #f2ede1;
   --text-dim: #bcaa80;
   --text-shadow: rgba(0, 0, 0, 0.75);
 }

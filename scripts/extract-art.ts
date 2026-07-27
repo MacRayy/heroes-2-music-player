@@ -13,6 +13,7 @@ import { openAgg } from './agg'
 import {
   cropSprite,
   decodeIcn,
+  keyLumaSprite,
   loadPalette,
   rotateSprite,
   scaleSprite,
@@ -88,7 +89,8 @@ const main = (): void => {
       const cropped = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
       const scaled = source.scale === undefined ? cropped : scaleSprite(cropped, source.scale)
       const rotated = source.rotate === undefined ? scaled : rotateSprite(scaled, source.rotate)
-      const sprite = source.tint === undefined ? rotated : tintSprite(rotated, source.tint)
+      const keyed = source.keyLuma === undefined ? rotated : keyLumaSprite(rotated, source.keyLuma)
+      const sprite = source.tint === undefined ? keyed : tintSprite(keyed, source.tint)
       const file = `${role}-${theme}.png`
       writeSpritePng(sprite, join(outDir, file))
       manifest[`${role}.${theme}`] = {
