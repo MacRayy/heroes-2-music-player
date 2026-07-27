@@ -80,10 +80,11 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
         tint: [0x50, 0x50, 0x50],
       },
     },
-    // Theme-toggle hero portraits: Good = Roland, Evil = Archibald (the HOMM2 campaign brothers).
+    // Theme-toggle hero portraits: the button shows the hero you'll switch TO — Good shows
+    // Archibald (→ Evil), Evil shows Roland (→ Good).
     hero: {
-      good: { icn: 'PORT0054.ICN', index: 0 },
-      evil: { icn: 'PORT0057.ICN', index: 0 },
+      good: { icn: 'PORT0057.ICN', index: 0 },
+      evil: { icn: 'PORT0054.ICN', index: 0 },
     },
   }
 
