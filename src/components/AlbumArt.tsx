@@ -16,23 +16,29 @@ const EMBLEMS: Record<TrackCategory, ReactNode> = {
   ),
 }
 
-const hasCover = (key: string | null): key is string =>
-  key !== null && Object.hasOwn(coverManifest, key)
+// Prefer a track-specific cover (e.g. town-knight), else the category cover (e.g. battle).
+const resolveCover = (trackId: string | null, category: TrackCategory | null): string | null => {
+  const candidates = [trackId?.replace(/-sw$/v, ''), category].filter((k) => k != null)
+  return candidates.find((key) => Object.hasOwn(coverManifest, key)) ?? null
+}
 
 type AlbumArtProps = {
   readonly category: TrackCategory | null
   readonly title: string
-  readonly coverKey: string | null
+  readonly trackId: string | null
 }
 
-export const AlbumArt = ({ category, title, coverKey }: AlbumArtProps): ReactElement => (
-  <div className="album-art" role="img" aria-label={`${title} artwork`}>
-    {hasCover(coverKey) ? (
-      <img className="album-art__cover" src={`/art/covers/${coverKey}.png`} alt="" />
-    ) : (
-      <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
-        {category === null ? EMBLEMS.menu : EMBLEMS[category]}
-      </svg>
-    )}
-  </div>
-)
+export const AlbumArt = ({ category, title, trackId }: AlbumArtProps): ReactElement => {
+  const coverKey = resolveCover(trackId, category)
+  return (
+    <div className="album-art" role="img" aria-label={`${title} artwork`}>
+      {coverKey === null ? (
+        <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
+          {category === null ? EMBLEMS.menu : EMBLEMS[category]}
+        </svg>
+      ) : (
+        <img className="album-art__cover" src={`/art/covers/${coverKey}.png`} alt="" />
+      )}
+    </div>
+  )
+}

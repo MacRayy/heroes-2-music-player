@@ -29,11 +29,13 @@
   [[2026-07-23-ui-art]].
 - `--dump ICN…` mode dumps every sprite of an ICN for exploration.
 
-**Album covers** — a second map `COVERS` (`src/data/assets.ts`, un-themed, keyed by a cover id) maps
-tracks to real game elements: town songs → the per-faction **castle building** (`TWN?CSTL.ICN` #0,
-K/B/S/W/Z/N). Extracted (same transform chain via `applyTransforms`) to `public/art/covers/<key>.png`
-(gitignored) + committed `src/data/cover-manifest.json`. `AlbumArt` shows the cover when the track's
-key (its id minus the `-sw` suffix) is in the manifest, else falls back to the SVG category emblem.
+**Album covers** — a second map `COVERS` (`src/data/assets.ts`, un-themed, keyed by cover id) maps
+tracks to real game elements: town songs → the faction's **adventure-map castle** (`MINITOWN.ICN`
+0..5 = Knight/Barbarian/Sorceress/Warlock/Wizard/Necromancer); other categories → a representative
+`MONS32` creature (menu=Paladin, battle=Champion, terrain=Unicorn, victory=Titan, sting=Sprite).
+Extracted (same transform chain via `applyTransforms`) to `public/art/covers/<key>.png` (gitignored)
++ committed `src/data/cover-manifest.json`. `AlbumArt` resolves the cover by the track id (minus the
+`-sw` suffix) first, then the category, else falls back to the SVG emblem.
 
 **Guard** — `src/test/art-manifest.test.ts` asserts a `role×theme ↔ manifest` bijection, and
 `src/test/cover-manifest.test.ts` a `COVERS ↔ cover-manifest` bijection. CI-safe (committed manifests

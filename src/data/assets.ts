@@ -95,10 +95,18 @@ export const ASSET_THEMES = ['good', 'evil'] as const
  * `public/art/covers/<key>.png`; keys with no entry fall back to the SVG category emblem.
  */
 export const COVERS: Record<string, AssetSource> = {
-  'town-knight': { icn: 'TWNKCSTL.ICN', index: 0 },
-  'town-barbarian': { icn: 'TWNBCSTL.ICN', index: 0 },
-  'town-sorceress': { icn: 'TWNSCSTL.ICN', index: 0 },
-  'town-warlock': { icn: 'TWNWCSTL.ICN', index: 0 },
-  'town-wizard': { icn: 'TWNZCSTL.ICN', index: 0 },
-  'town-necromancer': { icn: 'TWNNCSTL.ICN', index: 0 },
+  // Town songs → the faction's castle as it appears on the adventure map (MINITOWN, 0..5 =
+  // Knight/Barbarian/Sorceress/Warlock/Wizard/Necromancer).
+  'town-knight': { icn: 'MINITOWN.ICN', index: 0, scale: 5 },
+  'town-barbarian': { icn: 'MINITOWN.ICN', index: 1, scale: 5 },
+  'town-sorceress': { icn: 'MINITOWN.ICN', index: 2, scale: 5 },
+  'town-warlock': { icn: 'MINITOWN.ICN', index: 3, scale: 5 },
+  'town-wizard': { icn: 'MINITOWN.ICN', index: 4, scale: 5 },
+  'town-necromancer': { icn: 'MINITOWN.ICN', index: 5, scale: 5 },
+  // Other categories → a representative game creature / element.
+  menu: { icn: 'MONS32.ICN', index: 9, scale: 3 }, // Paladin
+  battle: { icn: 'MONS32.ICN', index: 8, scale: 3 }, // Champion (mounted lancer)
+  terrain: { icn: 'MONS32.ICN', index: 27, scale: 3 }, // Unicorn (roams the land)
+  victory: { icn: 'MONS32.ICN', index: 46, scale: 3 }, // Titan
+  sting: { icn: 'MONS32.ICN', index: 20, scale: 3 }, // Sprite
 }

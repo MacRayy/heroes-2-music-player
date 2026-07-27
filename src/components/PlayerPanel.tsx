@@ -19,8 +19,6 @@ export const PlayerPanel = (): ReactElement => {
 
   const category = currentTrack?.category ?? null
   const categoryLabel = category === null ? 'Soundtrack' : CATEGORY_LABELS[category]
-  // Cover art key: the track id without the Succession-Wars suffix (e.g. town-knight-sw → town-knight).
-  const coverKey = currentTrack === null ? null : currentTrack.id.replace(/-sw$/v, '')
 
   return (
     <GameFrame className="player">
@@ -38,7 +36,11 @@ export const PlayerPanel = (): ReactElement => {
         </GameButton>
       </div>
 
-      <AlbumArt category={category} title={currentTrack?.title ?? 'No track'} coverKey={coverKey} />
+      <AlbumArt
+        category={category}
+        title={currentTrack?.title ?? 'No track'}
+        trackId={currentTrack?.id ?? null}
+      />
 
       <div className="now-playing">
         <h2 className="now-playing__title">{currentTrack?.title ?? 'Select a track'}</h2>
