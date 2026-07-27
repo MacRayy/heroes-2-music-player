@@ -1,5 +1,5 @@
 export type AssetRole =
-  'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow' | 'settings' | 'creature'
+  'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow' | 'settings' | 'hero'
 
 export type Trim = {
   readonly top: number
@@ -80,10 +80,10 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
         tint: [0x50, 0x50, 0x50],
       },
     },
-    // Theme-toggle creature icons (MONS32 army icons): Good = Black Dragon, Evil = Phoenix.
-    creature: {
-      good: { icn: 'MONS32.ICN', index: 37, scale: 2 },
-      evil: { icn: 'MONS32.ICN', index: 28, scale: 2 },
+    // Theme-toggle hero portraits: Good = Roland, Evil = Archibald (the HOMM2 campaign brothers).
+    hero: {
+      good: { icn: 'PORT0054.ICN', index: 0 },
+      evil: { icn: 'PORT0057.ICN', index: 0 },
     },
   }
 
@@ -102,10 +102,10 @@ export const COVERS: Record<string, AssetSource> = {
   'town-warlock': { icn: 'MONS32.ICN', index: 37, scale: 4 }, // Black Dragon
   'town-wizard': { icn: 'MONS32.ICN', index: 46, scale: 4 }, // Titan
   'town-necromancer': { icn: 'MONS32.ICN', index: 56, scale: 4 }, // Bone Dragon
-  // Other categories → a representative game creature.
-  menu: { icn: 'MONS32.ICN', index: 9, scale: 4 }, // Paladin
-  battle: { icn: 'MONS32.ICN', index: 8, scale: 4 }, // Champion (mounted lancer)
-  terrain: { icn: 'MONS32.ICN', index: 27, scale: 4 }, // Unicorn
-  victory: { icn: 'MONS32.ICN', index: 46, scale: 4 }, // Titan
-  sting: { icn: 'MONS32.ICN', index: 20, scale: 4 }, // Sprite
+  // Other categories → a representative game creature / element.
+  menu: { icn: 'PRIMSKIL.ICN', index: 1, scale: 2 }, // heraldic shield (defense skill icon)
+  battle: { icn: 'MONS32.ICN', index: 58, scale: 4 }, // Nomad
+  terrain: { icn: 'MONS32.ICN', index: 57, scale: 4 }, // Rogue
+  victory: { icn: 'PRIMSKIL.ICN', index: 1, scale: 2 }, // heraldic shield
+  sting: { icn: 'MONS32.ICN', index: 59, scale: 4 }, // Ghost
 }

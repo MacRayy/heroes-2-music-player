@@ -8,8 +8,8 @@ export const ThemeToggle = (): ReactElement => {
   const label = theme === 'good' ? 'Switch to Evil theme' : 'Switch to Good theme'
   return (
     <GameButton label={label} size="sm" onClick={toggleTheme}>
-      {/* The current theme's game creature (Good = phoenix, Evil = black dragon). */}
-      <span className="game-button__glyph game-button__glyph--creature" aria-hidden="true" />
+      {/* The current theme's campaign hero (Good = Roland, Evil = Archibald). */}
+      <span className="game-button__glyph game-button__glyph--hero" aria-hidden="true" />
     </GameButton>
   )
 }

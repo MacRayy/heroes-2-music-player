@@ -18,8 +18,8 @@
 - Roles: `frame`/`page` (border-image sheets, `slice` = 9-slice inset), `btn`/`btn-pressed`,
   `cursor` (`ADVMCO.ICN` #0), `arrow` (`RECRUIT.ICN` up-arrow, rotated → prev/play/next), `settings`
   (the System-Options computer `ADVBTNS.ICN` #14, keyed out of its button face + tinted), and
-  `creature` (theme-toggle icons — `MONS32.ICN` #37 Black Dragon (Good) / #28 Phoenix (Evil)). `trim` crops an edge
-  before
+  `hero` (theme-toggle portraits — `PORT0054` Roland (Good) / `PORT0057` Archibald (Evil)). `trim`
+  crops an edge before
   writing — used to drop `frame`'s baked shadow and to crop `page` (`ADVBORD`) down to its wood
   map-frame, dropping the right-side control panel (`trim.right: 160`, 640×480 → 480×480). `scale`
   nearest-neighbour upscales (cursor uses `scale: 2`). `rotate` (90/180/270° CW) reorients a sprite
@@ -33,8 +33,8 @@
 creature per key via `applyTransforms` → `public/art/covers/<key>.png` (gitignored) + committed
 `cover-manifest.json`. Town songs use the faction's **top-tier (upgraded) creature** (knight=Crusader,
 barbarian=Cyclops, sorceress=Phoenix, warlock=Black Dragon, wizard=Titan, necromancer=Bone Dragon);
-other categories a representative creature (menu=Paladin, battle=Champion, terrain=Unicorn,
-victory=Titan, sting=Sprite). `AlbumArt` tries `/art/covers/<key>.png` most-specific-first — the track
+other categories: menu+victory=heraldic shield (`PRIMSKIL` #1), battle=Nomad, terrain=Rogue,
+sting=Ghost. `AlbumArt` tries `/art/covers/<key>.png` most-specific-first — the track
 id (minus `-sw`, e.g. `town-knight`) then the category — on 404 falling to the next, finally the SVG
 emblem (so a hand-dropped `town-<faction>.png` still overrides).
 

@@ -29,6 +29,7 @@
   --chip-ink: #6c4327;
   /* Progress bar styled like the game's scroll bar: black groove + beige beveled grip. */
   --groove-bg: #0a0603;
+  --groove-border: var(--gold-lo);
   --thumb-face: linear-gradient(180deg, #ecd9b4 0%, #c9a878 55%, #a07c4e 100%);
   --frame-edge: #1c1206;
   --panel-top: #6c5836;

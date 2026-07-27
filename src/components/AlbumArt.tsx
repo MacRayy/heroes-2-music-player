@@ -1,6 +1,6 @@
 import { type ReactElement, type ReactNode, useState } from 'react'
 
-import type { TrackCategory } from '@/data/tracks'
+import type { Track, TrackCategory } from '@/data/tracks'
 
 const EMBLEMS: Record<TrackCategory, ReactNode> = {
   menu: <path d="M4 8l4 4 4-7 4 7 4-4-1.5 10H5.5L4 8z" />,
@@ -16,21 +16,21 @@ const EMBLEMS: Record<TrackCategory, ReactNode> = {
 }
 
 type AlbumArtProps = {
-  readonly category: TrackCategory | null
-  readonly title: string
-  readonly trackId: string | null
+  readonly track: Track | null
 }
 
-// Cover candidates, most-specific first: the track (e.g. town-knight, drop-in) then the category
-// (e.g. battle, extracted). Each is tried as /art/covers/<key>.png; on 404 we fall to the next,
-// finally to the SVG category emblem.
-export const AlbumArt = ({ category, title, trackId }: AlbumArtProps): ReactElement => {
-  const candidates = [trackId?.replace(/-sw$/v, ''), category].filter((k) => k != null)
+// Cover candidates, most-specific first: the track (e.g. town-knight) then the category (e.g.
+// battle). Each is tried as /art/covers/<key>.png; on 404 we fall to the next, finally the SVG.
+export const AlbumArt = ({ track }: AlbumArtProps): ReactElement => {
+  const category = track?.category ?? null
+  const candidates = [track?.id.replace(/-sw$/v, ''), category].filter(
+    (key): key is string => typeof key === 'string',
+  )
   const [step, setStep] = useState(0)
   const coverKey = candidates[step]
 
   return (
-    <div className="album-art" role="img" aria-label={`${title} artwork`}>
+    <div className="album-art" role="img" aria-label={`${track?.title ?? 'No track'} artwork`}>
       {coverKey === undefined ? (
         <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
           {category === null ? EMBLEMS.menu : EMBLEMS[category]}

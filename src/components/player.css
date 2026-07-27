@@ -100,6 +100,39 @@
   letter-spacing: 0.03em;
   color: var(--text);
   text-shadow: 0 2px 2px var(--text-shadow);
+  /* Single line → the player keeps a fixed height regardless of title length. */
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.now-playing__title-inner {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
+/* Long titles scroll (marquee) so the whole thing is readable. */
+.now-playing__title--scroll {
+  text-align: left;
+}
+
+.now-playing__title--scroll .now-playing__title-inner {
+  max-width: none;
+  text-overflow: clip;
+  animation: title-marquee 9s ease-in-out infinite alternate;
+}
+
+@keyframes title-marquee {
+  0%,
+  12% {
+    transform: translateX(0);
+  }
+  88%,
+  100% {
+    transform: translateX(calc(-1 * var(--marquee, 0px)));
+  }
 }
 
 .now-playing__category {
@@ -123,7 +156,7 @@
   appearance: none;
   height: 15px;
   border-radius: 3px;
-  border: 2px solid var(--gold-lo);
+  border: 2px solid var(--groove-border);
   background: var(--groove-bg);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
   cursor: var(--cursor, pointer);
@@ -179,11 +212,6 @@
   transition: filter 0.12s ease;
 }
 
-.scope-chip:hover,
-.dialog__close:hover {
-  filter: brightness(1.06);
-}
-
 .scope-chip:focus-visible,
 .dialog__close:focus-visible {
   outline: 2px solid var(--accent);
@@ -191,8 +219,7 @@
 }
 
 /* Active scope: the same button, darkened (pressed look). */
-.scope-chip[aria-pressed='true'],
-.scope-chip[aria-pressed='true']:hover {
+.scope-chip[aria-pressed='true'] {
   filter: brightness(0.8);
 }
 

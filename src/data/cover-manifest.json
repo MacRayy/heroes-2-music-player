@@ -24,23 +24,23 @@
     "height": 156
   },
   "menu": {
-    "width": 104,
-    "height": 136
+    "width": 164,
+    "height": 186
   },
   "battle": {
-    "width": 144,
-    "height": 136
+    "width": 124,
+    "height": 144
   },
   "terrain": {
-    "width": 128,
-    "height": 148
+    "width": 68,
+    "height": 116
   },
   "victory": {
-    "width": 64,
-    "height": 160
+    "width": 164,
+    "height": 186
   },
   "sting": {
-    "width": 56,
-    "height": 108
+    "width": 80,
+    "height": 124
   }
 }

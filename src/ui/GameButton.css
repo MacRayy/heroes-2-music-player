@@ -16,10 +16,6 @@
   transition: filter 0.1s ease;
 }
 
-.game-button:hover {
-  filter: brightness(1.09);
-}
-
 .game-button:active {
   border-image: var(--btn-face-pressed) 6 fill repeat;
 }
@@ -60,8 +56,8 @@
   background-image: var(--settings-src);
 }
 
-.game-button__glyph--creature {
-  background-image: var(--creature-src);
+.game-button__glyph--hero {
+  background-image: var(--hero-src);
 }
 
 /* Play / prev / next: the game's own arrow sprite (single = play, double = skip). */

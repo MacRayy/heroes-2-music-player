@@ -7,6 +7,7 @@ import { GameFrame } from '@/ui/GameFrame'
 import { SettingsIcon } from '@/ui/icons'
 
 import { AlbumArt } from './AlbumArt'
+import { NowPlayingTitle } from './NowPlayingTitle'
 import { ProgressBar } from './ProgressBar'
 import { ScopeChips } from './ScopeChips'
 import { SettingsDialog } from './SettingsDialog'
@@ -36,15 +37,10 @@ export const PlayerPanel = (): ReactElement => {
         </GameButton>
       </div>
 
-      <AlbumArt
-        key={currentTrack?.id ?? 'none'}
-        category={category}
-        title={currentTrack?.title ?? 'No track'}
-        trackId={currentTrack?.id ?? null}
-      />
+      <AlbumArt key={currentTrack?.id ?? 'none'} track={currentTrack ?? null} />
 
       <div className="now-playing">
-        <h2 className="now-playing__title">{currentTrack?.title ?? 'Select a track'}</h2>
+        <NowPlayingTitle title={currentTrack?.title ?? 'Select a track'} />
         <p className="now-playing__category">{categoryLabel}</p>
       </div>
 
