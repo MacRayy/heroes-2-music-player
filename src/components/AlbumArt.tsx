@@ -1,5 +1,6 @@
 import type { ReactElement, ReactNode } from 'react'
 
+import coverManifest from '@/data/cover-manifest.json'
 import type { TrackCategory } from '@/data/tracks'
 
 const EMBLEMS: Record<TrackCategory, ReactNode> = {
@@ -15,15 +16,23 @@ const EMBLEMS: Record<TrackCategory, ReactNode> = {
   ),
 }
 
+const hasCover = (key: string | null): key is string =>
+  key !== null && Object.hasOwn(coverManifest, key)
+
 type AlbumArtProps = {
   readonly category: TrackCategory | null
   readonly title: string
+  readonly coverKey: string | null
 }
 
-export const AlbumArt = ({ category, title }: AlbumArtProps): ReactElement => (
+export const AlbumArt = ({ category, title, coverKey }: AlbumArtProps): ReactElement => (
   <div className="album-art" role="img" aria-label={`${title} artwork`}>
-    <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
-      {category === null ? EMBLEMS.menu : EMBLEMS[category]}
-    </svg>
+    {hasCover(coverKey) ? (
+      <img className="album-art__cover" src={`/art/covers/${coverKey}.png`} alt="" />
+    ) : (
+      <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
+        {category === null ? EMBLEMS.menu : EMBLEMS[category]}
+      </svg>
+    )}
   </div>
 )

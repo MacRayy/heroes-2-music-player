@@ -88,3 +88,17 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
   }
 
 export const ASSET_THEMES = ['good', 'evil'] as const
+
+/*
+ * Album-cover art per track, using real game elements (not themed). Keyed by a cover id that
+ * AlbumArt derives from the track (town → per-faction castle building). Extracted to
+ * `public/art/covers/<key>.png`; keys with no entry fall back to the SVG category emblem.
+ */
+export const COVERS: Record<string, AssetSource> = {
+  'town-knight': { icn: 'TWNKCSTL.ICN', index: 0 },
+  'town-barbarian': { icn: 'TWNBCSTL.ICN', index: 0 },
+  'town-sorceress': { icn: 'TWNSCSTL.ICN', index: 0 },
+  'town-warlock': { icn: 'TWNWCSTL.ICN', index: 0 },
+  'town-wizard': { icn: 'TWNZCSTL.ICN', index: 0 },
+  'town-necromancer': { icn: 'TWNNCSTL.ICN', index: 0 },
+}

@@ -8,7 +8,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { PNG } from 'pngjs'
 
-import { ASSET_THEMES, type AssetRole, ASSETS } from '../src/data/assets'
+import { ASSET_THEMES, type AssetRole, ASSETS, type AssetSource, COVERS } from '../src/data/assets'
 import { openAgg } from './agg'
 import {
   cropSprite,
@@ -25,6 +25,15 @@ const writeSpritePng = (sprite: Sprite, outPath: string): void => {
   const png = new PNG({ width: sprite.width, height: sprite.height })
   png.data.set(sprite.rgba)
   writeFileSync(outPath, PNG.sync.write(png))
+}
+
+// trim → scale → rotate → keyLuma → tint (each step is optional per the source).
+const applyTransforms = (decoded: Sprite, source: AssetSource): Sprite => {
+  const cropped = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
+  const scaled = source.scale === undefined ? cropped : scaleSprite(cropped, source.scale)
+  const rotated = source.rotate === undefined ? scaled : rotateSprite(scaled, source.rotate)
+  const keyed = source.keyLuma === undefined ? rotated : keyLumaSprite(rotated, source.keyLuma)
+  return source.tint === undefined ? keyed : tintSprite(keyed, source.tint)
 }
 
 const main = (): void => {
@@ -86,11 +95,7 @@ const main = (): void => {
         console.error(`sprite ${source.index} missing in ${source.icn}`)
         process.exit(1)
       }
-      const cropped = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
-      const scaled = source.scale === undefined ? cropped : scaleSprite(cropped, source.scale)
-      const rotated = source.rotate === undefined ? scaled : rotateSprite(scaled, source.rotate)
-      const keyed = source.keyLuma === undefined ? rotated : keyLumaSprite(rotated, source.keyLuma)
-      const sprite = source.tint === undefined ? keyed : tintSprite(keyed, source.tint)
+      const sprite = applyTransforms(decoded, source)
       const file = `${role}-${theme}.png`
       writeSpritePng(sprite, join(outDir, file))
       manifest[`${role}.${theme}`] = {
@@ -107,6 +112,27 @@ const main = (): void => {
     'utf8',
   )
   console.log(`✔ extracted ${Object.keys(manifest).length} role×theme assets → ${outDir}`)
+
+  // Album covers (real game elements per track; not themed).
+  const coversDir = join(repoRoot, 'public', 'art', 'covers')
+  mkdirSync(coversDir, { recursive: true })
+  const coverManifest: Record<string, { width: number; height: number }> = {}
+  for (const [key, source] of Object.entries(COVERS)) {
+    const decoded = spritesOf(source.icn)[source.index]
+    if (decoded === undefined) {
+      console.error(`cover sprite ${source.index} missing in ${source.icn}`)
+      process.exit(1)
+    }
+    const sprite = applyTransforms(decoded, source)
+    writeSpritePng(sprite, join(coversDir, `${key}.png`))
+    coverManifest[key] = { width: sprite.width, height: sprite.height }
+  }
+  writeFileSync(
+    join(repoRoot, 'src', 'data', 'cover-manifest.json'),
+    `${JSON.stringify(coverManifest, null, 2)}\n`,
+    'utf8',
+  )
+  console.log(`✔ extracted ${Object.keys(coverManifest).length} covers → ${coversDir}`)
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
