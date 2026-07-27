@@ -24,7 +24,7 @@
   --page-frame-src: url('/art/ui/page-good.png');
   --btn-face: url('/art/ui/btn-good.png');
   --btn-face-pressed: url('/art/ui/btn-pressed-good.png');
-  /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
+  /* Hotspot 2,2 ≈ the sword tip at ~(1,1) in the source sprite × the 1.5 scale in assets.ts. */
   --cursor: url('/art/ui/cursor-good.png') 2 2, auto;
   --arrow-src: url('/art/ui/arrow-good.png');
   --settings-src: url('/art/ui/settings-good.png');
@@ -54,7 +54,7 @@
   --page-frame-src: url('/art/ui/page-evil.png');
   --btn-face: url('/art/ui/btn-evil.png');
   --btn-face-pressed: url('/art/ui/btn-pressed-evil.png');
-  /* Hotspot 2,2 = the sword tip at ~(1,1) in the source sprite × the scale:2 in assets.ts. */
+  /* Hotspot 2,2 ≈ the sword tip at ~(1,1) in the source sprite × the 1.5 scale in assets.ts. */
   --cursor: url('/art/ui/cursor-evil.png') 2 2, auto;
   --arrow-src: url('/art/ui/arrow-evil.png');
   --settings-src: url('/art/ui/settings-evil.png');

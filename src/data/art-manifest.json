@@ -45,13 +45,13 @@
   },
   "cursor.good": {
     "file": "cursor-good.png",
-    "width": 30,
-    "height": 42
+    "width": 23,
+    "height": 32
   },
   "cursor.evil": {
     "file": "cursor-evil.png",
-    "width": 30,
-    "height": 42
+    "width": 23,
+    "height": 32
   },
   "arrow.good": {
     "file": "arrow-good.png",

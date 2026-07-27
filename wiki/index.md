@@ -36,6 +36,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 ## Bugs
 
 - [`bugs/2026-07-22-castle-theme-mislabel.md`](bugs/2026-07-22-castle-theme-mislabel.md) — base castle themes mapped to the wrong source OGGs.
+- [`bugs/2026-07-27-cursor-edges.md`](bugs/2026-07-27-cursor-edges.md) — game cursor reverted to the OS arrow on the bottom/right page edges.
 
 ## Runbooks
 

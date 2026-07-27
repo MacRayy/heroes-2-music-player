@@ -59,10 +59,10 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
       good: { icn: 'SYSTEM.ICN', index: 12 },
       evil: { icn: 'SYSTEME.ICN', index: 12 },
     },
-    // The universal HOMM2 pointer (same sprite for both themes); upscaled for a visible CSS cursor.
+    // ×1.5 keeps it ≤32px; larger custom cursors are dropped near viewport edges by Chromium.
     cursor: {
-      good: { icn: 'ADVMCO.ICN', index: 0, scale: 2 },
-      evil: { icn: 'ADVMCO.ICN', index: 0, scale: 2 },
+      good: { icn: 'ADVMCO.ICN', index: 0, scale: 1.5 },
+      evil: { icn: 'ADVMCO.ICN', index: 0, scale: 1.5 },
     },
     // The game's up-arrow (RECRUIT quantity control), rotated to point right — CSS mirrors it for
     // left. Reused for prev/play/next. Tinted dark brown to match the transport glyphs.
