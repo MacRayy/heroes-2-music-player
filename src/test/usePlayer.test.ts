@@ -51,6 +51,7 @@ describe('playerReducer', () => {
     expect(s.scope).toBe('all')
     expect(s.order).toEqual(MUSIC)
     expect(s.currentId).toBe(FIRST)
+    expect(s.isShuffle).toBe(false)
     expect(s.isPlaying).toBe(false)
   })
 
