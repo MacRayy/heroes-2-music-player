@@ -95,14 +95,17 @@ export const ASSET_THEMES = ['good', 'evil'] as const
  * `public/art/covers/<key>.png`; keys with no entry fall back to the SVG category emblem.
  */
 export const COVERS: Record<string, AssetSource> = {
-  // NOTE: the adventure-map castle is a multi-tile map object whose tile layout isn't in the ICN,
-  // so town covers are supplied as drop-in images at public/art/covers/town-<faction>.png (see
-  // AlbumArt's on-error fallback), not extracted here.
-  //
-  // Other categories → a representative game creature / element.
-  menu: { icn: 'MONS32.ICN', index: 9, scale: 3 }, // Paladin
-  battle: { icn: 'MONS32.ICN', index: 8, scale: 3 }, // Champion (mounted lancer)
-  terrain: { icn: 'MONS32.ICN', index: 27, scale: 3 }, // Unicorn (roams the land)
-  victory: { icn: 'MONS32.ICN', index: 46, scale: 3 }, // Titan
-  sting: { icn: 'MONS32.ICN', index: 20, scale: 3 }, // Sprite
+  // Town songs → the faction's top-tier (upgraded) creature (MONS32 army icon).
+  'town-knight': { icn: 'MONS32.ICN', index: 10, scale: 4 }, // Crusader
+  'town-barbarian': { icn: 'MONS32.ICN', index: 19, scale: 4 }, // Cyclops
+  'town-sorceress': { icn: 'MONS32.ICN', index: 28, scale: 4 }, // Phoenix
+  'town-warlock': { icn: 'MONS32.ICN', index: 37, scale: 4 }, // Black Dragon
+  'town-wizard': { icn: 'MONS32.ICN', index: 46, scale: 4 }, // Titan
+  'town-necromancer': { icn: 'MONS32.ICN', index: 56, scale: 4 }, // Bone Dragon
+  // Other categories → a representative game creature.
+  menu: { icn: 'MONS32.ICN', index: 9, scale: 4 }, // Paladin
+  battle: { icn: 'MONS32.ICN', index: 8, scale: 4 }, // Champion (mounted lancer)
+  terrain: { icn: 'MONS32.ICN', index: 27, scale: 4 }, // Unicorn
+  victory: { icn: 'MONS32.ICN', index: 46, scale: 4 }, // Titan
+  sting: { icn: 'MONS32.ICN', index: 20, scale: 4 }, // Sprite
 }

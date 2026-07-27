@@ -29,14 +29,14 @@
   [[2026-07-23-ui-art]].
 - `--dump ICN…` mode dumps every sprite of an ICN for exploration.
 
-**Album covers** — a second map `COVERS` (`src/data/assets.ts`, un-themed) extracts a representative
-`MONS32` creature per category (menu=Paladin, battle=Champion, terrain=Unicorn, victory=Titan,
-sting=Sprite) via `applyTransforms` → `public/art/covers/<key>.png` (gitignored) + committed
-`cover-manifest.json`. `AlbumArt` tries `/art/covers/<key>.png` most-specific-first — the track id
-(minus `-sw`, e.g. `town-knight`) then the category (e.g. `battle`) — on 404 falling to the next,
-finally the SVG emblem. **Town/castle covers are drop-in**: the adventure-map castle is a multi-tile
-map object whose layout isn't in the ICN, so it can't be extracted cleanly — instead a per-faction
-screenshot placed at `public/art/covers/town-<faction>.png` is picked up automatically.
+**Album covers** — a second map `COVERS` (`src/data/assets.ts`, un-themed) extracts a `MONS32`
+creature per key via `applyTransforms` → `public/art/covers/<key>.png` (gitignored) + committed
+`cover-manifest.json`. Town songs use the faction's **top-tier (upgraded) creature** (knight=Crusader,
+barbarian=Cyclops, sorceress=Phoenix, warlock=Black Dragon, wizard=Titan, necromancer=Bone Dragon);
+other categories a representative creature (menu=Paladin, battle=Champion, terrain=Unicorn,
+victory=Titan, sting=Sprite). `AlbumArt` tries `/art/covers/<key>.png` most-specific-first — the track
+id (minus `-sw`, e.g. `town-knight`) then the category — on 404 falling to the next, finally the SVG
+emblem (so a hand-dropped `town-<faction>.png` still overrides).
 
 **Guard** — `src/test/art-manifest.test.ts` asserts a `role×theme ↔ manifest` bijection, and
 `src/test/cover-manifest.test.ts` a `COVERS ↔ cover-manifest` bijection. CI-safe (committed manifests
