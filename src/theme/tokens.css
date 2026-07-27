@@ -5,8 +5,8 @@
  */
 :root {
   /* Structure (theme-independent) */
-  --font-display: 'HOMM2 Big', 'Trajan Pro', 'Times New Roman', Georgia, serif;
-  --font-body: 'HOMM2 Small', 'Times New Roman', Georgia, serif;
+  --font-display: 'Trajan Pro', 'Times New Roman', Georgia, serif;
+  --font-body: 'Times New Roman', Georgia, serif;
   --radius: 6px;
   --panel-width: 340px;
   --space-1: 4px;
@@ -23,28 +23,21 @@
   --gold: #d8b24c;
   --gold-hi: #f2dd93;
   --gold-lo: #866321;
-  /* Dark brown ink for the transport control glyphs (matches the tinted arrow sprite). */
-  --control-ink: #552b0d;
-  /* Scope-chip (map-size button) label ink. */
-  --chip-ink: #6c4327;
-  /* Progress bar styled like the game's scroll bar: black groove + beige beveled grip. */
-  --groove-bg: #0a0603;
-  --groove-border: var(--gold-lo);
-  /* Album-art frame ring (gold in Good, grey in Evil). */
-  --art-border: var(--gold-lo);
-  --thumb-face: linear-gradient(180deg, #ecd9b4 0%, #c9a878 55%, #a07c4e 100%);
   --frame-edge: #1c1206;
   --panel-top: #6c5836;
   --panel-bot: #3d2e19;
 
-  /* Album-art inset (theme-independent neutral). */
-  --inset-top: #34302a;
-  --inset-bot: #17130f;
+  --btn-hi: #4d86c6;
+  --btn-mid: #2f5f96;
+  --btn-lo: #1c3c64;
+  --btn-border: #d8b24c;
 
   --accent: #ecc766;
   --accent-soft: rgba(236, 199, 102, 0.22);
 
-  --text: #f2ede1;
+  --text: #f4e8c6;
   --text-dim: #bcaa80;
   --text-shadow: rgba(0, 0, 0, 0.75);
+
+  --shadow-panel: 0 18px 48px rgba(0, 0, 0, 0.6);
 }

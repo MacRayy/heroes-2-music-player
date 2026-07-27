@@ -13,5 +13,4 @@ body,
 body {
   margin: 0;
   font-family: 'Times New Roman', Georgia, serif;
-  cursor: var(--cursor, auto);
 }

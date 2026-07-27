@@ -4,10 +4,9 @@ import { CATEGORY_LABELS } from '@/data/tracks'
 import { usePlayerContext } from '@/state/PlayerContext'
 import { GameButton } from '@/ui/GameButton'
 import { GameFrame } from '@/ui/GameFrame'
-import { SettingsIcon } from '@/ui/icons'
+import { GearIcon } from '@/ui/icons'
 
 import { AlbumArt } from './AlbumArt'
-import { NowPlayingTitle } from './NowPlayingTitle'
 import { ProgressBar } from './ProgressBar'
 import { ScopeChips } from './ScopeChips'
 import { SettingsDialog } from './SettingsDialog'
@@ -33,14 +32,14 @@ export const PlayerPanel = (): ReactElement => {
             setIsSettingsOpen(true)
           }}
         >
-          <SettingsIcon />
+          <GearIcon />
         </GameButton>
       </div>
 
-      <AlbumArt key={currentTrack?.id ?? 'none'} track={currentTrack ?? null} />
+      <AlbumArt category={category} title={currentTrack?.title ?? 'No track'} />
 
       <div className="now-playing">
-        <NowPlayingTitle title={currentTrack?.title ?? 'Select a track'} />
+        <h2 className="now-playing__title">{currentTrack?.title ?? 'Select a track'}</h2>
         <p className="now-playing__category">{categoryLabel}</p>
       </div>
 

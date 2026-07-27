@@ -29,10 +29,3 @@ public/audio/
 
 # raw art source (optimized derivative committed instead)
 public/art/h2map.png
-
-# extracted UI art + album covers (regenerate with yarn extract:art)
-public/art/ui/
-public/art/covers/
-
-# extracted fonts (regenerate with yarn extract:font)
-public/fonts/

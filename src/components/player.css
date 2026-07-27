@@ -21,24 +21,15 @@
   min-height: 100%;
   display: grid;
   place-items: center;
-  padding: var(--space-5);
-}
-
-/* Ornate frame around the whole viewport (no `fill` → map shows through). */
-.page-frame {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-style: solid;
-  border-width: 28px;
-  border-image: var(--page-frame-src) 40 round;
-  image-rendering: pixelated;
+  padding: var(--space-4);
 }
 
 .player {
   width: min(92vw, var(--panel-width));
   max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
   color: var(--text);
 }
 
@@ -53,9 +44,10 @@
 .player__title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  letter-spacing: 0.08em;
-  color: var(--text);
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-hi);
   text-shadow: 0 2px 2px var(--text-shadow);
 }
 
@@ -67,9 +59,9 @@
   border-radius: var(--radius);
   border: 2px solid var(--frame-edge);
   background:
-    radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.08), transparent 62%),
-    linear-gradient(180deg, var(--inset-top), var(--inset-bot));
-  box-shadow: inset 0 0 0 2px var(--art-border);
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--btn-mid), var(--panel-bot));
+  box-shadow: inset 0 0 0 2px var(--gold-lo);
 }
 
 .album-art__emblem {
@@ -77,15 +69,6 @@
   height: 46%;
   fill: var(--gold-hi);
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
-}
-
-/* Real game cover art (e.g. the faction castle) — pixel-crisp, contained in the frame. */
-.album-art__cover {
-  max-width: 90%;
-  max-height: 82%;
-  object-fit: contain;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.6));
 }
 
 /* ---- Now playing title --------------------------------------------------- */
@@ -96,88 +79,55 @@
 .now-playing__title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 5vw, 1.7rem);
-  letter-spacing: 0.03em;
+  font-size: 1.35rem;
   color: var(--text);
   text-shadow: 0 2px 2px var(--text-shadow);
-  /* Single line → the player keeps a fixed height regardless of title length. */
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.now-playing__title-inner {
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: bottom;
-}
-
-/* Long titles scroll (marquee) so the whole thing is readable. */
-.now-playing__title--scroll {
-  text-align: left;
-}
-
-.now-playing__title--scroll .now-playing__title-inner {
-  max-width: none;
-  text-overflow: clip;
-  animation: title-marquee 9s ease-in-out infinite alternate;
-}
-
-@keyframes title-marquee {
-  0%,
-  12% {
-    transform: translateX(0);
-  }
-  88%,
-  100% {
-    transform: translateX(calc(-1 * var(--marquee, 0px)));
-  }
 }
 
 .now-playing__category {
-  margin: var(--space-1) 0 0;
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  letter-spacing: 0.12em;
-  color: var(--text);
-  text-shadow: 0 1px 2px var(--text-shadow);
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
 }
 
 /* ---- Progress bar -------------------------------------------------------- */
 .progress {
   display: flex;
   align-items: center;
+  gap: var(--space-2);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  color: var(--text-dim);
 }
 
-/* Horizontal take on the game's scroll bar: black recessed groove + beige beveled grip. */
 .range {
   flex: 1;
   appearance: none;
-  height: 15px;
-  border-radius: 3px;
-  border: 2px solid var(--groove-border);
-  background: var(--groove-bg);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
-  cursor: var(--cursor, pointer);
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--frame-edge);
+  background: linear-gradient(180deg, var(--panel-bot), var(--frame-edge));
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
 }
 
-/* Grip sits inside the groove (shorter than the track), like the game scroll bar. */
 .range::-webkit-slider-thumb {
   appearance: none;
-  width: 24px;
-  height: 11px;
-  border-radius: 2px;
-  background: var(--thumb-face);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold-lo));
   border: 1px solid var(--frame-edge);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .range::-moz-range-thumb {
-  width: 24px;
-  height: 11px;
-  border-radius: 2px;
-  background: var(--thumb-face);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold-lo));
   border: 1px solid var(--frame-edge);
 }
 
@@ -186,41 +136,40 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-1);
 }
 
-/* Game beige buttons via the button-face sprite (shared by scope chips + dialog Close). */
-.scope-chip,
-.dialog__close {
-  display: inline-flex;
-  align-items: normal;
-  justify-content: center;
-  max-height: 26px;
-  padding: 4px 14px;
-  line-height: 1;
-  background: none;
-  border-style: solid;
-  border-width: 6px;
-  border-image: var(--btn-face) 6 fill stretch;
-  color: var(--chip-ink);
+.scope-chip {
+  padding: 3px 10px;
+  border: 1px solid var(--gold-lo);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
+  color: var(--text-dim);
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  cursor: var(--cursor, pointer);
-  image-rendering: pixelated;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
-  transition: filter 0.12s ease;
+  cursor: pointer;
+  transition:
+    color 0.12s ease,
+    box-shadow 0.12s ease;
 }
 
-.scope-chip:focus-visible,
-.dialog__close:focus-visible {
+.scope-chip:hover {
+  color: var(--text);
+}
+
+.scope-chip:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 1px;
 }
 
-/* Active scope: the same button, darkened (pressed look). */
 .scope-chip[aria-pressed='true'] {
-  filter: brightness(0.8);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 0 6px var(--accent-soft),
+    0 0 4px var(--accent-soft);
 }
 
 /* ---- Transport ----------------------------------------------------------- */
@@ -228,12 +177,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-4);
-}
-
-/* Dark-brown glyphs to match the tinted game arrow sprite. */
-.transport .game-button__icon {
-  fill: var(--control-ink);
+  gap: var(--space-2);
 }
 
 /* ---- Settings dialog ----------------------------------------------------- */
@@ -252,11 +196,10 @@
   color: var(--text);
 }
 
-/* Spacing between dialog children now comes from .game-frame__inner's flex gap. */
 .dialog__title {
-  margin: 0;
+  margin: 0 0 var(--space-3);
   font-family: var(--font-display);
-  color: var(--text);
+  color: var(--gold-hi);
   text-align: center;
 }
 
@@ -265,18 +208,31 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .dialog__about {
-  margin: 0;
   font-size: 0.8rem;
   color: var(--text-dim);
   line-height: 1.4;
 }
 
-/* Visuals come from the shared .scope-chip/.dialog__close rule; just keep it from stretching. */
 .dialog__close {
-  align-self: center;
+  display: block;
+  margin: var(--space-2) auto 0;
+  padding: 6px var(--space-4);
+  border: 1px solid var(--gold-lo);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.dialog__close:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gold-hi);
 }
 
 .volume {
@@ -291,41 +247,4 @@
   height: 22px;
   fill: var(--gold-hi);
   flex: none;
-}
-
-/* ---- Responsive / mobile ------------------------------------------------- */
-@media (max-width: 520px) {
-  .app {
-    padding: var(--space-3);
-  }
-  .page-frame {
-    border-width: 10px;
-  }
-  .player {
-    width: min(96vw, 360px);
-  }
-  .game-frame__inner {
-    gap: var(--space-3);
-  }
-  .scope-chip {
-    padding: 5px 11px;
-    font-size: 0.7rem;
-  }
-  .transport {
-    gap: var(--space-1);
-  }
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .scope-chip {
-    min-height: 36px;
-  }
-  .game-button {
-    width: 46px;
-    height: 46px;
-  }
-  .game-button--sm {
-    width: 44px;
-    height: 44px;
-  }
 }

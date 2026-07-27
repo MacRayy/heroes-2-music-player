@@ -17,11 +17,9 @@ strike it here.
 
 ## Fidelity / art
 
-- ~~Authentic UI art from `HEROES2.AGG`~~ — **DONE (Phase 3)**: extracted frame + button sprites
-  per theme via `scripts/extract-art.ts`; see [[2026-07-23-ui-art]]. (Remaining fidelity nice-to-haves
-  below.)
-- **Game-inspired pixel-art transport icons** — the play/pause/next/shuffle glyphs are still simple
-  vector shapes on the authentic button faces; could be redrawn pixel-art to match the game.
+- **Authentic UI art from `HEROES2.AGG`** — replace the CSS-recreated buttons/frame with extracted
+  ICN sprites for pixel-perfect Good/Evil skins. Needs an ICN/AGG extraction pipeline (custom
+  parser or a community tool). Heavier: two full sprite sets + fixed-resolution assets.
 - **Per-track real album art** — Phase 1 uses per-category placeholder emblems. Real art = town
   paintings / terrain screenshots (extract from game or source). Data model already carries an
   optional `art` key per track.
