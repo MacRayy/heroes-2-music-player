@@ -37,6 +37,7 @@ export const PlayerPanel = (): ReactElement => {
       </div>
 
       <AlbumArt
+        key={currentTrack?.id ?? 'none'}
         category={category}
         title={currentTrack?.title ?? 'No track'}
         trackId={currentTrack?.id ?? null}

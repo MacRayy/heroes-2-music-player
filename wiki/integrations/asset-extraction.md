@@ -29,13 +29,14 @@
   [[2026-07-23-ui-art]].
 - `--dump ICN…` mode dumps every sprite of an ICN for exploration.
 
-**Album covers** — a second map `COVERS` (`src/data/assets.ts`, un-themed, keyed by cover id) maps
-tracks to real game elements: town songs → the faction's **castle building** sprite (`TWN?CSTL.ICN`
-#0, no surrounding scenery — K/B/S/W/Z/N); other categories → a representative
-`MONS32` creature (menu=Paladin, battle=Champion, terrain=Unicorn, victory=Titan, sting=Sprite).
-Extracted (same transform chain via `applyTransforms`) to `public/art/covers/<key>.png` (gitignored)
-+ committed `src/data/cover-manifest.json`. `AlbumArt` resolves the cover by the track id (minus the
-`-sw` suffix) first, then the category, else falls back to the SVG emblem.
+**Album covers** — a second map `COVERS` (`src/data/assets.ts`, un-themed) extracts a representative
+`MONS32` creature per category (menu=Paladin, battle=Champion, terrain=Unicorn, victory=Titan,
+sting=Sprite) via `applyTransforms` → `public/art/covers/<key>.png` (gitignored) + committed
+`cover-manifest.json`. `AlbumArt` tries `/art/covers/<key>.png` most-specific-first — the track id
+(minus `-sw`, e.g. `town-knight`) then the category (e.g. `battle`) — on 404 falling to the next,
+finally the SVG emblem. **Town/castle covers are drop-in**: the adventure-map castle is a multi-tile
+map object whose layout isn't in the ICN, so it can't be extracted cleanly — instead a per-faction
+screenshot placed at `public/art/covers/town-<faction>.png` is picked up automatically.
 
 **Guard** — `src/test/art-manifest.test.ts` asserts a `role×theme ↔ manifest` bijection, and
 `src/test/cover-manifest.test.ts` a `COVERS ↔ cover-manifest` bijection. CI-safe (committed manifests

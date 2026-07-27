@@ -1,6 +1,5 @@
-import type { ReactElement, ReactNode } from 'react'
+import { type ReactElement, type ReactNode, useState } from 'react'
 
-import coverManifest from '@/data/cover-manifest.json'
 import type { TrackCategory } from '@/data/tracks'
 
 const EMBLEMS: Record<TrackCategory, ReactNode> = {
@@ -16,28 +15,35 @@ const EMBLEMS: Record<TrackCategory, ReactNode> = {
   ),
 }
 
-// Prefer a track-specific cover (e.g. town-knight), else the category cover (e.g. battle).
-const resolveCover = (trackId: string | null, category: TrackCategory | null): string | null => {
-  const candidates = [trackId?.replace(/-sw$/v, ''), category].filter((k) => k != null)
-  return candidates.find((key) => Object.hasOwn(coverManifest, key)) ?? null
-}
-
 type AlbumArtProps = {
   readonly category: TrackCategory | null
   readonly title: string
   readonly trackId: string | null
 }
 
+// Cover candidates, most-specific first: the track (e.g. town-knight, drop-in) then the category
+// (e.g. battle, extracted). Each is tried as /art/covers/<key>.png; on 404 we fall to the next,
+// finally to the SVG category emblem.
 export const AlbumArt = ({ category, title, trackId }: AlbumArtProps): ReactElement => {
-  const coverKey = resolveCover(trackId, category)
+  const candidates = [trackId?.replace(/-sw$/v, ''), category].filter((k) => k != null)
+  const [step, setStep] = useState(0)
+  const coverKey = candidates[step]
+
   return (
     <div className="album-art" role="img" aria-label={`${title} artwork`}>
-      {coverKey === null ? (
+      {coverKey === undefined ? (
         <svg className="album-art__emblem" viewBox="0 0 24 24" aria-hidden="true">
           {category === null ? EMBLEMS.menu : EMBLEMS[category]}
         </svg>
       ) : (
-        <img className="album-art__cover" src={`/art/covers/${coverKey}.png`} alt="" />
+        <img
+          className="album-art__cover"
+          src={`/art/covers/${coverKey}.png`}
+          alt=""
+          onError={() => {
+            setStep((s) => s + 1)
+          }}
+        />
       )}
     </div>
   )

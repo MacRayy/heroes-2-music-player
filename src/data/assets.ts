@@ -95,13 +95,10 @@ export const ASSET_THEMES = ['good', 'evil'] as const
  * `public/art/covers/<key>.png`; keys with no entry fall back to the SVG category emblem.
  */
 export const COVERS: Record<string, AssetSource> = {
-  // Town songs → the faction's castle building sprite (no surrounding scenery).
-  'town-knight': { icn: 'TWNKCSTL.ICN', index: 0 },
-  'town-barbarian': { icn: 'TWNBCSTL.ICN', index: 0 },
-  'town-sorceress': { icn: 'TWNSCSTL.ICN', index: 0 },
-  'town-warlock': { icn: 'TWNWCSTL.ICN', index: 0 },
-  'town-wizard': { icn: 'TWNZCSTL.ICN', index: 0 },
-  'town-necromancer': { icn: 'TWNNCSTL.ICN', index: 0 },
+  // NOTE: the adventure-map castle is a multi-tile map object whose tile layout isn't in the ICN,
+  // so town covers are supplied as drop-in images at public/art/covers/town-<faction>.png (see
+  // AlbumArt's on-error fallback), not extracted here.
+  //
   // Other categories → a representative game creature / element.
   menu: { icn: 'MONS32.ICN', index: 9, scale: 3 }, // Paladin
   battle: { icn: 'MONS32.ICN', index: 8, scale: 3 }, // Champion (mounted lancer)
