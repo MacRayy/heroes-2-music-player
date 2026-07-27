@@ -1,5 +1,14 @@
 export type AssetRole =
-  'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow' | 'settings' | 'hero' | 'horse'
+  | 'frame'
+  | 'page'
+  | 'btn'
+  | 'btn-pressed'
+  | 'cursor'
+  | 'arrow'
+  | 'settings'
+  | 'hero'
+  | 'horse'
+  | 'chest'
 
 export type Trim = {
   readonly top: number
@@ -104,6 +113,11 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
         keyLuma: 120,
         tint: [0x50, 0x50, 0x50],
       },
+    },
+    // Treasure chest (adventure-map object) — kept in full colour for the support button.
+    chest: {
+      good: { icn: 'OBJNRSRC.ICN', index: 19, scale: 2 },
+      evil: { icn: 'OBJNRSRC.ICN', index: 19, scale: 2 },
     },
   }
 

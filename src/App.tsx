@@ -1,8 +1,10 @@
 import { type ReactElement, useState } from 'react'
 
 import { Background } from '@/components/Background'
+import { Footer } from '@/components/Footer'
 import { PlayerPanel } from '@/components/PlayerPanel'
 import { StartGate } from '@/components/StartGate'
+import { Support } from '@/components/Support'
 import { PlayerProvider, usePlayerContext } from '@/state/PlayerContext'
 import { ThemeProvider } from '@/theme/ThemeProvider'
 
@@ -26,6 +28,8 @@ const Shell = (): ReactElement => {
         <PlayerPanel />
       </div>
       <div className="page-frame" aria-hidden="true" />
+      {hasStarted ? <Support /> : null}
+      {hasStarted ? <Footer /> : null}
       <StartGate
         isOpen={!hasStarted}
         hasConfirmed={hasConfirmed}

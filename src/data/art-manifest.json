@@ -92,5 +92,15 @@
     "file": "horse-evil.png",
     "width": 52,
     "height": 52
+  },
+  "chest.good": {
+    "file": "chest-good.png",
+    "width": 64,
+    "height": 64
+  },
+  "chest.evil": {
+    "file": "chest-evil.png",
+    "width": 64,
+    "height": 64
   }
 }

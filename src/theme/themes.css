@@ -30,6 +30,7 @@
   --settings-src: url('/art/ui/settings-good.png');
   --hero-src: url('/art/ui/hero-good.png');
   --horse-src: url('/art/ui/horse-good.png');
+  --chest-src: url('/art/ui/chest-good.png');
 }
 
 /* EVIL — red/ember over dark iron. */
@@ -59,6 +60,7 @@
   --settings-src: url('/art/ui/settings-evil.png');
   --hero-src: url('/art/ui/hero-evil.png');
   --horse-src: url('/art/ui/horse-evil.png');
+  --chest-src: url('/art/ui/chest-evil.png');
 
   /* Evil buttons are grey iron; glyphs/labels are dark grey, scroll grip is grey. */
   --chip-ink: #505050;
