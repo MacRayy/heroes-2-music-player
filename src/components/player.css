@@ -42,29 +42,45 @@
   pointer-events: none;
 }
 
+/* Step 1: a solid black screen. On confirm it fades out, revealing the (unblurring) map. */
 .start-gate__fog {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--bg-base) url('/art/map-bg.jpg') center / cover no-repeat;
-  filter: brightness(0.2) blur(4px) grayscale(0.35);
+  background: #05070c;
+  transition: opacity 1.4s ease;
 }
 
-/* Uneven darkness = fog of war. */
-.start-gate__fog::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(65% 55% at 50% 42%, transparent, rgba(0, 0, 0, 0.9) 82%),
-    radial-gradient(40% 40% at 22% 70%, rgba(0, 0, 0, 0.5), transparent 60%),
-    radial-gradient(45% 45% at 80% 30%, rgba(0, 0, 0, 0.55), transparent 60%);
+.start-gate--confirmed .start-gate__fog {
+  opacity: 0;
 }
 
 .start-gate__panel {
   width: min(92vw, 380px);
   text-align: center;
   color: var(--text);
+}
+
+/* Step 2: a compact panel wrapping the horse button + a "Start" label beneath it. */
+.start-gate__panel--start {
+  width: auto;
+  text-align: center;
+}
+
+.start-gate__start-label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  text-shadow: 0 2px 2px var(--text-shadow);
+}
+
+.start-gate__okay {
+  align-self: center;
+  max-height: none;
+  padding: 6px 26px;
+  font-size: 1rem;
 }
 
 .start-gate__title {
@@ -103,6 +119,13 @@
   display: grid;
   place-items: center;
   padding: var(--space-5);
+  transition: opacity 0.6s ease;
+}
+
+/* Player stays hidden through both intro steps; revealed only when the horse is pressed. */
+.app--hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Ornate frame around the whole viewport (no `fill` → map shows through). */
@@ -270,9 +293,10 @@
   gap: var(--space-3);
 }
 
-/* Game beige buttons via the button-face sprite (shared by scope chips + dialog Close). */
+/* Game beige buttons via the button-face sprite (scope chips, dialog Close, gate Okay). */
 .scope-chip,
-.dialog__close {
+.dialog__close,
+.start-gate__okay {
   display: inline-flex;
   align-items: normal;
   justify-content: center;
@@ -294,7 +318,8 @@
 }
 
 .scope-chip:focus-visible,
-.dialog__close:focus-visible {
+.dialog__close:focus-visible,
+.start-gate__okay:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

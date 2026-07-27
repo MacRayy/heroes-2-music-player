@@ -5,17 +5,21 @@
 **Where** — `src/App.tsx` (`Shell` holds `hasStarted`), `src/components/StartGate.tsx`,
 `src/components/Background.tsx`, styles in `src/components/player.css` (`.start-gate*`, `.bg--revealed`).
 
-**What users see** — on load, an ornate panel over a **fog-of-war** background (the map darkened +
-uneven radial shadow). It shows the title, "Music Player", a one-line fan-project/consent note, and a
-**Start button = the game's horse glyph** (`ADVBTNS` #2, role `horse`, keyed off its button face). On
-press the fog lifts, the background **unblurs** to the full clear map (`.bg` → `.bg--revealed`, 1.6 s
-filter transition), the gate fades out, and playback begins.
+**What users see** — two steps:
+1. A **black screen** with an ornate welcome panel — title, "Music Player", a one-line
+   fan-project/consent note, and an **Okay** button.
+2. Okay fades the black away, **unblurring the map** to full clarity; a compact panel appears with the
+   game's **horse glyph** button (`ADVBTNS` #2, role `horse`, keyed off its button face) and the word
+   **Start** beneath it. The player itself stays hidden through both steps.
 
-**How it's wired** — `Shell` renders `<StartGate isOpen={!hasStarted} onStart={…}>`; `onStart` sets
-`hasStarted` and calls `togglePlay()` from the player context. The Start click doubles as the browser
-**autoplay gesture**, so `audio.play()` is allowed. The gate stays mounted but goes
-`opacity:0; pointer-events:none` when closed (smooth fade, no unmount race). The Start button is
-auto-focused for keyboard users.
+Pressing the horse reveals the player and begins playback.
+
+**How it's wired** — `Shell` holds two flags: `hasConfirmed` (Okay → `Background isRevealed`, map
+unblurs via `.bg` → `.bg--revealed`, 1.4 s black fade) and `hasStarted` (horse → `togglePlay()` +
+reveal the player via `.app` / `.app--hidden`). The horse click doubles as the browser **autoplay
+gesture**, so `audio.play()` is allowed (the `<audio>` is a JS-created object in the hook, unaffected
+by hiding the player). The gate stays mounted but goes `opacity:0; pointer-events:none` when closed.
+The active step's button is auto-focused for keyboard users.
 
 **Purpose** — click-to-enter consent before the public deploy streams the copyrighted HOMM2 audio,
 matching the reference site's start gate.

@@ -9,6 +9,8 @@ import { ThemeProvider } from '@/theme/ThemeProvider'
 import './components/player.css'
 
 const Shell = (): ReactElement => {
+  // Two-step intro: OKAY reveals the map, the horse button then starts playback.
+  const [hasConfirmed, setHasConfirmed] = useState(false)
   const [hasStarted, setHasStarted] = useState(false)
   const { togglePlay } = usePlayerContext()
 
@@ -19,12 +21,19 @@ const Shell = (): ReactElement => {
 
   return (
     <>
-      <Background isRevealed={hasStarted} />
-      <div className="app">
+      <Background isRevealed={hasConfirmed} />
+      <div className={`app${hasStarted ? '' : ' app--hidden'}`}>
         <PlayerPanel />
       </div>
       <div className="page-frame" aria-hidden="true" />
-      <StartGate isOpen={!hasStarted} onStart={handleStart} />
+      <StartGate
+        isOpen={!hasStarted}
+        hasConfirmed={hasConfirmed}
+        onConfirm={() => {
+          setHasConfirmed(true)
+        }}
+        onStart={handleStart}
+      />
     </>
   )
 }
