@@ -11,7 +11,21 @@
 - Files are flat (no per-category subfolders): `<base>/<file>`.
 - `joinUrl` normalizes slashes, so the base may or may not end in `/`.
 - Dev: unset → Vite serves `public/audio/*.mp3` at `/audio/`.
-- Prod: set to the bucket/CDN origin, e.g. `https://cdn.example.com/homm2-audio/`.
+- Prod (Sevalla): set to the object-storage bucket origin with a **versioned prefix**, e.g.
+  `https://<bucket-host>/homm2-audio/v1/`.
+
+**Caching (bandwidth — the whole reason the free tier lasts)**
+- The audio is the heavy payload, so the bucket objects must be served with
+  `Cache-Control: public, max-age=31536000, immutable` so returning listeners re-download nothing.
+- On Sevalla the audio lives in the **bucket, not the static site**, so this header is **per-object
+  metadata set at upload time** (S3/R2 `CacheControl`) — the static site's `public/_headers` file
+  does NOT reach the bucket's domain.
+- `immutable` is only safe because the prefix is versioned: re-transcoding a track under the same
+  filename means bumping `v1` → `v2` (see the relabel caveat below), which changes the URL and
+  bypasses every cache cleanly.
+- The static site's own assets are cached via `public/_headers` (copied to `dist/`): hashed
+  `/assets/*` + `/fonts/*` immutable-forever, `/art/*` 7 days (re-extractable), `index.html`
+  always-revalidate. Sevalla static hosting is Cloudflare-Pages-backed, which honors `_headers`.
 
 **Auth & config** — public read-only bucket; no credentials in the client. Set
 `VITE_AUDIO_BASE_URL` at build time (Vite inlines `import.meta.env.*`). See `.env.example`.
