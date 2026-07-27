@@ -17,9 +17,22 @@ export const NowPlayingTitle = ({ title }: NowPlayingTitleProps): ReactElement =
     if (container === null || inner === null) {
       return
     }
-    const overflow = Math.max(0, inner.scrollWidth - container.clientWidth)
-    inner.style.setProperty('--marquee', `${overflow}px`)
-    setHasOverflow(overflow > 0)
+    const measure = (): void => {
+      const overflow = Math.max(0, inner.scrollWidth - container.clientWidth)
+      inner.style.setProperty('--marquee', `${overflow}px`)
+      setHasOverflow(overflow > 0)
+    }
+    measure()
+    // Re-measure when the box resizes or the webfont swaps in (glyph widths change).
+    if (typeof ResizeObserver === 'undefined') {
+      return
+    }
+    const observer = new ResizeObserver(measure)
+    observer.observe(container)
+    observer.observe(inner)
+    return () => {
+      observer.disconnect()
+    }
   }, [title])
 
   return (
