@@ -21,19 +21,19 @@ export const TransportControls = (): ReactElement => {
 
   return (
     <div className="transport">
-      <GameButton label="Shuffle" size="sm" isPressed={isShuffle} onClick={toggleShuffle}>
+      <GameButton label="Shuffle" isPressed={isShuffle} onClick={toggleShuffle}>
         <ShuffleIcon />
       </GameButton>
       <GameButton label="Previous track" onClick={prev}>
         <PrevIcon />
       </GameButton>
-      <GameButton label={isPlaying ? 'Pause' : 'Play'} size="lg" onClick={togglePlay}>
+      <GameButton label={isPlaying ? 'Pause' : 'Play'} onClick={togglePlay}>
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </GameButton>
       <GameButton label="Next track" onClick={next}>
         <NextIcon />
       </GameButton>
-      <GameButton label={repeatLabel} size="sm" isPressed={repeat !== 'off'} onClick={cycleRepeat}>
+      <GameButton label={repeatLabel} isPressed={repeat !== 'off'} onClick={cycleRepeat}>
         {repeat === 'one' ? <RepeatOneIcon /> : <RepeatIcon />}
       </GameButton>
     </div>

@@ -61,3 +61,22 @@ don't fight the drag position.
 
 Build-time env var for where MP3s are served (unset → `/audio/` in dev; a CDN/bucket origin in
 prod). **Code:** `resolveAudioUrl` in `src/data/manifest.ts`. **Related:** [[audio-hosting]].
+
+## AGG
+
+The HOMM2 asset archive (`HEROES2.AGG`): `uint16` record count, `count×12` FAT `{hash,offset,size}`,
+`count×15` name table at EOF. Contains ICN sprites, the `KB.PAL` palette, sounds, etc.
+**Code:** `scripts/extract-art.ts`. **Related:** [[asset-extraction]].
+
+## ICN
+
+HOMM2 sprite format: `uint16 count`, `uint32 size`, `count×13` `ICNHeader`, then RLE bodies with a
+transform layer (transparent / shadow / lighten). Good/Evil UI variants share a name with an `E`
+suffix (e.g. `SYSTEM`/`SYSTEME`).
+**Code:** `scripts/extract-art.ts` (`decodeIcn`).
+
+## Asset manifest
+
+Committed `src/data/art-manifest.json` (`"<role>.<theme>" → {file,width,height,slice?}`) generated
+by the extractor; the gitignored PNGs live in `public/art/ui/`. Guarded by a bijection test.
+**Related:** [[2026-07-23-ui-art]].

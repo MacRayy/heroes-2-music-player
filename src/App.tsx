@@ -14,6 +14,7 @@ export const App = (): ReactElement => (
       <div className="app">
         <PlayerPanel />
       </div>
+      <div className="page-frame" aria-hidden="true" />
     </PlayerProvider>
   </ThemeProvider>
 )

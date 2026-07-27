@@ -2,16 +2,6 @@ import { type ReactElement, useEffect, useRef, useState } from 'react'
 
 import { usePlayerContext } from '@/state/PlayerContext'
 
-const formatTime = (seconds: number): string => {
-  if (!Number.isFinite(seconds) || seconds < 0) {
-    return '0:00'
-  }
-  const total = Math.floor(seconds)
-  const mins = Math.floor(total / 60)
-  const secs = total % 60
-  return `${mins}:${secs.toString().padStart(2, '0')}`
-}
-
 export const ProgressBar = (): ReactElement => {
   const { audioRef, currentId } = usePlayerContext()
   const [current, setCurrent] = useState(0)
@@ -55,7 +45,6 @@ export const ProgressBar = (): ReactElement => {
 
   return (
     <div className="progress">
-      <span>{formatTime(current)}</span>
       <input
         className="range"
         type="range"
@@ -74,7 +63,6 @@ export const ProgressBar = (): ReactElement => {
           seekTo(Number(e.target.value))
         }}
       />
-      <span>{formatTime(duration)}</span>
     </div>
   )
 }
