@@ -54,12 +54,8 @@
   --cursor: url('/art/ui/cursor-evil.png') 2 2, auto;
   --arrow-src: url('/art/ui/arrow-evil.png');
 
-  /* Evil buttons are grey iron; glyphs/labels are dark grey. */
+  /* Evil buttons are grey iron; glyphs/labels are dark grey, scroll grip is grey. */
   --chip-ink: #505050;
   --control-ink: #505050;
-  --btn-beige: #b6b6b6;
-  --btn-hi: #d7d7d7;
-  --btn-sh: #717171;
-  --btn-active: #808080;
   --thumb-face: linear-gradient(180deg, #dcdcdc 0%, #b0b0b0 55%, #8a8a8a 100%);
 }

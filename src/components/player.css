@@ -147,33 +147,30 @@
   gap: var(--space-3);
 }
 
-/*
- * Game map-size buttons (shared by scope chips + dialog Close). Drawn in pure CSS with a
- * symmetric bevel (light top-left, dark bottom-right) so the label is truly centred — the
- * button-face sprite's asymmetric bevel made it look off-centre. Beige matches the sprite.
- */
+/* Game beige buttons via the button-face sprite (shared by scope chips + dialog Close). */
 .scope-chip,
 .dialog__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 16px;
+  padding: 4px 14px;
   line-height: 1;
+  background: none;
+  border-style: solid;
+  border-width: 6px;
+  border-image: var(--btn-face) 6 fill stretch;
   color: var(--chip-ink);
-  background: var(--btn-beige);
-  border: 3px solid;
-  border-color: var(--btn-hi) var(--btn-sh) var(--btn-sh) var(--btn-hi);
-  border-radius: 2px;
   font-family: var(--font-body);
   font-size: 0.85rem;
   cursor: var(--cursor, pointer);
+  image-rendering: pixelated;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
   transition: filter 0.12s ease;
 }
 
 .scope-chip:hover,
 .dialog__close:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.06);
 }
 
 .scope-chip:focus-visible,
@@ -182,13 +179,10 @@
   outline-offset: 2px;
 }
 
-/* Active scope: darker fill with the bevel reversed (pressed/inset) — no drop shadow. */
+/* Active scope: the same button, darkened (pressed look). */
 .scope-chip[aria-pressed='true'],
 .scope-chip[aria-pressed='true']:hover {
-  background: var(--btn-active);
-  border-color: var(--btn-sh) var(--btn-hi) var(--btn-hi) var(--btn-sh);
-  box-shadow: none;
-  filter: none;
+  filter: brightness(0.8);
 }
 
 /* ---- Transport ----------------------------------------------------------- */
