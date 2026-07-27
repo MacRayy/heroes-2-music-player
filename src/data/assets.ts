@@ -80,10 +80,10 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
         tint: [0x50, 0x50, 0x50],
       },
     },
-    // Theme-toggle creature icons (MONS32 army icons): Good = Phoenix, Evil = Black Dragon.
+    // Theme-toggle creature icons (MONS32 army icons): Good = Black Dragon, Evil = Phoenix.
     creature: {
-      good: { icn: 'MONS32.ICN', index: 28, scale: 2 },
-      evil: { icn: 'MONS32.ICN', index: 37, scale: 2 },
+      good: { icn: 'MONS32.ICN', index: 37, scale: 2 },
+      evil: { icn: 'MONS32.ICN', index: 28, scale: 2 },
     },
   }
 

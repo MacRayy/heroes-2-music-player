@@ -18,7 +18,7 @@
 - Roles: `frame`/`page` (border-image sheets, `slice` = 9-slice inset), `btn`/`btn-pressed`,
   `cursor` (`ADVMCO.ICN` #0), `arrow` (`RECRUIT.ICN` up-arrow, rotated → prev/play/next), `settings`
   (the System-Options computer `ADVBTNS.ICN` #14, keyed out of its button face + tinted), and
-  `creature` (theme-toggle icons — `MONS32.ICN` #28 Phoenix / #37 Black Dragon). `trim` crops an edge
+  `creature` (theme-toggle icons — `MONS32.ICN` #37 Black Dragon (Good) / #28 Phoenix (Evil)). `trim` crops an edge
   before
   writing — used to drop `frame`'s baked shadow and to crop `page` (`ADVBORD`) down to its wood
   map-frame, dropping the right-side control panel (`trim.right: 160`, 640×480 → 480×480). `scale`
