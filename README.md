@@ -5,9 +5,12 @@ A themed web music player for the HOMM2 soundtrack, modeled on
 centered, in-game-style panel (album art, track title, transport controls) and two switchable
 interface themes (Good / Evil), using **real art, fonts and icons extracted from the game**.
 
-**Stack:** Vite + React + TypeScript, yarn. Builds to a static bundle. Audio (the game's soundtrack,
-transcoded OGG→MP3) is served from `public/audio/` locally or a CDN/object-storage base URL in
-production (`VITE_AUDIO_BASE_URL`).
+**▶ Live at [homm2musicplayer.com](https://homm2musicplayer.com)**
+
+**Stack:** Vite + React + TypeScript, yarn. Builds to a static bundle hosted on **Cloudflare
+Pages**. Audio (the game's soundtrack, transcoded OGG→MP3) ships in the bundle and is served
+same-origin from `/audio/`; it can be moved to a CDN / object-storage origin via
+`VITE_AUDIO_BASE_URL`.
 
 ## Develop
 
@@ -31,6 +34,19 @@ yarn extract:art     # UI sprites + album covers → public/art/
 yarn extract:font    # bitmap fonts → TTF in public/fonts/
 # audio (MP3s) → public/audio/  (see the audio build steps)
 ```
+
+## Deploy
+
+Hosted on **Cloudflare Pages** via direct upload of the locally-built `dist/` — the game assets are
+gitignored, so CI can't build them; the bundle is built on a machine with the game and uploaded:
+
+```sh
+yarn build
+npx wrangler pages deploy dist --project-name=heroes-2-music-player
+```
+
+Full steps (cache-header checks, one-time `wrangler login`) are in
+[`wiki/runbooks/deploy-cloudflare.md`](./wiki/runbooks/deploy-cloudflare.md).
 
 ## Support
 
