@@ -11,18 +11,37 @@ Releasing a new version of the player — any change to app code, art, fonts, or
 - Assets generated: `yarn extract:art`, `yarn extract:font`, and the MP3s in `public/audio/`.
 - `wrangler` authenticated once (browser OAuth): `npx wrangler login`.
 
-## Steps
-1. Build the production bundle. Leave `VITE_AUDIO_BASE_URL` unset so audio is served same-origin:
-   ```
-   yarn build          # dist/ = app + art + fonts + audio + _headers
-   ```
-2. (Optional) smoke-test locally: `yarn preview` → http://localhost:4173.
-3. Deploy the folder (first run also creates the project):
-   ```
-   npx wrangler pages project create heroes-2-music-player --production-branch=main   # first time only
-   npx wrangler pages deploy dist --project-name=heroes-2-music-player --branch=main --commit-dirty=true
-   ```
-   Live at https://heroes-2-music-player.pages.dev.
+## Steps — one command: `yarn deploy`
+
+`scripts/deploy.ts` does **build → upload → cache purge** in order:
+```
+yarn deploy
+```
+- Builds `dist/` (leave `VITE_AUDIO_BASE_URL` unset → audio served same-origin).
+- `wrangler pages deploy dist` to project `heroes-2-music-player`, branch `main`.
+- Purges the Cloudflare cache **iff** `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ZONE_ID` are set (see
+  "Cache purge" below); otherwise it prints a reminder to purge manually.
+
+First-time-only project create: `npx wrangler pages project create heroes-2-music-player
+--production-branch=main`. Live at https://heroes-2-music-player.pages.dev + the custom domain
+https://homm2musicplayer.com. Optional pre-deploy smoke-test: `yarn preview`.
+
+## Cache purge (do NOT skip)
+
+**Why:** during the deploy propagation window an edge can 404 the just-uploaded, freshly-hashed
+`/assets/*.js`, serve Pages' SPA fallback (`index.html`, `200 text/html`) for it, and — because
+`_headers` marks `/assets/*` `immutable` — pin that wrong response for a year. Result: a blank page
+on that edge (module fails MIME check) even though origin is correct. A purge after every deploy
+evicts any such entry before users hit it. (Verified real: 2026-07-28 deploy.)
+
+**Automated:** create a scoped Cloudflare API token (Zone → Cache Purge) + grab the zone id, then:
+```
+export CLOUDFLARE_API_TOKEN=…   # never commit; local env or CI secret only
+export CLOUDFLARE_ZONE_ID=…
+yarn deploy                      # now purges automatically at the end
+```
+**Manual fallback:** Cloudflare dashboard → homm2musicplayer.com → Caching → Configuration →
+Purge Everything.
 
 ## Verification
 - Headers (from `public/_headers`, which Pages honors):
@@ -40,8 +59,8 @@ Releasing a new version of the player — any change to app code, art, fonts, or
   [[decisions/2026-07-28-hosting-cloudflare-pages]].
 - Pages limits: unlimited bandwidth (free), 25 MiB/file (our MP3s are ~1–6 MB), 20k files/deploy
   (~83 here).
-- Redeploy = rebuild + re-run the `pages deploy` line. `index.html` is `must-revalidate`, so new
-  deploys are picked up immediately.
+- Redeploy = `yarn deploy` (build + upload + purge). `index.html` is `must-revalidate`, so new HTML
+  is picked up immediately; the purge handles the immutable `/assets/*` edge case above.
 
 ## Related
 - [[decisions/2026-07-28-hosting-cloudflare-pages]] — why Cloudflare over Sevalla.
