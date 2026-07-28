@@ -27,6 +27,19 @@ const writeSpritePng = (sprite: Sprite, outPath: string): void => {
   writeFileSync(outPath, PNG.sync.write(png))
 }
 
+// Center a sprite on a transparent square canvas (favicons must be square).
+const padToSquare = (sprite: Sprite): Sprite => {
+  const side = Math.max(sprite.width, sprite.height)
+  const rgba = new Uint8Array(side * side * 4)
+  const dx = Math.floor((side - sprite.width) / 2)
+  const dy = Math.floor((side - sprite.height) / 2)
+  for (let y = 0; y < sprite.height; y += 1) {
+    const src = y * sprite.width * 4
+    rgba.set(sprite.rgba.subarray(src, src + sprite.width * 4), ((y + dy) * side + dx) * 4)
+  }
+  return { width: side, height: side, offsetX: 0, offsetY: 0, rgba }
+}
+
 // trim → scale → rotate → keyLuma → tint (each step is optional per the source).
 const applyTransforms = (decoded: Sprite, source: AssetSource): Sprite => {
   const cropped = source.trim === undefined ? decoded : cropSprite(decoded, source.trim)
@@ -117,6 +130,7 @@ const main = (): void => {
   const coversDir = join(repoRoot, 'public', 'art', 'covers')
   mkdirSync(coversDir, { recursive: true })
   const coverManifest: Record<string, { width: number; height: number }> = {}
+  let faviconSprite: Sprite | undefined
   for (const [key, source] of Object.entries(COVERS)) {
     const decoded = spritesOf(source.icn)[source.index]
     if (decoded === undefined) {
@@ -126,6 +140,9 @@ const main = (): void => {
     const sprite = applyTransforms(decoded, source)
     writeSpritePng(sprite, join(coversDir, `${key}.png`))
     coverManifest[key] = { width: sprite.width, height: sprite.height }
+    if (key === 'town-warlock') {
+      faviconSprite = sprite
+    }
   }
   writeFileSync(
     join(repoRoot, 'src', 'data', 'cover-manifest.json'),
@@ -133,6 +150,12 @@ const main = (): void => {
     'utf8',
   )
   console.log(`✔ extracted ${Object.keys(coverManifest).length} covers → ${coversDir}`)
+
+  // Favicon: the Black Dragon (town-warlock cover) on a square canvas.
+  if (faviconSprite !== undefined) {
+    writeSpritePng(padToSquare(faviconSprite), join(repoRoot, 'public', 'favicon.png'))
+    console.log('✔ favicon → public/favicon.png')
+  }
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {

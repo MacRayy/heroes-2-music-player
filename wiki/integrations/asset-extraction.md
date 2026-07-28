@@ -38,6 +38,10 @@ sting=Ghost. `AlbumArt` tries `/art/covers/<key>.png` most-specific-first — th
 id (minus `-sw`, e.g. `town-knight`) then the category — on 404 falling to the next, finally the SVG
 emblem (so a hand-dropped `town-<faction>.png` still overrides).
 
+**Favicon** — the same run also writes `public/favicon.png` (gitignored): the `town-warlock` Black
+Dragon cover centered on a transparent square canvas (`padToSquare`). Referenced from `index.html`
+(`rel="icon"` + `apple-touch-icon`).
+
 **Guard** — `src/test/art-manifest.test.ts` asserts a `role×theme ↔ manifest` bijection, and
 `src/test/cover-manifest.test.ts` a `COVERS ↔ cover-manifest` bijection. CI-safe (committed manifests
 only; no AGG/PNGs needed), mirroring the audio manifest test.

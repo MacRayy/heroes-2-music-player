@@ -30,9 +30,10 @@ public/audio/
 # raw art source (optimized derivative committed instead)
 public/art/h2map.png
 
-# extracted UI art + album covers (regenerate with yarn extract:art)
+# extracted UI art + album covers + favicon (regenerate with yarn extract:art)
 public/art/ui/
 public/art/covers/
+public/favicon.png
 
 # extracted fonts (regenerate with yarn extract:font)
 public/fonts/
