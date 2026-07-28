@@ -8,7 +8,9 @@
 heroes-2-music-player/
   index.html                 Root div + pre-paint theme script (sets data-theme before first paint)
   vite.config.ts             Vite (React) + Vitest (jsdom) config; @ → src alias
-  scripts/build-audio.ts     OGG→MP3 transcode pipeline (run via tsx; ffmpeg/ffprobe)
+  playwright.config.ts       E2E config: dev server on :4288, headless Chromium (run via `yarn e2e`)
+  scripts/                   build-audio.ts (OGG→MP3), extract-art.ts + icn.ts/agg.ts (AGG→PNG art,
+                             covers, favicons), extract-font.ts (bitmap→TTF); run via tsx
   public/audio/              Generated MP3s (gitignored)
   public/art/                map-bg.jpg background (raw h2map.png gitignored)
   src/
@@ -22,7 +24,10 @@ heroes-2-music-player/
                              ThemeToggle, SettingsDialog, AlbumArt, player.css
     ui/                      GameButton, GameFrame (CSS-recreated primitives), icons.tsx
     theme/                   tokens.css (structure + good defaults), themes.css (good/evil), useTheme.ts
-    test/                    manifest.test.ts, usePlayer.test.ts, setup.ts
+    test/                    Vitest unit specs (pure logic, CI-safe): usePlayer, icn, manifest,
+                             art-manifest, cover-manifest + setup.ts
+  e2e/                       Playwright specs (start-gate, player, chrome) + utils.ts — local only,
+                             needs the gitignored game assets (see workflows/testing.md)
 ```
 
 Pure data/logic (`data/`, `hooks/usePlayer` reducer) has no React-DOM dependency and is unit-tested.
