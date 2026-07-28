@@ -4,8 +4,17 @@
   inset: 0;
   z-index: -2;
   background: var(--bg-base) url('/art/map-bg.jpg') center / cover no-repeat;
-  filter: blur(7px) saturate(1.05);
-  transform: scale(1.08);
+  /* Fogged/blurred until the Start gate reveals the map. */
+  filter: blur(9px) brightness(0.5) saturate(0.85);
+  transform: scale(1.12);
+  transition:
+    filter 1.6s ease,
+    transform 1.6s ease;
+}
+
+.bg--revealed {
+  filter: blur(0) brightness(1) saturate(1.05);
+  transform: scale(1.04);
 }
 
 .bg__tint {
@@ -16,12 +25,107 @@
     radial-gradient(120% 120% at 50% 40%, transparent 40%, var(--bg-vignette) 100%), var(--bg-tint);
 }
 
+/* ---- Start gate (fog-of-war intro) --------------------------------------- */
+.start-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.start-gate--closed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Step 1: a solid black screen. On confirm it fades out, revealing the (unblurring) map.
+ * No negative z-index — that would paint it behind the map layer (specks show through). */
+.start-gate__fog {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  transition: opacity 1.4s ease;
+}
+
+.start-gate--confirmed .start-gate__fog {
+  opacity: 0;
+}
+
+.start-gate__panel {
+  width: min(92vw, 380px);
+  text-align: center;
+  color: var(--text);
+}
+
+/* Step 2: a compact panel wrapping the horse button + a "Start" label beneath it. */
+.start-gate__panel--start {
+  width: auto;
+  text-align: center;
+}
+
+.start-gate__start-label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  text-shadow: 0 2px 2px var(--text-shadow);
+}
+
+.start-gate__okay {
+  align-self: center;
+  max-height: none;
+  padding: 6px 26px;
+  font-size: 1rem;
+}
+
+.start-gate__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  color: var(--text);
+  text-shadow: 0 2px 2px var(--text-shadow);
+}
+
+.start-gate__subtitle {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.start-gate__about {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.game-button.start-gate__button {
+  align-self: center;
+  width: 84px;
+  height: 84px;
+}
+
 /* ---- App layout ---------------------------------------------------------- */
 .app {
   min-height: 100%;
   display: grid;
   place-items: center;
   padding: var(--space-5);
+  transition: opacity 0.6s ease;
+}
+
+/* Player stays hidden through both intro steps; revealed only when the horse is pressed. */
+.app--hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Ornate frame around the whole viewport (no `fill` → map shows through). */
@@ -189,9 +293,10 @@
   gap: var(--space-3);
 }
 
-/* Game beige buttons via the button-face sprite (shared by scope chips + dialog Close). */
+/* Game beige buttons via the button-face sprite (scope chips, dialog Close, gate Okay). */
 .scope-chip,
-.dialog__close {
+.dialog__close,
+.start-gate__okay {
   display: inline-flex;
   align-items: normal;
   justify-content: center;
@@ -213,7 +318,8 @@
 }
 
 .scope-chip:focus-visible,
-.dialog__close:focus-visible {
+.dialog__close:focus-visible,
+.start-gate__okay:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -234,6 +340,89 @@
 /* Dark-brown glyphs to match the tinted game arrow sprite. */
 .transport .game-button__icon {
   fill: var(--control-ink);
+}
+
+/* ---- Support / fundraising ----------------------------------------------- */
+.support {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.game-button.support__button {
+  width: 54px;
+  height: 54px;
+}
+
+.support__label {
+  margin: 0;
+  max-width: 96px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--text);
+  text-shadow: 0 1px 2px var(--text-shadow);
+}
+
+.game-button.support__donate {
+  align-self: center;
+  width: 84px;
+  height: 84px;
+}
+
+.support__donate-label {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text);
+  text-shadow: 0 2px 2px var(--text-shadow);
+}
+
+/* ---- Footer (legal / privacy links) -------------------------------------- */
+.footer {
+  position: fixed;
+  left: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.footer__link {
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  text-shadow: 0 1px 2px var(--text-shadow);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: var(--cursor, pointer);
+}
+
+.footer__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.dialog__scroll {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-height: 52vh;
+  overflow-y: auto;
+  padding-right: var(--space-1);
 }
 
 /* ---- Settings dialog ----------------------------------------------------- */
@@ -313,6 +502,27 @@
   }
   .transport {
     gap: var(--space-1);
+  }
+  .support,
+  .footer {
+    right: var(--space-2);
+    left: auto;
+    bottom: var(--space-2);
+  }
+  .footer {
+    left: var(--space-2);
+    right: auto;
+  }
+  .game-button.support__button {
+    width: 46px;
+    height: 46px;
+  }
+  .support__label {
+    max-width: 76px;
+    font-size: 0.68rem;
+  }
+  .footer__link {
+    font-size: 0.72rem;
   }
 }
 

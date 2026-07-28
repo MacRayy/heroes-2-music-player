@@ -1,8 +1,12 @@
 import type { ReactElement } from 'react'
 
-export const Background = (): ReactElement => (
+type BackgroundProps = {
+  readonly isRevealed: boolean
+}
+
+export const Background = ({ isRevealed }: BackgroundProps): ReactElement => (
   <>
-    <div className="bg" aria-hidden="true" />
+    <div className={`bg${isRevealed ? ' bg--revealed' : ''}`} aria-hidden="true" />
     <div className="bg__tint" aria-hidden="true" />
   </>
 )

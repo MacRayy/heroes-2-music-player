@@ -1,0 +1,18 @@
+# Static-site cache rules (Sevalla static hosting reads this file).
+# Audio is NOT served from here in prod — it's in the object-storage bucket, whose Cache-Control
+# is set per-object at upload; see wiki/integrations/audio-hosting.md. /audio/* below is dev only.
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=604800
+
+/art/*
+  Cache-Control: public, max-age=604800
+
+/audio/*
+  Cache-Control: public, max-age=31536000, immutable

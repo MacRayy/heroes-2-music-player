@@ -1,5 +1,14 @@
 export type AssetRole =
-  'frame' | 'page' | 'btn' | 'btn-pressed' | 'cursor' | 'arrow' | 'settings' | 'hero'
+  | 'frame'
+  | 'page'
+  | 'btn'
+  | 'btn-pressed'
+  | 'cursor'
+  | 'arrow'
+  | 'settings'
+  | 'hero'
+  | 'horse'
+  | 'chest'
 
 export type Trim = {
   readonly top: number
@@ -50,10 +59,10 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
       good: { icn: 'SYSTEM.ICN', index: 12 },
       evil: { icn: 'SYSTEME.ICN', index: 12 },
     },
-    // The universal HOMM2 pointer (same sprite for both themes); upscaled for a visible CSS cursor.
+    // ×1.5 keeps it ≤32px; larger custom cursors are dropped near viewport edges by Chromium.
     cursor: {
-      good: { icn: 'ADVMCO.ICN', index: 0, scale: 2 },
-      evil: { icn: 'ADVMCO.ICN', index: 0, scale: 2 },
+      good: { icn: 'ADVMCO.ICN', index: 0, scale: 1.5 },
+      evil: { icn: 'ADVMCO.ICN', index: 0, scale: 1.5 },
     },
     // The game's up-arrow (RECRUIT quantity control), rotated to point right — CSS mirrors it for
     // left. Reused for prev/play/next. Tinted dark brown to match the transport glyphs.
@@ -85,6 +94,30 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
     hero: {
       good: { icn: 'PORT0057.ICN', index: 0 },
       evil: { icn: 'PORT0054.ICN', index: 0 },
+    },
+    // The game's horse glyph (ADVBTNS "next hero"), keyed off its button face — the Start button.
+    horse: {
+      good: {
+        icn: 'ADVBTNS.ICN',
+        index: 2,
+        trim: { top: 5, right: 5, bottom: 5, left: 5 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x55, 0x2b, 0x0d],
+      },
+      evil: {
+        icn: 'ADVBTNS.ICN',
+        index: 2,
+        trim: { top: 5, right: 5, bottom: 5, left: 5 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x50, 0x50, 0x50],
+      },
+    },
+    // Treasure chest (adventure-map object) — kept in full colour for the support button.
+    chest: {
+      good: { icn: 'OBJNRSRC.ICN', index: 19, scale: 2 },
+      evil: { icn: 'OBJNRSRC.ICN', index: 19, scale: 2 },
     },
   }
 

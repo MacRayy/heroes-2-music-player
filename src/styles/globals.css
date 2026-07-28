@@ -10,8 +10,12 @@ body,
   height: 100%;
 }
 
+/* On <html>, not body: page-frame edges hit-test through to the root element. */
+html {
+  cursor: var(--cursor, auto);
+}
+
 body {
   margin: 0;
   font-family: 'Times New Roman', Georgia, serif;
-  cursor: var(--cursor, auto);
 }

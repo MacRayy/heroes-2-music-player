@@ -179,8 +179,9 @@ export const tintSprite = (sprite: Sprite, rgb: readonly [number, number, number
 
 /** Nearest-neighbour integer upscale (keeps pixel art crisp; used for cursors). */
 export const scaleSprite = (sprite: Sprite, factor: number): Sprite => {
-  const width = sprite.width * factor
-  const height = sprite.height * factor
+  // Round to keep integer dimensions for fractional factors.
+  const width = Math.round(sprite.width * factor)
+  const height = Math.round(sprite.height * factor)
   const rgba = new Uint8Array(width * height * 4)
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {

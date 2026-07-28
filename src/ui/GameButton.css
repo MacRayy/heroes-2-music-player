@@ -60,6 +60,14 @@
   background-image: var(--hero-src);
 }
 
+.game-button__glyph--horse {
+  background-image: var(--horse-src);
+}
+
+.game-button__glyph--chest {
+  background-image: var(--chest-src);
+}
+
 /* Play / prev / next: the game's own arrow sprite (single = play, double = skip). */
 .game-arrows {
   display: inline-flex;
