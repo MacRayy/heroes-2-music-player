@@ -51,5 +51,6 @@
   "dependencies": {
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
-  }
+  },
+  "packageManager": "yarn@4.14.1"
 }
