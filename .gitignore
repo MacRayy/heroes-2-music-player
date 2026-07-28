@@ -34,6 +34,7 @@ public/art/h2map.png
 public/art/ui/
 public/art/covers/
 public/favicon*.png
+public/og.png
 
 # extracted fonts (regenerate with yarn extract:font)
 public/fonts/

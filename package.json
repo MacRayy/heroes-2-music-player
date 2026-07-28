@@ -18,7 +18,8 @@
     "extract:art": "tsx scripts/extract-art.ts",
     "extract:font": "tsx scripts/extract-font.ts",
     "e2e": "playwright test",
-    "deploy": "tsx scripts/deploy.ts"
+    "deploy": "tsx scripts/deploy.ts",
+    "make:og": "tsx scripts/make-og.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.0",
