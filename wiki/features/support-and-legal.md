@@ -9,11 +9,12 @@ fixed-position overlays outside the centered player panel.
 - **Fundraising** (`src/components/Support.tsx`): a treasure-chest button in the bottom-right corner
   labelled "Server fundraising". Opens a modal explaining that streaming the soundtrack from a server
   costs money; a chest button ("Buy me a brick") links to `buymeacoffee.com/MacRay` in a new tab.
-- **Footer** (`src/components/Footer.tsx`): two links in the bottom-left — "Copyrights & licences"
-  and "Privacy policy" — each opening a modal. Copyright text is adapted for HOMM2 (composers Paul
-  Anthony Romero, Rob King, Steve Baca), asserts non-affiliation with Ubisoft, cites US fair use
-  (17 U.S.C. § 107), and notes the code is MIT-licensed. Privacy text states no user data is
-  collected by the author; the host (Sevalla) may keep standard server logs.
+- **Footer** (`src/components/Footer.tsx`): three links in the bottom-left — "Copyrights & licences"
+  and "Privacy policy" (each opening a modal) plus "Source" (an external link to the GitHub repo).
+  Copyright text is adapted for HOMM2 (composers Paul Anthony Romero, Rob King, Steve Baca), asserts
+  non-affiliation with Ubisoft, cites US fair use (17 U.S.C. § 107), and notes the code is
+  MIT-licensed. Privacy text states no user data is collected by the author; the host (Cloudflare)
+  may keep standard server logs.
 
 **How it's wired**
 - Both modals use the shared **`Dialog`** primitive (`src/ui/Dialog.tsx`): backdrop + framed panel +
