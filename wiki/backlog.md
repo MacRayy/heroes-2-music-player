@@ -55,5 +55,9 @@ strike it here.
   served same-origin from Pages (cached immutable via `_headers`); fine at this scale. Moving them to
   object storage / CDN behind `VITE_AUDIO_BASE_URL` is deferred until bandwidth climbs. See
   [[audio-hosting]].
-- **Committed E2E suite + CI** — promote the ad-hoc scratchpad Playwright playback check into a
-  committed `@playwright/test` suite with browser setup in CI.
+- ~~**Committed E2E suite**~~ — **DONE**: `@playwright/test` suite in `e2e/` (`yarn e2e`) covering
+  the start gate, transport (next/pause), scope-chip filtering, and the footer/support/settings
+  modals. See [[testing]].
+- **E2E in CI** — still deferred: the suite drives the real app, which needs the gitignored game
+  assets, so it can't run on a stock CI runner without a game copy. Today it's a local/pre-push
+  safety net; CI would need a pre-seeded asset bundle (same blocker as the deploy).

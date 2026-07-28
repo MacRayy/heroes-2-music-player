@@ -202,3 +202,16 @@ export const cropSprite = (sprite: Sprite, trim: Trim): Sprite => {
   }
   return { width, height, offsetX: sprite.offsetX, offsetY: sprite.offsetY, rgba }
 }
+
+// Center a sprite on a transparent square canvas (side = the larger dimension).
+export const padToSquare = (sprite: Sprite): Sprite => {
+  const side = Math.max(sprite.width, sprite.height)
+  const rgba = new Uint8Array(side * side * 4)
+  const dx = Math.floor((side - sprite.width) / 2)
+  const dy = Math.floor((side - sprite.height) / 2)
+  for (let y = 0; y < sprite.height; y += 1) {
+    const src = y * sprite.width * 4
+    rgba.set(sprite.rgba.subarray(src, src + sprite.width * 4), ((y + dy) * side + dx) * 4)
+  }
+  return { width: side, height: side, offsetX: 0, offsetY: 0, rgba }
+}

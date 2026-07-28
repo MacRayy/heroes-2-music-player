@@ -5,8 +5,10 @@ import {
   decodeIcn,
   keyLumaSprite,
   loadPalette,
+  padToSquare,
   rotateSprite,
   scaleSprite,
+  type Sprite,
   tintSprite,
 } from '../../scripts/icn'
 
@@ -161,5 +163,40 @@ describe('cropSprite', () => {
     expect(cropped.width).toBe(2)
     expect(cropped.height).toBe(2)
     expect(pixel(cropped, 0, 0)).toEqual([0, 255, 0, 255]) // old (1,0) green
+  })
+})
+
+describe('padToSquare', () => {
+  const makeSprite = (width: number, height: number): Sprite => {
+    const rgba = new Uint8Array(width * height * 4)
+    for (let i = 0; i < width * height; i += 1) {
+      rgba[i * 4] = i + 1 // distinct non-zero red per pixel
+      rgba[i * 4 + 3] = 255 // opaque
+    }
+    return { width, height, offsetX: 0, offsetY: 0, rgba }
+  }
+
+  it('pads a tall sprite into a square, centered horizontally, with transparent sides', () => {
+    const out = padToSquare(makeSprite(1, 3))
+    expect([out.width, out.height]).toEqual([3, 3])
+    expect(pixel(out, 1, 0)).toEqual([1, 0, 0, 255])
+    expect(pixel(out, 1, 2)).toEqual([3, 0, 0, 255])
+    expect(pixel(out, 0, 0)).toEqual([0, 0, 0, 0])
+    expect(pixel(out, 2, 2)).toEqual([0, 0, 0, 0])
+  })
+
+  it('pads a wide sprite into a square, centered vertically', () => {
+    const out = padToSquare(makeSprite(3, 1))
+    expect([out.width, out.height]).toEqual([3, 3])
+    expect(pixel(out, 0, 1)).toEqual([1, 0, 0, 255])
+    expect(pixel(out, 2, 1)).toEqual([3, 0, 0, 255])
+    expect(pixel(out, 0, 0)).toEqual([0, 0, 0, 0])
+  })
+
+  it('leaves an already-square sprite unchanged in place', () => {
+    const out = padToSquare(makeSprite(2, 2))
+    expect([out.width, out.height]).toEqual([2, 2])
+    expect(pixel(out, 0, 0)).toEqual([1, 0, 0, 255])
+    expect(pixel(out, 1, 1)).toEqual([4, 0, 0, 255])
   })
 })

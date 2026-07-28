@@ -15,6 +15,7 @@ import {
   decodeIcn,
   keyLumaSprite,
   loadPalette,
+  padToSquare,
   rotateSprite,
   scaleSprite,
   type Sprite,
@@ -25,19 +26,6 @@ const writeSpritePng = (sprite: Sprite, outPath: string): void => {
   const png = new PNG({ width: sprite.width, height: sprite.height })
   png.data.set(sprite.rgba)
   writeFileSync(outPath, PNG.sync.write(png))
-}
-
-// Center a sprite on a transparent square canvas (favicons must be square).
-const padToSquare = (sprite: Sprite): Sprite => {
-  const side = Math.max(sprite.width, sprite.height)
-  const rgba = new Uint8Array(side * side * 4)
-  const dx = Math.floor((side - sprite.width) / 2)
-  const dy = Math.floor((side - sprite.height) / 2)
-  for (let y = 0; y < sprite.height; y += 1) {
-    const src = y * sprite.width * 4
-    rgba.set(sprite.rgba.subarray(src, src + sprite.width * 4), ((y + dy) * side + dx) * 4)
-  }
-  return { width: side, height: side, offsetX: 0, offsetY: 0, rgba }
 }
 
 // trim → scale → rotate → keyLuma → tint (each step is optional per the source).
