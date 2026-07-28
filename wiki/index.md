@@ -32,6 +32,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 - [`decisions/2026-07-22-audio-pipeline.md`](decisions/2026-07-22-audio-pipeline.md) — editorial `tracks.ts` + committed generated manifest.
 - [`decisions/2026-07-22-soundtrack-scope.md`](decisions/2026-07-22-soundtrack-scope.md) — extended soundtrack: SW alternates in rotation, stings behind a scope chip.
 - [`decisions/2026-07-23-ui-art.md`](decisions/2026-07-23-ui-art.md) — authentic HOMM2 UI art extracted from HEROES2.AGG.
+- [`decisions/2026-07-28-hosting-cloudflare-pages.md`](decisions/2026-07-28-hosting-cloudflare-pages.md) — deploy via Cloudflare Pages direct upload (not Sevalla).
 
 ## Bugs
 
@@ -41,6 +42,8 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 ## Runbooks
 
 <!-- Recurring operational pain points with known recovery paths. -->
+
+- [`runbooks/deploy-cloudflare.md`](runbooks/deploy-cloudflare.md) — build `dist/` locally + `wrangler pages deploy` to Cloudflare Pages.
 
 ## Tech debt
 

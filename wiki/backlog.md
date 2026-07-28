@@ -30,9 +30,9 @@ strike it here.
 
 ## Accessibility
 
-- **Settings dialog focus management** — the dialog has `role="dialog"`/`aria-modal`/`aria-labelledby`
-  and closes on Esc + Close button, but lacks a focus trap and focus-restore-on-close. Add both when
-  hardening a11y.
+- ~~**Settings dialog focus management**~~ — **DONE**: the shared `Dialog` primitive
+  (`src/ui/Dialog.tsx`) now moves focus into the panel on open, traps Tab, and restores focus to the
+  trigger on close — covering Settings, Support, and the footer modals. See [[support-and-legal]].
 
 ## UX parity with the reference
 
@@ -48,9 +48,12 @@ strike it here.
 
 ## Ops / delivery
 
-- **Production audio hosting** — move the ~90 MB of MP3s to object storage / CDN (Cloudflare R2,
-  Sevalla static, S3) and point `VITE_AUDIO_BASE_URL` at it. See [[audio-hosting]] for the contract.
-- **Deploy pipeline** — Vercel or Sevalla static deploy of the Vite `dist/` (lean app bundle,
-  audio served from the bucket above).
+- ~~**Deploy pipeline**~~ — **DONE**: Cloudflare Pages via direct upload of the locally-built `dist/`
+  (`wrangler pages deploy`). Live at https://heroes-2-music-player.pages.dev. See
+  [[deploy-cloudflare]] + [[2026-07-28-hosting-cloudflare-pages]].
+- **Production audio hosting** — currently the ~63 MB of MP3s ship in the `dist/` bundle and are
+  served same-origin from Pages (cached immutable via `_headers`); fine at this scale. Moving them to
+  object storage / CDN behind `VITE_AUDIO_BASE_URL` is deferred until bandwidth climbs. See
+  [[audio-hosting]].
 - **Committed E2E suite + CI** — promote the ad-hoc scratchpad Playwright playback check into a
   committed `@playwright/test` suite with browser setup in CI.
