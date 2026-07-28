@@ -7,9 +7,10 @@ interface themes (Good / Evil), using **real art, fonts and icons extracted from
 
 **▶ Live at [homm2musicplayer.com](https://homm2musicplayer.com)**
 
-**Stack:** Vite + React + TypeScript, yarn. Builds to a static bundle hosted on **Cloudflare Pages**.
-Audio (the game's soundtrack, transcoded OGG→MP3) ships in the bundle and is served same-origin from
-`/audio/`; it can be moved to a CDN / object-storage origin via `VITE_AUDIO_BASE_URL`.
+**Stack:** Vite + React + TypeScript, yarn. Builds to a static bundle hosted on **Cloudflare
+Pages**. Audio (the game's soundtrack, transcoded OGG→MP3) ships in the bundle and is served
+same-origin from `/audio/`; it can be moved to a CDN / object-storage origin via
+`VITE_AUDIO_BASE_URL`.
 
 ## Develop
 
