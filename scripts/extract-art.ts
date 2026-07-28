@@ -130,7 +130,7 @@ const main = (): void => {
   const coversDir = join(repoRoot, 'public', 'art', 'covers')
   mkdirSync(coversDir, { recursive: true })
   const coverManifest: Record<string, { width: number; height: number }> = {}
-  let faviconSprite: Sprite | undefined
+  const faviconSprites: Record<string, Sprite> = {}
   for (const [key, source] of Object.entries(COVERS)) {
     const decoded = spritesOf(source.icn)[source.index]
     if (decoded === undefined) {
@@ -140,8 +140,8 @@ const main = (): void => {
     const sprite = applyTransforms(decoded, source)
     writeSpritePng(sprite, join(coversDir, `${key}.png`))
     coverManifest[key] = { width: sprite.width, height: sprite.height }
-    if (key === 'town-warlock') {
-      faviconSprite = sprite
+    if (key === 'town-warlock' || key === 'town-sorceress') {
+      faviconSprites[key] = sprite
     }
   }
   writeFileSync(
@@ -151,11 +151,16 @@ const main = (): void => {
   )
   console.log(`✔ extracted ${Object.keys(coverManifest).length} covers → ${coversDir}`)
 
-  // Favicon: the Black Dragon (town-warlock cover) on a square canvas.
-  if (faviconSprite !== undefined) {
-    writeSpritePng(padToSquare(faviconSprite), join(repoRoot, 'public', 'favicon.png'))
-    console.log('✔ favicon → public/favicon.png')
+  // Favicons on a square canvas: Black Dragon for light chrome, Phoenix (bright) for dark.
+  const dragon = faviconSprites['town-warlock']
+  const phoenix = faviconSprites['town-sorceress']
+  if (dragon !== undefined) {
+    writeSpritePng(padToSquare(dragon), join(repoRoot, 'public', 'favicon.png'))
   }
+  if (phoenix !== undefined) {
+    writeSpritePng(padToSquare(phoenix), join(repoRoot, 'public', 'favicon-dark.png'))
+  }
+  console.log('✔ favicons → public/favicon.png (light) + favicon-dark.png (dark)')
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
