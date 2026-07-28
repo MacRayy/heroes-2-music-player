@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommitsDisabled"],
+  "timezone": "Europe/Budapest",
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "commitMessagePrefix": "⬆️",
+  "prConcurrentLimit": 5,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Auto-merge safe updates once CI is green: all patch/pin/digest",
+      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "automerge": true
+    },
+    {
+      "description": "Auto-merge dev-dependency minor bumps (CI-gated)",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
+    },
+    {
+      "description": "Group non-major production deps into one PR for review",
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor"],
+      "groupName": "production dependencies (minor)"
+    },
+    {
+      "description": "Major updates: individual PRs, reviewed manually",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["major"]
+    }
+  ]
+}
