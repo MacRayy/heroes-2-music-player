@@ -62,3 +62,5 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 ## Workflows
 
 <!-- Repeatable team processes (release dance, PR flow, codegen loop, …). -->
+
+- [`workflows/testing.md`](workflows/testing.md) — `yarn test` (unit, CI-safe) + `yarn e2e` (Playwright, local).

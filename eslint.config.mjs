@@ -121,6 +121,7 @@ export default [
       'public/**',
       'wiki/**',
       'scripts/**',
+      'e2e/**',
     ],
   },
   {

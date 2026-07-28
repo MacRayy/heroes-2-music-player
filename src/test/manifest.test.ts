@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { audioManifest } from '@/data/manifest'
+import { audioManifest, joinUrl, resolveAudioUrl } from '@/data/manifest'
 import { TRACKS } from '@/data/tracks'
 
 // Authoritative fheroes2 castle mapping (mus.cpp, GOG/DOS scheme file = index − 1).
@@ -57,5 +57,36 @@ describe('castle labeling guard (src → title)', () => {
       }
       expect(track.title).toContain(expected)
     }
+  })
+})
+
+describe('joinUrl', () => {
+  it('joins base and file with exactly one slash, regardless of stray slashes', () => {
+    expect(joinUrl('/audio/', 'x.mp3')).toBe('/audio/x.mp3')
+    expect(joinUrl('/audio', 'x.mp3')).toBe('/audio/x.mp3')
+    expect(joinUrl('https://cdn.example.com/', '/x.mp3')).toBe('https://cdn.example.com/x.mp3')
+    expect(joinUrl('https://cdn///', '///x.mp3')).toBe('https://cdn/x.mp3')
+  })
+})
+
+describe('resolveAudioUrl', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs()
+  })
+
+  it('defaults to same-origin /audio/ when VITE_AUDIO_BASE_URL is unset', () => {
+    expect(resolveAudioUrl('menu-main.mp3')).toBe('/audio/menu-main.mp3')
+  })
+
+  it('uses the configured base URL when set', () => {
+    vi.stubEnv('VITE_AUDIO_BASE_URL', 'https://cdn.example.com/homm2-audio/v1/')
+    expect(resolveAudioUrl('menu-main.mp3')).toBe(
+      'https://cdn.example.com/homm2-audio/v1/menu-main.mp3',
+    )
+  })
+
+  it('falls back to /audio/ when the base is an empty string', () => {
+    vi.stubEnv('VITE_AUDIO_BASE_URL', '')
+    expect(resolveAudioUrl('a.mp3')).toBe('/audio/a.mp3')
   })
 })
