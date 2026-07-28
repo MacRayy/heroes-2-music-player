@@ -4,6 +4,8 @@ import { Dialog } from '@/ui/Dialog'
 
 type Modal = 'info' | 'privacy' | null
 
+const REPO_URL = 'https://github.com/MacRayy/heroes-2-music-player'
+
 const COPYRIGHT = [
   'This website is not an official product or service of Heroes of Might and Magic II, Might and Magic, or Ubisoft Entertainment. All rights reserved. Copying or republishing items from this site without the authors’ permission is prohibited.',
   'The music and sound effects are from the game Heroes of Might and Magic II, composed by Paul Anthony Romero, Rob King and Steve Baca.',
@@ -13,7 +15,7 @@ const COPYRIGHT = [
 
 const PRIVACY = [
   'The author of this site does not collect any personal data about users.',
-  'The hosting provider (Sevalla) may collect standard statistical data such as the number of page views and visitors’ IP addresses as part of normal server operation. This is independent of the author.',
+  'The hosting provider (Cloudflare) may collect standard statistical data such as the number of page views and visitors’ IP addresses as part of normal server operation. This is independent of the author.',
   'The site uses meta tags for indexing by search engines and for link previews on social networks.',
 ]
 
@@ -43,6 +45,9 @@ export const Footer = (): ReactElement => {
         >
           Privacy policy
         </button>
+        <a className="footer__link" href={REPO_URL} target="_blank" rel="noreferrer">
+          Source
+        </a>
       </footer>
 
       {modal === null ? null : (
