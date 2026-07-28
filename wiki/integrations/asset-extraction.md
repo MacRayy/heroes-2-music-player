@@ -43,6 +43,11 @@ emblem (so a hand-dropped `town-<faction>.png` still overrides).
 `town-sorceress` Phoenix (bright — legible on dark chrome). `index.html` selects by
 `prefers-color-scheme` via `media` on the `rel="icon"` links; `apple-touch-icon` uses the Phoenix.
 
+**Social card** — `yarn make:og` (`scripts/make-og.ts`) renders the Open Graph image
+`public/og.png` (1200×630, gitignored): the MONS32 #35 Green Dragon on a dark game-themed card
+(game font, gold frame), via headless Chromium. Referenced from `index.html` `og:image` /
+`twitter:image` with absolute URLs. Regenerate with `yarn make:og` (needs HEROES2.AGG).
+
 **Guard** — `src/test/art-manifest.test.ts` asserts a `role×theme ↔ manifest` bijection, and
 `src/test/cover-manifest.test.ts` a `COVERS ↔ cover-manifest` bijection. CI-safe (committed manifests
 only; no AGG/PNGs needed), mirroring the audio manifest test.
