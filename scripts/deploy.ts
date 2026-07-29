@@ -18,7 +18,8 @@ const loadEnvFile = (path: string): void => {
     return
   }
   for (const raw of readFileSync(path, 'utf8').split('\n')) {
-    const line = raw.trim()
+    // Tolerate a leading `export ` (shell-profile muscle memory / the old runbook snippet).
+    const line = raw.trim().replace(/^export\s+/, '')
     const eq = line.indexOf('=')
     if (line === '' || line.startsWith('#') || eq === -1) {
       continue
