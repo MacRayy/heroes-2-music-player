@@ -42,3 +42,6 @@ public/fonts/
 # Playwright
 /test-results/
 /playwright-report/
+
+# JetBrains IDE
+.idea/
