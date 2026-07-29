@@ -34,9 +34,14 @@ creature per key via `applyTransforms` → `public/art/covers/<key>.png` (gitign
 `cover-manifest.json`. Town songs use the faction's **top-tier (upgraded) creature** (knight=Crusader,
 barbarian=Cyclops, sorceress=Phoenix, warlock=Black Dragon, wizard=Titan, necromancer=Bone Dragon);
 other categories: menu+victory=heraldic shield (`PRIMSKIL` #1), battle=Nomad, terrain=Rogue,
-sting=Ghost. `AlbumArt` tries `/art/covers/<key>.png` most-specific-first — the track
-id (minus `-sw`, e.g. `town-knight`) then the category — on 404 falling to the next, finally the SVG
-emblem (so a hand-dropped `town-<faction>.png` still overrides).
+sting=Ghost. The candidate order (track id minus `-sw`, e.g. `town-knight`, then the category) is one
+shared helper, `coverCandidates` in `src/data/covers.ts`, used by both consumers — but they resolve
+it differently:
+- **`AlbumArt`** (on-screen) tries `/art/covers/<key>.png` most-specific-first, on 404 falling to the
+  next, finally the SVG emblem — so a hand-dropped `town-<faction>.png` still overrides.
+- **Media Session** (OS media widget) uses `coverKeyForTrack`, a *static* `cover-manifest.json`
+  lookup (it can't 404-probe). Consequence: a drop-in cover not in the manifest shows on-screen but
+  **not** in the OS widget — add it to `COVERS` + re-extract to surface it there.
 
 **Favicon** — the same run writes two square favicons (gitignored, centered via `padToSquare`):
 `favicon.png` = `town-warlock` Black Dragon (for light browser chrome) and `favicon-dark.png` =
