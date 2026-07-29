@@ -34,14 +34,21 @@ https://homm2musicplayer.com. Optional pre-deploy smoke-test: `yarn preview`.
 on that edge (module fails MIME check) even though origin is correct. A purge after every deploy
 evicts any such entry before users hit it. (Verified real: 2026-07-28 deploy.)
 
-**Automated:** create a scoped Cloudflare API token (Zone → Cache Purge) + grab the zone id, then:
-```
-export CLOUDFLARE_API_TOKEN=…   # never commit; local env or CI secret only
-export CLOUDFLARE_ZONE_ID=…
-yarn deploy                      # now purges automatically at the end
-```
-**Manual fallback:** Cloudflare dashboard → homm2musicplayer.com → Caching → Configuration →
-Purge Everything.
+**Automated (one-time setup):** `yarn deploy` auto-purges when `CLOUDFLARE_API_TOKEN` +
+`CLOUDFLARE_ZONE_ID` are present — `scripts/deploy.ts` loads them from a gitignored **`.env`** (so
+you don't re-export each time; a real shell env var still wins).
+1. **Token:** Cloudflare → My Profile → **API Tokens → Create Token** → custom token with permission
+   **Zone → Cache Purge → Purge**, scoped to the `homm2musicplayer.com` zone. Copy it.
+2. **Zone id:** Cloudflare dashboard → the `homm2musicplayer.com` zone → **Overview**, right sidebar.
+3. Put both in `.env` (never commit — it's gitignored):
+   ```
+   CLOUDFLARE_API_TOKEN=…
+   CLOUDFLARE_ZONE_ID=…
+   ```
+   Now `yarn deploy` purges automatically at the end. Rotate the token if it ever leaks.
+
+**Manual fallback** (no token set): Cloudflare dashboard → homm2musicplayer.com → Caching →
+Configuration → Purge Everything.
 
 ## Verification
 - Headers (from `public/_headers`, which Pages honors):
