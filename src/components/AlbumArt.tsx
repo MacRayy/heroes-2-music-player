@@ -1,5 +1,6 @@
 import { type ReactElement, type ReactNode, useState } from 'react'
 
+import { coverCandidates } from '@/data/covers'
 import type { Track, TrackCategory } from '@/data/tracks'
 
 const EMBLEMS: Record<TrackCategory, ReactNode> = {
@@ -23,9 +24,7 @@ type AlbumArtProps = {
 // battle). Each is tried as /art/covers/<key>.png; on 404 we fall to the next, finally the SVG.
 export const AlbumArt = ({ track }: AlbumArtProps): ReactElement => {
   const category = track?.category ?? null
-  const candidates = [track?.id.replace(/-sw$/v, ''), category].filter(
-    (key): key is string => typeof key === 'string',
-  )
+  const candidates = track === null ? [] : coverCandidates(track)
   const [step, setStep] = useState(0)
   const coverKey = candidates[step]
 

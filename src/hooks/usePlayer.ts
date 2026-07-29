@@ -1,5 +1,6 @@
 import { type RefObject, useCallback, useEffect, useMemo, useReducer, useRef } from 'react'
 
+import { coverKeyForTrack, coverSizes } from '@/data/covers'
 import { resolveAudioUrl } from '@/data/manifest'
 import { type Scope, type Track, TRACKS } from '@/data/tracks'
 
@@ -191,7 +192,7 @@ export const usePlayer = (): PlayerApi => {
       return
     }
     engine.load(resolveAudioUrl(currentTrack.file), stateRef.current.isPlaying)
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on id+epoch only; epoch covers repeat-one replays, and engine/isPlaying are read via refs on purpose
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on id+epoch only; engine/isPlaying are read via refs on purpose
   }, [state.currentId, state.epoch])
 
   useEffect(() => {
@@ -214,6 +215,63 @@ export const usePlayer = (): PlayerApi => {
   useEffect(() => {
     engine.setLoop(state.repeat === 'one')
   }, [state.repeat, engine])
+
+  // Media Session: OS / lock-screen transport controls and hardware media keys.
+  useEffect(() => {
+    if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) {
+      return
+    }
+    const ms = navigator.mediaSession
+    ms.setActionHandler('play', () => {
+      if (!stateRef.current.isPlaying) {
+        dispatch({ type: 'togglePlay' })
+      }
+    })
+    ms.setActionHandler('pause', () => {
+      if (stateRef.current.isPlaying) {
+        dispatch({ type: 'togglePlay' })
+      }
+    })
+    ms.setActionHandler('previoustrack', () => {
+      dispatch({ type: 'prev' })
+    })
+    ms.setActionHandler('nexttrack', () => {
+      dispatch({ type: 'next' })
+    })
+    return () => {
+      for (const action of ['play', 'pause', 'previoustrack', 'nexttrack'] as const) {
+        ms.setActionHandler(action, null)
+      }
+    }
+  }, [])
+
+  // Media Session: now-playing metadata (title + album art shown in the OS media widget).
+  useEffect(() => {
+    if (
+      typeof navigator === 'undefined' ||
+      !('mediaSession' in navigator) ||
+      currentTrack === null
+    ) {
+      return
+    }
+    const key = coverKeyForTrack(currentTrack)
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: currentTrack.title,
+      artist: 'Heroes of Might & Magic II',
+      album: 'Original Soundtrack',
+      artwork:
+        key === null
+          ? []
+          : [{ src: `/art/covers/${key}.png`, sizes: coverSizes(key), type: 'image/png' }],
+    })
+  }, [currentTrack])
+
+  useEffect(() => {
+    if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) {
+      return
+    }
+    navigator.mediaSession.playbackState = state.isPlaying ? 'playing' : 'paused'
+  }, [state.isPlaying])
 
   const togglePlay = useCallback((): void => {
     dispatch({ type: 'togglePlay' })

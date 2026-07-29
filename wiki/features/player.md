@@ -24,10 +24,12 @@ metal): frame, buttons, and a viewport page-frame. Responsive/mobile-friendly. S
 
 **How it's wired** — `PlayerPanel` composes the sub-components; all read shared state from
 `usePlayerContext` (`src/state/PlayerContext.tsx`) except `ProgressBar`, which owns the
-high-frequency `currentTime` locally. Audio is driven by `usePlayerEngine`. See
-[[architecture]] for the "play a track" walkthrough and [[2026-07-22-player-state]] /
-[[2026-07-22-theming]] for the state and theming decisions.
+high-frequency `currentTime` locally. Audio is driven by `usePlayerEngine`. `usePlayer` also wires
+the **Media Session API** — OS / lock-screen transport controls + hardware media keys, and
+now-playing metadata (title + album-cover artwork, resolved via `coverKeyForTrack` in
+`src/data/covers.ts`). See [[architecture]] for the "play a track" walkthrough and
+[[2026-07-22-player-state]] / [[2026-07-22-theming]] for the state and theming decisions.
 
-**Specs** — reducer + shuffle logic: `src/test/usePlayer.test.ts`; manifest coverage:
-`src/test/manifest.test.ts`. Real playback is verified with an ad-hoc Playwright driver (committed
-E2E is deferred — see `backlog.md`).
+**Specs** — pure logic in `src/test/` (reducer/shuffle, manifest + cover resolution, engine
+`setLoop`); user flows in `e2e/` (`yarn e2e`: start gate, transport, repeat modes, media session,
+modals). See [[testing]].
