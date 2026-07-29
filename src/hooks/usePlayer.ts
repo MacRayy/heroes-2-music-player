@@ -174,12 +174,8 @@ export const usePlayer = (): PlayerApi => {
   stateRef.current = state
 
   const engine = usePlayerEngine({
+    // repeat-one loops natively via el.loop, so 'ended' only fires for off/all.
     onEnded: () => {
-      if (stateRef.current.repeat === 'one') {
-        engine.seek(0)
-        engine.play()
-        return
-      }
       dispatch({ type: 'ended' })
     },
     onError: (message) => {
@@ -214,6 +210,10 @@ export const usePlayer = (): PlayerApi => {
       /* localStorage unavailable */
     }
   }, [state.volume, engine])
+
+  useEffect(() => {
+    engine.setLoop(state.repeat === 'one')
+  }, [state.repeat, engine])
 
   const togglePlay = useCallback((): void => {
     dispatch({ type: 'togglePlay' })
