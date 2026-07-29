@@ -2,12 +2,37 @@
 // The purge closes the propagation-race window where an edge can cache Pages' SPA fallback under a
 // freshly-hashed asset URL and pin it via the immutable header. See wiki/runbooks/deploy-cloudflare.md.
 import { execSync } from 'node:child_process'
+import { existsSync, readFileSync } from 'node:fs'
 
 const PROJECT = 'heroes-2-music-player'
 
 const run = (cmd: string): void => {
   console.log(`\n$ ${cmd}`)
   execSync(cmd, { stdio: 'inherit' })
+}
+
+// Load CLOUDFLARE_* from a gitignored .env so `yarn deploy` auto-purges without exporting them each
+// time. A real shell env var always wins; existing keys are never overwritten.
+const loadEnvFile = (path: string): void => {
+  if (!existsSync(path)) {
+    return
+  }
+  for (const raw of readFileSync(path, 'utf8').split('\n')) {
+    // Tolerate a leading `export ` (shell-profile muscle memory / the old runbook snippet).
+    const line = raw.trim().replace(/^export\s+/, '')
+    const eq = line.indexOf('=')
+    if (line === '' || line.startsWith('#') || eq === -1) {
+      continue
+    }
+    const key = line.slice(0, eq).trim()
+    if (key === '' || process.env[key] !== undefined) {
+      continue
+    }
+    process.env[key] = line
+      .slice(eq + 1)
+      .trim()
+      .replace(/^["']|["']$/g, '')
+  }
 }
 
 const purge = async (token: string, zone: string): Promise<void> => {
@@ -26,6 +51,7 @@ const purge = async (token: string, zone: string): Promise<void> => {
 }
 
 const main = async (): Promise<void> => {
+  loadEnvFile('.env')
   run('yarn build')
   run(`npx wrangler pages deploy dist --project-name=${PROJECT} --branch=main --commit-dirty=true`)
 
