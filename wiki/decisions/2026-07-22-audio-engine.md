@@ -28,8 +28,10 @@ autoplay never throws.
 
 - Autoplay before a gesture is swallowed; UI reflects paused state. No auto-skip on `error` yet
   (logs only — deferred, see `backlog.md`).
-- Repeat-one is handled imperatively in the engine (`seek(0); play()`), so the reducer treats
-  `ended` as a plain advance. See [[2026-07-22-player-state]].
+- Repeat-one uses the element's native `loop` (`engine.setLoop`, driven by `repeat === 'one'`), so
+  a looping track never emits `ended` and the reducer treats `ended` as a plain advance. (Originally
+  `seek(0); play()` on `ended`; replaced — see [[bugs/2026-07-29-repeat-one]].) See
+  [[2026-07-22-player-state]].
 
 ## References
 - `src/hooks/usePlayerEngine.ts`

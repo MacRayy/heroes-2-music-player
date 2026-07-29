@@ -63,16 +63,16 @@ flowchart TD
 1. **Trigger** — a transport button in `components/TransportControls.tsx` calls `next()` (or
    `togglePlay`/`prev`) from `usePlayerContext()`.
 2. **State** — `hooks/usePlayer.ts` dispatches to `playerReducer`, which advances `currentId` and
-   bumps `epoch` (a fresh-start counter that also covers repeat-one replays).
+   bumps `epoch` (a fresh-start counter for track/scope changes).
 3. **Load** — an effect keyed on `[currentId, epoch]` calls
    `engine.load(resolveAudioUrl(currentTrack.file), isPlaying)`.
 4. **Engine** — `hooks/usePlayerEngine.ts` sets `el.src`, calls `el.load()`, and fires
    `void el.play().catch(...)` (autoplay-safe). URL resolved from `data/manifest.ts`.
 5. **Progress** — `components/ProgressBar.tsx` (subscribed to the element's `timeupdate`) updates
    its own local time; the global tree does not re-render on the tick.
-6. **End** — the element's `ended` → `usePlayerEngine` handler: repeat-one replays imperatively
-   (`seek(0); play()`); otherwise it dispatches `ended`, and the reducer advances (or pauses at the
-   end of the list when repeat is off).
+6. **End** — repeat-one loops natively (`el.loop`, so `ended` never fires); otherwise the element's
+   `ended` → `usePlayerEngine` handler dispatches `ended`, and the reducer advances (or pauses at the
+   end of the list when repeat is off). See [[bugs/2026-07-29-repeat-one]].
 
 ## Conventions worth knowing
 

@@ -12,6 +12,7 @@ export type PlayerEngine = {
   pause: () => void
   seek: (seconds: number) => void
   setVolume: (value: number) => void
+  setLoop: (value: boolean) => void
 }
 
 const getAudio = (): HTMLAudioElement | null => (typeof Audio === 'undefined' ? null : new Audio())
@@ -88,5 +89,14 @@ export const usePlayerEngine = (handlers: PlayerEngineHandlers): PlayerEngine =>
     el.volume = Math.min(1, Math.max(0, value))
   }, [])
 
-  return { audioRef, load, play, pause, seek, setVolume }
+  // Native looping for repeat-one: gapless, and (unlike play()-on-ended) never autoplay-gated.
+  const setLoop = useCallback((value: boolean): void => {
+    const el = audioRef.current
+    if (el === null) {
+      return
+    }
+    el.loop = value
+  }, [])
+
+  return { audioRef, load, play, pause, seek, setVolume, setLoop }
 }
