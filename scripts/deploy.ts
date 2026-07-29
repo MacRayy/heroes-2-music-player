@@ -55,11 +55,13 @@ const main = async (): Promise<void> => {
   run('yarn build')
   run(`npx wrangler pages deploy dist --project-name=${PROJECT} --branch=main --commit-dirty=true`)
 
-  const token = process.env.CLOUDFLARE_API_TOKEN ?? ''
+  // Deliberately NOT `CLOUDFLARE_API_TOKEN` — that name is wrangler's own auth var, and a
+  // purge-scoped token there would hijack the `wrangler pages deploy` above.
+  const token = process.env.CLOUDFLARE_PURGE_TOKEN ?? ''
   const zone = process.env.CLOUDFLARE_ZONE_ID ?? ''
   if (token === '' || zone === '') {
     console.log(
-      '\n⚠ Skipping cache purge — set CLOUDFLARE_API_TOKEN + CLOUDFLARE_ZONE_ID to automate it.\n' +
+      '\n⚠ Skipping cache purge — set CLOUDFLARE_PURGE_TOKEN + CLOUDFLARE_ZONE_ID to automate it.\n' +
         '  Otherwise purge manually: Cloudflare dashboard → homm2musicplayer.com → Caching → Purge Everything.',
     )
     return

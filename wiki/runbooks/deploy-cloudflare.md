@@ -34,7 +34,7 @@ https://homm2musicplayer.com. Optional pre-deploy smoke-test: `yarn preview`.
 on that edge (module fails MIME check) even though origin is correct. A purge after every deploy
 evicts any such entry before users hit it. (Verified real: 2026-07-28 deploy.)
 
-**Automated (one-time setup):** `yarn deploy` auto-purges when `CLOUDFLARE_API_TOKEN` +
+**Automated (one-time setup):** `yarn deploy` auto-purges when `CLOUDFLARE_PURGE_TOKEN` +
 `CLOUDFLARE_ZONE_ID` are present — `scripts/deploy.ts` loads them from a gitignored **`.env`** (so
 you don't re-export each time; a real shell env var still wins).
 1. **Token:** Cloudflare → My Profile → **API Tokens → Create Token** → custom token with permission
@@ -42,10 +42,13 @@ you don't re-export each time; a real shell env var still wins).
 2. **Zone id:** Cloudflare dashboard → the `homm2musicplayer.com` zone → **Overview**, right sidebar.
 3. Put both in `.env` (never commit — it's gitignored):
    ```
-   CLOUDFLARE_API_TOKEN=…
+   CLOUDFLARE_PURGE_TOKEN=…
    CLOUDFLARE_ZONE_ID=…
    ```
    Now `yarn deploy` purges automatically at the end. Rotate the token if it ever leaks.
+   > **Do not** name it `CLOUDFLARE_API_TOKEN` — that is wrangler's own auth var; a purge-only token
+   > under that name breaks `wrangler pages deploy`. Deploy auth comes from your `wrangler login`
+   > (re-run `npx wrangler login` if it reports "authentication may have expired").
 
 **Manual fallback** (no token set): Cloudflare dashboard → homm2musicplayer.com → Caching →
 Configuration → Purge Everything.
