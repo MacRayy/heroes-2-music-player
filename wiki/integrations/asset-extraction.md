@@ -17,7 +17,10 @@
   `src/data/art-manifest.json` (`"<role>.<theme>" → {file, width, height, slice?}`).
 - Roles: `frame`/`page` (border-image sheets, `slice` = 9-slice inset), `btn`/`btn-pressed`,
   `cursor` (`ADVMCO.ICN` #0), `arrow` (`RECRUIT.ICN` up-arrow, rotated → prev/play/next), `settings`
-  (the System-Options computer `ADVBTNS.ICN` #14, keyed out of its button face + tinted), and
+  (the System-Options computer `ADVBTNS.ICN` #14, keyed out of its button face + tinted),
+  `share` (the pointing "move" hand `ADVBTNS.ICN` #6, same keyed+tinted recipe → the Share button),
+  `horse` (`ADVBTNS.ICN` #2 → the Start button) / `chest` (`OBJNRSRC.ICN` #19, full-colour → the
+  support button), and
   `hero` (theme-toggle portraits — `PORT0054` Roland (Good) / `PORT0057` Archibald (Evil)). `trim`
   crops an edge before
   writing — used to drop `frame`'s baked shadow and to crop `page` (`ADVBORD`) down to its wood

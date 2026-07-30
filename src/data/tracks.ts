@@ -1,4 +1,5 @@
-export type TrackCategory = 'menu' | 'battle' | 'town' | 'terrain' | 'victory' | 'sting'
+export type TrackCategory =
+  'menu' | 'battle' | 'town' | 'terrain' | 'victory' | 'campaign' | 'sting'
 
 export type Track = {
   readonly id: string
@@ -14,6 +15,7 @@ export const CATEGORY_LABELS: Record<TrackCategory, string> = {
   town: 'Towns',
   terrain: 'Terrain',
   victory: 'Victory',
+  campaign: 'Campaign',
   sting: 'Stings',
 }
 
@@ -28,6 +30,7 @@ export const SCOPE_LABELS: Record<Scope, string> = {
   town: 'Towns',
   terrain: 'Terrain',
   victory: 'Victory',
+  campaign: 'Campaign',
   sting: 'Stings',
 }
 
@@ -63,13 +66,14 @@ export const TRACKS: readonly Track[] = [
 
   { id: 'victory-scenario', src: 'homm2_42', file: 'victory-scenario.mp3', title: 'Scenario Victory', category: 'victory' },
 
+  { id: 'sting-roland', src: 'homm2_23', file: 'sting-roland.mp3', title: 'Roland Campaign', category: 'campaign' },
+  { id: 'sting-archibald', src: 'homm2_21', file: 'sting-archibald.mp3', title: 'Archibald Campaign', category: 'campaign' },
+  { id: 'sting-ai-turn', src: 'homm2_27', file: 'sting-ai-turn.mp3', title: 'AI Turn', category: 'campaign' },
+
   { id: 'sting-lost-game', src: 'homm2_18', file: 'sting-lost-game.mp3', title: 'Lost Game', category: 'sting' },
   { id: 'sting-new-week', src: 'homm2_19', file: 'sting-new-week.mp3', title: 'New Week', category: 'sting' },
   { id: 'sting-new-month', src: 'homm2_20', file: 'sting-new-month.mp3', title: 'New Month', category: 'sting' },
-  { id: 'sting-archibald', src: 'homm2_21', file: 'sting-archibald.mp3', title: 'Archibald Campaign', category: 'sting' },
   { id: 'sting-puzzle', src: 'homm2_22', file: 'sting-puzzle.mp3', title: 'Map Puzzle', category: 'sting' },
-  { id: 'sting-roland', src: 'homm2_23', file: 'sting-roland.mp3', title: 'Roland Campaign', category: 'sting' },
-  { id: 'sting-ai-turn', src: 'homm2_27', file: 'sting-ai-turn.mp3', title: 'AI Turn', category: 'sting' },
   { id: 'sting-battle-won', src: 'homm2_28', file: 'sting-battle-won.mp3', title: 'Battle Won', category: 'sting' },
   { id: 'sting-battle-lost', src: 'homm2_29', file: 'sting-battle-lost.mp3', title: 'Battle Lost', category: 'sting' },
   { id: 'sting-dungeon', src: 'homm2_30', file: 'sting-dungeon.mp3', title: 'Dungeon', category: 'sting' },

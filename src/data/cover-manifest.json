@@ -42,5 +42,17 @@
   "sting": {
     "width": 80,
     "height": 124
+  },
+  "sting-roland": {
+    "width": 202,
+    "height": 186
+  },
+  "sting-archibald": {
+    "width": 202,
+    "height": 186
+  },
+  "sting-ai-turn": {
+    "width": 60,
+    "height": 144
   }
 }

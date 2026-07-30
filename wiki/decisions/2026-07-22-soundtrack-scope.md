@@ -40,6 +40,18 @@ Also in this change:
 - `SCOPE_ORDER` omits single-track `menu`/`victory` (reachable via `all`).
 - MP3s regenerated with `--force` (recordings changed for the relabeled castles).
 
+## Update — 2026-07-30: `campaign` category
+
+Three tracks first filed as stings are actually full-length pieces (~1 MB MP3s, not ~6 s jingles):
+**Roland Campaign** (`homm2_23`), **Archibald Campaign** (`homm2_21`), and **AI Turn** (`homm2_27`).
+Moved them to a new `campaign` category so they play in the default `all` rotation (category
+`!== 'sting'`). `campaign` gets a `CATEGORY_LABELS`/`SCOPE_LABELS` entry ("Campaign") and a crown
+`EMBLEMS` fallback, but **no `SCOPE_ORDER` chip** — like `menu`/`victory`, it's reachable only via
+`all`. Each gets a bespoke per-id cover (Roland → `PORT0054`, Archibald → `PORT0057`, AI Turn → the
+Genie `MONS32` #60). Counts are now **28 music + 17 stings**. Their ids/files keep the historical
+`sting-` prefix (renaming would break `?track=` links + audio filenames). — commit
+`✨ move campaign themes (Roland/Archibald/AI Turn) into the main rotation`.
+
 ## References
 - `src/data/tracks.ts`, `src/hooks/usePlayer.ts` (`tracksInScope`, `planScopeChange`, `advance`),
   `src/components/ScopeChips.tsx`, `src/test/{usePlayer,manifest}.test.ts`
