@@ -17,16 +17,18 @@ heroes-2-music-player/
     main.tsx                 Entry: imports theme + global CSS, mounts <App>
     App.tsx                  <PlayerProvider> → <Background/> + <PlayerPanel/>
     data/                    tracks.ts (editorial SOT), audio-manifest.json (committed receipt),
-                             manifest.ts (typed manifest + resolveAudioUrl/joinUrl)
+                             manifest.ts (typed manifest + resolveAudioUrl/joinUrl),
+                             covers.ts (album-art resolution), share.ts (pure ?track= helpers)
     hooks/                   usePlayerEngine (imperative HTMLAudioElement), usePlayer (reducer + wiring)
     state/                   PlayerContext (provider + usePlayerContext)
     components/              Background, PlayerPanel, TransportControls, ProgressBar, VolumeControl,
-                             ThemeToggle, SettingsDialog, AlbumArt, player.css
+                             ThemeToggle, SettingsDialog, AlbumArt, ShareButton, player.css
     ui/                      GameButton, GameFrame (CSS-recreated primitives), icons.tsx
     theme/                   tokens.css (structure + good defaults), themes.css (good/evil), useTheme.ts
     test/                    Vitest unit specs (pure logic, CI-safe): usePlayer, icn, manifest,
-                             art-manifest, cover-manifest + setup.ts
-  e2e/                       Playwright specs (start-gate, player, chrome) + utils.ts — local only,
+                             art-manifest, cover-manifest, covers, share, player-engine + setup.ts
+  e2e/                       Playwright specs (start-gate, player, chrome, share, media-session,
+                             repeat) + utils.ts — local only,
                              needs the gitignored game assets (see workflows/testing.md)
 ```
 

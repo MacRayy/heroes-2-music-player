@@ -23,6 +23,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 - [`features/player.md`](features/player.md) — the single-screen music player (transport, themes, settings).
 - [`features/start-gate.md`](features/start-gate.md) — fog-of-war intro modal that reveals the map + starts playback.
 - [`features/support-and-legal.md`](features/support-and-legal.md) — corner fundraising widget + footer Copyrights/Privacy modals.
+- [`features/share-links.md`](features/share-links.md) — `?track=<id>` deep links + Share button (native share / clipboard).
 
 ## Decisions
 

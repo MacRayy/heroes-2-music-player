@@ -11,6 +11,7 @@ import { NowPlayingTitle } from './NowPlayingTitle'
 import { ProgressBar } from './ProgressBar'
 import { ScopeChips } from './ScopeChips'
 import { SettingsDialog } from './SettingsDialog'
+import { ShareButton } from './ShareButton'
 import { ThemeToggle } from './ThemeToggle'
 import { TransportControls } from './TransportControls'
 
@@ -26,15 +27,18 @@ export const PlayerPanel = (): ReactElement => {
       <div className="player__header">
         <ThemeToggle />
         <h1 className="player__title">{categoryLabel}</h1>
-        <GameButton
-          label="Settings"
-          size="sm"
-          onClick={() => {
-            setIsSettingsOpen(true)
-          }}
-        >
-          <SettingsIcon />
-        </GameButton>
+        <div className="player__actions">
+          <ShareButton />
+          <GameButton
+            label="Settings"
+            size="sm"
+            onClick={() => {
+              setIsSettingsOpen(true)
+            }}
+          >
+            <SettingsIcon />
+          </GameButton>
+        </div>
       </div>
 
       <AlbumArt key={currentTrack?.id ?? 'none'} track={currentTrack ?? null} />

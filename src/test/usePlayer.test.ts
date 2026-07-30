@@ -192,3 +192,27 @@ describe('shuffledOrder', () => {
     expect(after.order).toEqual(order)
   })
 })
+
+describe('createInitialState with a shared track', () => {
+  it('starts on the given music track in the all scope', () => {
+    const id = MUSIC[2] ?? ''
+    const s = createInitialState(0.5, id)
+    expect(s.scope).toBe('all')
+    expect(s.currentId).toBe(id)
+    expect(s.order).toEqual(MUSIC)
+  })
+
+  it('opens a shared sting in the sting scope', () => {
+    const id = STINGS[0] ?? ''
+    const s = createInitialState(0.5, id)
+    expect(s.scope).toBe('sting')
+    expect(s.currentId).toBe(id)
+    expect(s.order).toEqual(STINGS)
+  })
+
+  it('falls back to the default first track for an unknown id', () => {
+    const s = createInitialState(0.5, 'not-a-track')
+    expect(s.scope).toBe('all')
+    expect(s.currentId).toBe(MUSIC[0])
+  })
+})

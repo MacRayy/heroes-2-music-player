@@ -2,6 +2,7 @@ import { type RefObject, useCallback, useEffect, useMemo, useReducer, useRef } f
 
 import { coverKeyForTrack, coverSizes } from '@/data/covers'
 import { resolveAudioUrl } from '@/data/manifest'
+import { parseTrackParam, TRACK_PARAM } from '@/data/share'
 import { type Scope, type Track, TRACKS } from '@/data/tracks'
 
 import { usePlayerEngine } from './usePlayerEngine'
@@ -76,12 +77,19 @@ const advance = (state: PlayerState, delta: number, isCircular: boolean): Player
   return { ...state, currentId: nextId, isPlaying: true, epoch: state.epoch + 1 }
 }
 
-export const createInitialState = (volume: number = DEFAULT_VOLUME): PlayerState => {
-  const order = tracksInScope('all')
+export const createInitialState = (
+  volume: number = DEFAULT_VOLUME,
+  initialTrackId?: string,
+): PlayerState => {
+  const track =
+    initialTrackId === undefined ? undefined : TRACKS.find((t) => t.id === initialTrackId)
+  // A shared sting opens its own scope; everything else browses the full soundtrack.
+  const scope: Scope = track?.category === 'sting' ? 'sting' : 'all'
+  const order = tracksInScope(scope)
   return {
-    scope: 'all',
+    scope,
     order,
-    currentId: order[0] ?? null,
+    currentId: track?.id ?? order[0] ?? null,
     isPlaying: false,
     isShuffle: false,
     repeat: 'off',
@@ -168,7 +176,12 @@ export type PlayerApi = PlayerState & {
 
 export const usePlayer = (): PlayerApi => {
   const [state, dispatch] = useReducer(playerReducer, undefined, () =>
-    createInitialState(readStoredVolume()),
+    createInitialState(
+      readStoredVolume(),
+      typeof window === 'undefined'
+        ? undefined
+        : (parseTrackParam(window.location.search) ?? undefined),
+    ),
   )
 
   const stateRef = useRef(state)
@@ -244,6 +257,16 @@ export const usePlayer = (): PlayerApi => {
       }
     }
   }, [])
+
+  // Keep the URL in sync with the current track so the address bar is always a shareable link.
+  useEffect(() => {
+    if (currentTrack === null || typeof window === 'undefined') {
+      return
+    }
+    const url = new URL(window.location.href)
+    url.searchParams.set(TRACK_PARAM, currentTrack.id)
+    window.history.replaceState(null, '', url)
+  }, [currentTrack])
 
   // Media Session: now-playing metadata (title + album art shown in the OS media widget).
   useEffect(() => {
