@@ -19,7 +19,8 @@ album-art emblem and the header label.
 
 A filter (`all | battle | town | terrain | sting`) that determines which tracks the transport
 (next/prev/shuffle) walks. `all` = all music, **excluding** stings; stings are only reachable via
-the Stings scope. Set by the `ScopeChips` row.
+the Stings scope. The `campaign` category (Roland/Archibald themes + AI Turn — full-length pieces,
+not jingles) counts as music, so it plays in `all`. Set by the `ScopeChips` row.
 **Code:** `Scope`/`tracksInScope`/`planScopeChange` in `src/hooks/usePlayer.ts`. **Related:** [[2026-07-22-soundtrack-scope]].
 
 ## Succession Wars variant

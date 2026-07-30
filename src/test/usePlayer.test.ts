@@ -33,8 +33,8 @@ const stateAt = (id: string, overrides: Partial<PlayerState> = {}): PlayerState 
 
 describe('tracksInScope', () => {
   it('all = music only (excludes stings), sting = stings only', () => {
-    expect(MUSIC).toHaveLength(25)
-    expect(STINGS).toHaveLength(20)
+    expect(MUSIC).toHaveLength(28) // 25 + 3 campaign tracks moved out of stings
+    expect(STINGS).toHaveLength(17)
     expect(MUSIC.some((id) => STINGS.includes(id))).toBe(false)
   })
 

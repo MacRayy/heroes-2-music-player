@@ -21,11 +21,11 @@ describe('audio manifest coverage', () => {
     expect([...manifestIds].sort()).toEqual([...trackIds].sort())
   })
 
-  it('has 45 tracks: 25 music + 20 stings', () => {
+  it('has 45 tracks: 28 music + 17 stings', () => {
     expect(trackIds).toHaveLength(45)
     const stings = TRACKS.filter((track) => track.category === 'sting')
-    expect(stings).toHaveLength(20)
-    expect(TRACKS.length - stings.length).toBe(25)
+    expect(stings).toHaveLength(17)
+    expect(TRACKS.length - stings.length).toBe(28)
   })
 
   it('manifest file/src match the track and duration is positive', () => {

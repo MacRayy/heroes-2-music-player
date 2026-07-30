@@ -162,4 +162,9 @@ export const COVERS: Record<string, AssetSource> = {
   terrain: { icn: 'MONS32.ICN', index: 57, scale: 4 }, // Rogue
   victory: { icn: 'PRIMSKIL.ICN', index: 1, scale: 2 }, // heraldic shield
   sting: { icn: 'MONS32.ICN', index: 59, scale: 4 }, // Ghost
+  // Campaign tracks → their own portrait / creature (keyed by track id; the 'campaign' category has
+  // no default cover, so any future campaign track falls back to the crown emblem in AlbumArt).
+  'sting-roland': { icn: 'PORT0054.ICN', index: 0, scale: 2 }, // Roland (hero portrait)
+  'sting-archibald': { icn: 'PORT0057.ICN', index: 0, scale: 2 }, // Archibald (hero portrait)
+  'sting-ai-turn': { icn: 'MONS32.ICN', index: 60, scale: 4 }, // Genie
 }
