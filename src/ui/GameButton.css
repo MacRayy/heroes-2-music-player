@@ -55,6 +55,9 @@
 .game-button__glyph--settings {
   background-image: var(--settings-src);
 }
+.game-button__glyph--share {
+  background-image: var(--share-src);
+}
 
 .game-button__glyph--hero {
   background-image: var(--hero-src);
