@@ -1,0 +1,9 @@
+# Heroes of Might & Magic II — Music Player
+
+> A free, fan-made web player for the complete Heroes of Might & Magic II soundtrack, presented in an authentic in-game-style panel with two switchable interface themes (Good / Evil).
+
+The player streams the full HOMM2 soundtrack — main menu, battle, per-faction town themes (including the Succession Wars castle alternates), terrain, victory, campaign themes (Roland, Archibald, AI Turn), and event stings. Features: transport controls, shuffle, repeat, volume, per-track album art extracted from the game, OS/lock-screen media controls, and per-track share links (`?track=<id>`). Built with Vite + React + TypeScript; audio is the transcoded game soundtrack. Non-commercial fan project; music © the original composers (Paul Anthony Romero, Rob King, Steve Baca).
+
+## Links
+- [Live site](https://homm2musicplayer.com/)
+- [Source code (GitHub)](https://github.com/MacRayy/heroes-2-music-player)
