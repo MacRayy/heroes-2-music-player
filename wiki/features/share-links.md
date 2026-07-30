@@ -24,7 +24,8 @@ instead of "go to the site and click around".
 - **Share button** (`src/components/ShareButton.tsx`) — in the panel header next to Settings. Uses
   `navigator.share` when available (mobile share sheet), else copies `trackShareUrl(...)` to the
   clipboard and shows transient "Link copied" feedback (`isCopied`). Icons: `ShareIcon` / `CheckIcon`
-  (pixel-art grids in `src/ui/icons.tsx`).
+  (pixel-art grids in `src/ui/icons.tsx`). `ShareIcon` is hand-traced from the HOMM2 "move" hand
+  button (`ADVBTNS.ICN` #6) — original pixel art, committed, no extracted asset.
 
 ## Tests
 
