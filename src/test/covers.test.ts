@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { coverCandidates, coverKeyForTrack, coverSizes } from '@/data/covers'
+import { coverCandidates, coverDims, coverKeyForTrack, coverSizes } from '@/data/covers'
 import { TRACKS } from '@/data/tracks'
 
 describe('coverKeyForTrack', () => {
@@ -39,5 +39,17 @@ describe('coverSizes', () => {
 
   it('returns empty string for an unknown key', () => {
     expect(coverSizes('not-a-real-cover')).toBe('')
+  })
+})
+
+describe('coverDims', () => {
+  it('returns positive width/height for a known key', () => {
+    const dims = coverDims('menu')
+    expect(dims).not.toBeNull()
+    expect((dims?.width ?? 0) > 0 && (dims?.height ?? 0) > 0).toBe(true)
+  })
+
+  it('returns null for an unknown key', () => {
+    expect(coverDims('not-a-real-cover')).toBeNull()
   })
 })
