@@ -13,9 +13,9 @@
 - Settings dialog (gear): theme toggle + volume slider + about.
 
 There is **no track list** — navigation is via the transport controls + scope chips. The 45-track
-catalog (28 music incl. Succession Wars castle alternates + 3 `campaign` themes + 17 event stings) is
-navigated by selecting a scope, then walking it with next/prev/shuffle. Stings are excluded from the
-default `all` scope; the `campaign` themes (full-length pieces) play in `all`. **Manual next/prev wrap** the ends (circular); auto-advance stops at the end under
+catalog (28 music — incl. Succession Wars castle alternates and 3 `campaign` themes — + 17 event
+stings) is navigated by selecting a scope, then walking it with next/prev/shuffle. Stings are
+excluded from the default `all` scope; the `campaign` themes (full-length pieces) play in `all`. **Manual next/prev wrap** the ends (circular); auto-advance stops at the end under
 repeat-off. Playback starts paused; first play needs a click (autoplay-safe). Volume and theme
 persist across reloads. See [[2026-07-22-soundtrack-scope]].
 
