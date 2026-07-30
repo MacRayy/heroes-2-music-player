@@ -25,5 +25,5 @@ export const coverSizes = (key: string): string => {
 }
 
 // Intrinsic pixel dimensions for a cover key (for <img width/height> to reserve layout space).
-export const coverDims = (key: string): { width: number; height: number } | null =>
-  covers[key] ?? null
+export const coverDims = (key: string | undefined): { width: number; height: number } | null =>
+  key === undefined ? null : (covers[key] ?? null)

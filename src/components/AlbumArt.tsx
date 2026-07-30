@@ -27,7 +27,7 @@ export const AlbumArt = ({ track }: AlbumArtProps): ReactElement => {
   const candidates = track === null ? [] : coverCandidates(track)
   const [step, setStep] = useState(0)
   const coverKey = candidates[step]
-  const dims = coverKey === undefined ? null : coverDims(coverKey)
+  const dims = coverDims(coverKey)
 
   return (
     <div className="album-art" role="img" aria-label={`${track?.title ?? 'No track'} artwork`}>
