@@ -73,6 +73,16 @@
     "width": 48,
     "height": 48
   },
+  "share.good": {
+    "file": "share-good.png",
+    "width": 52,
+    "height": 52
+  },
+  "share.evil": {
+    "file": "share-evil.png",
+    "width": 52,
+    "height": 52
+  },
   "hero.good": {
     "file": "hero-good.png",
     "width": 101,

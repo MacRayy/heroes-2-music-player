@@ -6,6 +6,7 @@ export type AssetRole =
   | 'cursor'
   | 'arrow'
   | 'settings'
+  | 'share'
   | 'hero'
   | 'horse'
   | 'chest'
@@ -84,6 +85,25 @@ export const ASSETS: Record<AssetRole, { readonly good: AssetSource; readonly ev
         icn: 'ADVBTNS.ICN',
         index: 14,
         trim: { top: 6, right: 6, bottom: 6, left: 6 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x50, 0x50, 0x50],
+      },
+    },
+    // The game's pointing "move" hand (ADVBTNS), keyed off its stone button face — the Share button.
+    share: {
+      good: {
+        icn: 'ADVBTNS.ICN',
+        index: 6,
+        trim: { top: 5, right: 5, bottom: 5, left: 5 },
+        scale: 2,
+        keyLuma: 120,
+        tint: [0x55, 0x2b, 0x0d],
+      },
+      evil: {
+        icn: 'ADVBTNS.ICN',
+        index: 6,
+        trim: { top: 5, right: 5, bottom: 5, left: 5 },
         scale: 2,
         keyLuma: 120,
         tint: [0x50, 0x50, 0x50],

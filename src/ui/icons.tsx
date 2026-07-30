@@ -122,23 +122,6 @@ const REPEAT_ONE_GRID = [
   '............',
 ]
 
-// Traced from the HOMM2 "move" hand button (ADVBTNS.ICN #6): index finger up-right,
-// thumb pointing right with a notch between, wrist trailing to the lower-left.
-const SHARE_GRID = [
-  '.........#..',
-  '........##..',
-  '.......##...',
-  '......##....',
-  '.....##.....',
-  '....###.....',
-  '...#####.##.',
-  '...########.',
-  '..######.#..',
-  '..#####.....',
-  '.####.......',
-  '.##.........',
-]
-
 const CHECK_GRID = [
   '............',
   '............',
@@ -178,8 +161,8 @@ export const VolumeIcon = (props: IconProps): ReactElement => (
     <path d="M3 9v6h4l5 5V4L7 9H3zm11.5 3a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4zM14 3.2v2.1a7 7 0 010 13.4v2.1a9 9 0 000-17.6z" />
   </Svg>
 )
-export const ShareIcon = (props: IconProps): ReactElement => (
-  <PixelIcon grid={SHARE_GRID} {...props} />
+export const ShareIcon = (): ReactElement => (
+  <span className="game-button__glyph game-button__glyph--share" aria-hidden="true" />
 )
 export const CheckIcon = (props: IconProps): ReactElement => (
   <PixelIcon grid={CHECK_GRID} {...props} />

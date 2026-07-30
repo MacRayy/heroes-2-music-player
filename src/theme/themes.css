@@ -28,6 +28,7 @@
   --cursor: url('/art/ui/cursor-good.png') 2 2, auto;
   --arrow-src: url('/art/ui/arrow-good.png');
   --settings-src: url('/art/ui/settings-good.png');
+  --share-src: url('/art/ui/share-good.png');
   --hero-src: url('/art/ui/hero-good.png');
   --horse-src: url('/art/ui/horse-good.png');
   --chest-src: url('/art/ui/chest-good.png');
@@ -58,6 +59,7 @@
   --cursor: url('/art/ui/cursor-evil.png') 2 2, auto;
   --arrow-src: url('/art/ui/arrow-evil.png');
   --settings-src: url('/art/ui/settings-evil.png');
+  --share-src: url('/art/ui/share-evil.png');
   --hero-src: url('/art/ui/hero-evil.png');
   --horse-src: url('/art/ui/horse-evil.png');
   --chest-src: url('/art/ui/chest-evil.png');

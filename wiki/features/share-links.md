@@ -23,9 +23,11 @@ instead of "go to the site and click around".
   spam browser history.
 - **Share button** (`src/components/ShareButton.tsx`) — in the panel header next to Settings. Uses
   `navigator.share` when available (mobile share sheet), else copies `trackShareUrl(...)` to the
-  clipboard and shows transient "Link copied" feedback (`isCopied`). Icons: `ShareIcon` / `CheckIcon`
-  (pixel-art grids in `src/ui/icons.tsx`). `ShareIcon` is hand-traced from the HOMM2 "move" hand
-  button (`ADVBTNS.ICN` #6) — original pixel art, committed, no extracted asset.
+  clipboard and shows transient "Link copied" feedback (`isCopied`). `ShareIcon` is the game's
+  pointing "move" hand — the extracted `ADVBTNS.ICN` #6 button glyph (`share` asset role, keyed off
+  its stone face + theme-tinted, same recipe as the `horse`/`settings` glyphs), rendered as a
+  `game-button__glyph--share` background span. `CheckIcon` (copied state) stays a pixel-art grid in
+  `src/ui/icons.tsx`.
 
 ## Tests
 
