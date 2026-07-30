@@ -8,11 +8,14 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Game art + fonts: stable filenames (not content-hashed) so NOT immutable — a plain reload must be
+# able to pick up a re-extract. But they're effectively frozen game data and `yarn deploy` purges
+# the edge on every deploy, so a long TTL is safe and speeds up repeat visits.
 /fonts/*
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000
 
 /art/*
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000
 
 /audio/*
   Cache-Control: public, max-age=31536000, immutable

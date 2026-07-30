@@ -1,6 +1,6 @@
 import { type ReactElement, type ReactNode, useState } from 'react'
 
-import { coverCandidates } from '@/data/covers'
+import { coverCandidates, coverDims } from '@/data/covers'
 import type { Track, TrackCategory } from '@/data/tracks'
 
 const EMBLEMS: Record<TrackCategory, ReactNode> = {
@@ -27,6 +27,7 @@ export const AlbumArt = ({ track }: AlbumArtProps): ReactElement => {
   const candidates = track === null ? [] : coverCandidates(track)
   const [step, setStep] = useState(0)
   const coverKey = candidates[step]
+  const dims = coverKey === undefined ? null : coverDims(coverKey)
 
   return (
     <div className="album-art" role="img" aria-label={`${track?.title ?? 'No track'} artwork`}>
@@ -39,6 +40,8 @@ export const AlbumArt = ({ track }: AlbumArtProps): ReactElement => {
           className="album-art__cover"
           src={`/art/covers/${coverKey}.png`}
           alt=""
+          width={dims?.width}
+          height={dims?.height}
           onError={() => {
             setStep((s) => s + 1)
           }}
