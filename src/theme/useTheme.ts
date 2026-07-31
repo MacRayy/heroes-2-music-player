@@ -4,6 +4,10 @@ export type ThemeName = 'good' | 'evil'
 
 const THEME_STORAGE_KEY = 'h2mp-theme'
 
+// Keep in sync with the pre-paint IIFE + `theme-color` default in `index.html` and the manifest's
+// `theme_color` (all mirror `--bg-base` per theme; the IIFE can't import so it's duplicated there).
+const THEME_COLORS: Record<ThemeName, string> = { good: '#0a0f18', evil: '#100f0d' }
+
 const readTheme = (): ThemeName => {
   if (typeof document === 'undefined') {
     return 'good'
@@ -13,6 +17,7 @@ const readTheme = (): ThemeName => {
 
 const applyTheme = (theme: ThemeName): void => {
   document.documentElement.setAttribute('data-theme', theme)
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme])
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme)
   } catch {
