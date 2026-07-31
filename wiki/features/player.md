@@ -22,6 +22,9 @@ persist across reloads. See [[2026-07-22-soundtrack-scope]].
 The chrome is **authentic HOMM2 art** extracted from the game (Good = wooden/stone, Evil = dark
 metal): frame, buttons, and a viewport page-frame. Responsive/mobile-friendly. See [[2026-07-23-ui-art]].
 
+The app is an **installable PWA** — add-to-home-screen, standalone launch, offline app shell. See
+[[pwa]].
+
 **How it's wired** — `PlayerPanel` composes the sub-components; all read shared state from
 `usePlayerContext` (`src/state/PlayerContext.tsx`) except `ProgressBar`, which owns the
 high-frequency `currentTime` locally. Audio is driven by `usePlayerEngine`. `usePlayer` also wires

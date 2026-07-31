@@ -81,3 +81,29 @@ suffix (e.g. `SYSTEM`/`SYSTEME`).
 Committed `src/data/art-manifest.json` (`"<role>.<theme>" → {file,width,height,slice?}`) generated
 by the extractor; the gitignored PNGs live in `public/art/ui/`. Guarded by a bijection test.
 **Related:** [[2026-07-23-ui-art]].
+
+## Web app manifest
+
+`public/manifest.webmanifest` — the PWA install descriptor (name, icons, `display: standalone`,
+theme/background color). Distinct from the *asset manifest* and the audio manifest above; this one is
+the browser-standard installability document. **Related:** [[pwa]].
+
+## App shell
+
+The static UI (HTML/CSS/JS + fonts/art) minus the audio — everything needed to render the player
+before any track loads. The service worker caches the shell (never the audio) so it works offline
+after a first visit. **Related:** [[pwa]].
+
+## Service worker
+
+`public/sw.js` — a client-side network proxy the browser runs off the main thread. Ours is
+runtime-caching (network-first navigations, cache-first for immutable `/assets/*`, network-first with
+cache-fallback for other same-origin assets, `/audio/*` bypassed) and makes the app installable +
+offline-shell-capable. Can't be edge-purged, so it's served `no-cache`; recover
+a broken one via the self-destruct SW in [[pwa-recovery]]. **Related:** [[2026-07-31-pwa]].
+
+## Maskable icon
+
+A PWA icon drawn full-bleed on an opaque background with its content inside a central "safe zone", so
+platforms can mask it into a circle/squircle without clipping. Ours: `public/pwa-maskable-512.png`,
+minted by `scripts/extract-art.ts::compositeOnOpaque`. **Related:** [[pwa]].

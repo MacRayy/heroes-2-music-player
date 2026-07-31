@@ -24,6 +24,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 - [`features/start-gate.md`](features/start-gate.md) — fog-of-war intro modal that reveals the map + starts playback.
 - [`features/support-and-legal.md`](features/support-and-legal.md) — corner fundraising widget + footer Copyrights/Privacy modals.
 - [`features/share-links.md`](features/share-links.md) — `?track=<id>` deep links + Share button (native share / clipboard).
+- [`features/pwa.md`](features/pwa.md) — installable PWA: standalone launch, app icon, offline app shell.
 
 ## Decisions
 
@@ -34,6 +35,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 - [`decisions/2026-07-22-soundtrack-scope.md`](decisions/2026-07-22-soundtrack-scope.md) — extended soundtrack: SW alternates in rotation, stings behind a scope chip.
 - [`decisions/2026-07-23-ui-art.md`](decisions/2026-07-23-ui-art.md) — authentic HOMM2 UI art extracted from HEROES2.AGG.
 - [`decisions/2026-07-28-hosting-cloudflare-pages.md`](decisions/2026-07-28-hosting-cloudflare-pages.md) — deploy via Cloudflare Pages direct upload (not Sevalla).
+- [`decisions/2026-07-31-pwa.md`](decisions/2026-07-31-pwa.md) — hand-rolled runtime-caching service worker (no Workbox, no precache).
 
 ## Bugs
 
@@ -46,6 +48,7 @@ Map of content. Pages carry their own one-line summary at the top; this index qu
 <!-- Recurring operational pain points with known recovery paths. -->
 
 - [`runbooks/deploy-cloudflare.md`](runbooks/deploy-cloudflare.md) — build `dist/` locally + `wrangler pages deploy` to Cloudflare Pages.
+- [`runbooks/pwa-recovery.md`](runbooks/pwa-recovery.md) — recover a broken service worker with a self-destruct SW (the SW can't be edge-purged).
 
 ## Tech debt
 

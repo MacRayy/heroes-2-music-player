@@ -60,6 +60,9 @@ Configuration → Purge Everything.
   ```
   → `content-type: audio/mpeg` + `cache-control: public, max-age=31536000, immutable`. Hashed
   `/assets/*` = immutable 1yr; `/art/*` + `/fonts/*` = 7 days; `/` = `max-age=0, must-revalidate`.
+  **`/sw.js` + `/manifest.webmanifest` = `max-age=0, must-revalidate` — these must NEVER go
+  `immutable`**: a service worker can't be edge-purged, so its `no-cache` header is the only channel
+  that reaches stuck clients with a fix. See [[pwa-recovery]].
 - Load the site: Okay → horse → opens on Main Menu; audio serves `206` (range → seeking works);
   no console errors.
 
