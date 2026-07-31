@@ -6,7 +6,10 @@
 
 ```
 heroes-2-music-player/
-  index.html                 Root div + pre-paint theme script (sets data-theme before first paint)
+  index.html                 Root div + pre-paint theme script (sets data-theme + theme-color); PWA
+                             manifest link + apple/theme-color meta
+  public/manifest.webmanifest  PWA install descriptor (committed)
+  public/sw.js               Runtime-caching service worker (committed; see features/pwa.md)
   vite.config.ts             Vite (React) + Vitest (jsdom) config; @ → src alias
   playwright.config.ts       E2E config: dev server on :4288, headless Chromium (run via `yarn e2e`)
   scripts/                   build-audio.ts (OGG→MP3), extract-art.ts + icn.ts/agg.ts (AGG→PNG art,
@@ -14,7 +17,7 @@ heroes-2-music-player/
   public/audio/              Generated MP3s (gitignored)
   public/art/                map-bg.jpg background (raw h2map.png gitignored)
   src/
-    main.tsx                 Entry: imports theme + global CSS, mounts <App>
+    main.tsx                 Entry: imports theme + global CSS, mounts <App>; PROD-only SW register
     App.tsx                  <PlayerProvider> → <Background/> + <PlayerPanel/>
     data/                    tracks.ts (editorial SOT), audio-manifest.json (committed receipt),
                              manifest.ts (typed manifest + resolveAudioUrl/joinUrl),

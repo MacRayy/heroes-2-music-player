@@ -55,6 +55,11 @@ strike it here.
   served same-origin from Pages (cached immutable via `_headers`); fine at this scale. Moving them to
   object storage / CDN behind `VITE_AUDIO_BASE_URL` is deferred until bandwidth climbs. See
   [[audio-hosting]].
+- **Offline audio (PWA v2/v3)** — the PWA ships with an offline app *shell* only; audio is bypassed
+  by the service worker. v2 = runtime cache-on-play (CacheFirst, LRU/quota-capped, expiring — mind
+  iOS's per-origin quota + Range-request handling); v3 = an opt-in "download for offline" toggle.
+  Also parked: an in-app install button (`beforeinstallprompt`) and an update-available toast (the
+  default SW lifecycle + immutable assets make one unnecessary today). See [[pwa]] + [[2026-07-31-pwa]].
 - ~~**Committed E2E suite**~~ — **DONE**: `@playwright/test` suite in `e2e/` (`yarn e2e`) covering
   the start gate, transport (next/pause), scope-chip filtering, and the footer/support/settings
   modals. See [[testing]].

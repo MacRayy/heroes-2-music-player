@@ -203,6 +203,74 @@ export const cropSprite = (sprite: Sprite, trim: Trim): Sprite => {
   return { width, height, offsetX: sprite.offsetX, offsetY: sprite.offsetY, rgba }
 }
 
+/** Crop fully-transparent margins so the content, not the sprite's baked-in padding, is centered. */
+export const trimTransparent = (sprite: Sprite): Sprite => {
+  const opaque = Array.from({ length: sprite.width * sprite.height }, (_pixel, i) => i).filter(
+    (i) => (sprite.rgba[i * 4 + 3] ?? 0) !== 0,
+  )
+  if (opaque.length === 0) {
+    return sprite
+  }
+  const bounds = opaque.reduce(
+    (acc, i) => {
+      const x = i % sprite.width
+      const y = Math.floor(i / sprite.width)
+      return {
+        top: Math.min(acc.top, y),
+        bottom: Math.max(acc.bottom, y),
+        left: Math.min(acc.left, x),
+        right: Math.max(acc.right, x),
+      }
+    },
+    { top: sprite.height, bottom: -1, left: sprite.width, right: -1 },
+  )
+  return cropSprite(sprite, {
+    top: bounds.top,
+    left: bounds.left,
+    right: sprite.width - 1 - bounds.right,
+    bottom: sprite.height - 1 - bounds.bottom,
+  })
+}
+
+/** Center a sprite scaled to a `safeZone` fraction of a `size`² opaque `bg` square. Opaque full-bleed
+ * is what a PWA maskable icon needs; `safeZone` ~0.9 for `any`, smaller for maskable's safe circle. */
+export const compositeOnOpaque = (
+  sprite: Sprite,
+  bg: readonly [number, number, number],
+  size: number,
+  safeZone: number,
+): Sprite => {
+  const box = size * safeZone
+  const scale = Math.min(box / sprite.width, box / sprite.height)
+  const dw = Math.round(sprite.width * scale)
+  const dh = Math.round(sprite.height * scale)
+  const ox = Math.floor((size - dw) / 2)
+  const oy = Math.floor((size - dh) / 2)
+
+  // Pure per-pixel: outside the sprite's placement box → opaque bg; inside → sprite alpha-over bg.
+  const pixel = (px: number, py: number): readonly [number, number, number, number] => {
+    const lx = px - ox
+    const ly = py - oy
+    if (lx < 0 || lx >= dw || ly < 0 || ly >= dh) {
+      return [bg[0], bg[1], bg[2], 255]
+    }
+    const sx = Math.min(sprite.width - 1, Math.floor(lx / scale))
+    const sy = Math.min(sprite.height - 1, Math.floor(ly / scale))
+    const s = (sy * sprite.width + sx) * 4
+    const alpha = (sprite.rgba[s + 3] ?? 0) / 255
+    const over = (channel: number): number =>
+      Math.round((sprite.rgba[s + channel] ?? 0) * alpha + (bg[channel] ?? 0) * (1 - alpha))
+    return [over(0), over(1), over(2), 255]
+  }
+
+  const rgba = Uint8Array.from(
+    Array.from({ length: size * size }, (_pixel, i) =>
+      pixel(i % size, Math.floor(i / size)),
+    ).flat(),
+  )
+  return { width: size, height: size, offsetX: 0, offsetY: 0, rgba }
+}
+
 // Center a sprite on a transparent square canvas (side = the larger dimension).
 export const padToSquare = (sprite: Sprite): Sprite => {
   const side = Math.max(sprite.width, sprite.height)
