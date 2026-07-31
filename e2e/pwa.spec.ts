@@ -1,7 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-// The service worker is PROD-gated (see src/main.tsx) so it never registers against the dev server
-// this suite runs — these checks cover the install metadata that ships in the page itself.
+// The SW is PROD-gated (src/main.tsx), so this covers only the install metadata in the page.
 test.describe('PWA install metadata', () => {
   test('links a web app manifest describing a standalone install', async ({ page, request }) => {
     await page.goto('/')

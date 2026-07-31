@@ -19,12 +19,9 @@ createRoot(rootElement).render(
   </StrictMode>,
 )
 
-// Register the service worker only in production builds — the dev server (and the Playwright suite
-// that runs it) must not get a SW intercepting requests.
+// PROD-only: the dev server (and Playwright, which runs it) must not get a SW intercepting requests.
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {
-      /* registration failure is non-fatal — the app still works, just not installed/offline */
-    })
+    navigator.serviceWorker.register('/sw.js').catch(() => undefined)
   })
 }

@@ -156,8 +156,7 @@ const main = (): void => {
   }
   console.log('✔ favicons → public/favicon.png (light) + favicon-dark.png (dark)')
 
-  // PWA install icons (green dragon on the themed square). Maskable uses a tighter safe zone so the
-  // sprite survives the platform's circular/squircle mask; `any` icons are near-full-bleed.
+  // PWA install icons; maskable gets a tighter safe zone to survive the platform's circular mask.
   const rawDragon = spritesOf('MONS32.ICN')[PWA_DRAGON_INDEX]
   const pwaDragon = rawDragon === undefined ? undefined : trimTransparent(rawDragon)
   if (pwaDragon !== undefined) {

@@ -1,21 +1,6 @@
-// Runtime-caching service worker — the minimum needed to make the player installable (Chrome/Android
-// require a registered SW with a fetch handler) and offline-capable for the app shell. Deliberately
-// NO precache manifest: our JS/CSS are content-hashed + immutable, so cache-first on `/assets/*` +
-// network-first navigations capture the whole single-screen shell as it's fetched, with nothing to
-// revision across deploys — the failure mode that bricks precache SWs simply can't arise.
-//
-// Timing note: with the default lifecycle (no skipWaiting/claim) the SW only controls a page from
-// the *next* navigation, so the shell is cached on the reload after the first visit, not the first
-// paint itself. Offline therefore works from the second load onward.
-//
-// Brick-avoidance: navigations are network-first (a bad deploy's HTML always comes from the network
-// while online), this file is served `no-cache` (see public/_headers) so a fix propagates within a
-// browser's revalidation window, and the default lifecycle (no skipWaiting) avoids mid-session
-// chunk swaps. If a client ever gets stuck, see wiki/runbooks/pwa-recovery.md for the self-destruct
-// recovery SW.
-//
-// eslint-disable — service-worker globals differ from the app's; this file is not typechecked.
-/* eslint-disable */
+// Runtime-caching service worker: installable + offline app shell. No precache by design (hashed
+// immutable assets ⇒ nothing to revision); served no-cache via public/_headers so a bad SW stays
+// recoverable — it can't be edge-purged. See wiki/features/pwa.md + runbooks/pwa-recovery.md.
 /// <reference lib="webworker" />
 
 const VERSION = 'v1'
@@ -31,9 +16,8 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// Cache a response only if it's a plain `200` (not a `206` range — the Cache API rejects those — nor
-// a redirect, which throws when replayed to a navigation). Fire-and-forget with a swallowed reject so
-// a quota-exceeded on a constrained device never surfaces as an unhandled rejection.
+// Plain `200` only: the Cache API rejects `206` ranges, and a cached redirect throws when replayed
+// to a navigation. Reject swallowed so a quota-exceeded isn't an unhandled rejection.
 const cachePut = async (key, response) => {
   if (response.status === 200 && !response.redirected) {
     const cache = await caches.open(CACHE)
@@ -65,9 +49,8 @@ const networkFirstNavigation = async (request) => {
   }
 }
 
-// For mutable-but-stable assets (art, fonts, manifest, icons): always prefer the network so a
-// re-extract / icon swap propagates (matching their revalidatable `_headers`), falling back to cache
-// only when offline. Cache-first would freeze them until a VERSION bump — the opposite of intended.
+// Art/fonts/manifest/icons: network wins so a re-extract propagates (cache-first would freeze them
+// until a VERSION bump); cache is only the offline fallback.
 const networkFirst = async (request) => {
   try {
     const response = await fetch(request)
@@ -86,8 +69,7 @@ self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
 
-  // Only same-origin GETs are ours; audio is bypassed (huge files + Range requests the Cache API
-  // mishandles), and cross-origin requests pass straight through.
+  // Ours = same-origin GET only; audio bypassed (large + Range requests the Cache API mishandles).
   if (request.method !== 'GET' || url.origin !== self.location.origin) {
     return
   }
@@ -99,8 +81,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(networkFirstNavigation(request))
     return
   }
-  // Only content-hashed `/assets/*` are immutable → safe to serve cache-first forever. Everything
-  // else same-origin (art, fonts, manifest, icons) is network-first so updates aren't frozen.
+  // Only immutable hashed `/assets/*` is safe cache-first; everything else network-first.
   if (url.pathname.startsWith('/assets/')) {
     event.respondWith(cacheFirst(request))
     return

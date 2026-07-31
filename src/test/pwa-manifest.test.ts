@@ -3,8 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { useTheme } from '@/theme/useTheme'
 
-// `public/manifest.webmanifest` isn't a `.json` extension and lives outside tsconfig's
-// `include: ["src"]`, so it can't be imported as a JSON module — pull it in as a raw string.
+// Not a `.json` extension + outside `include: ["src"]`, so import it raw rather than as a module.
 import manifestRaw from '../../public/manifest.webmanifest?raw'
 
 type ManifestIcon = { src: string; sizes: string; type: string; purpose: string }
