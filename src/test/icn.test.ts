@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  compositeOnOpaque,
   cropSprite,
   decodeIcn,
   keyLumaSprite,
@@ -10,6 +11,7 @@ import {
   scaleSprite,
   type Sprite,
   tintSprite,
+  trimTransparent,
 } from '../../scripts/icn'
 
 // A synthetic 1-sprite ICN: 3×2, header offsetData=13, data = colored/skip/end opcodes.
@@ -198,5 +200,69 @@ describe('padToSquare', () => {
     expect([out.width, out.height]).toEqual([2, 2])
     expect(pixel(out, 0, 0)).toEqual([1, 0, 0, 255])
     expect(pixel(out, 1, 1)).toEqual([4, 0, 0, 255])
+  })
+})
+
+describe('trimTransparent', () => {
+  const withContent = (): Sprite => {
+    // 5×5, fully transparent except an opaque 3×2 block at cols 1..3, rows 1..2.
+    const rgba = new Uint8Array(5 * 5 * 4)
+    for (let y = 1; y <= 2; y += 1) {
+      for (let x = 1; x <= 3; x += 1) {
+        const p = (y * 5 + x) * 4
+        rgba[p] = 200
+        rgba[p + 3] = 255
+      }
+    }
+    return { width: 5, height: 5, offsetX: 0, offsetY: 0, rgba }
+  }
+
+  it('crops to the tight bounding box of non-transparent pixels', () => {
+    const out = trimTransparent(withContent())
+    expect([out.width, out.height]).toEqual([3, 2])
+    expect(pixel(out, 0, 0)).toEqual([200, 0, 0, 255])
+    expect(pixel(out, 2, 1)).toEqual([200, 0, 0, 255])
+  })
+
+  it('returns the sprite unchanged when it is fully transparent', () => {
+    const empty: Sprite = {
+      width: 3,
+      height: 3,
+      offsetX: 0,
+      offsetY: 0,
+      rgba: new Uint8Array(3 * 3 * 4),
+    }
+    expect(trimTransparent(empty)).toBe(empty)
+  })
+})
+
+describe('compositeOnOpaque', () => {
+  const opaqueRed = (): Sprite => ({
+    width: 1,
+    height: 1,
+    offsetX: 0,
+    offsetY: 0,
+    rgba: Uint8Array.from([255, 0, 0, 255]),
+  })
+
+  it('fills an opaque background and centers the scaled sprite', () => {
+    const out = compositeOnOpaque(opaqueRed(), [10, 20, 30] as const, 4, 0.5)
+    expect([out.width, out.height]).toEqual([4, 4])
+    expect(pixel(out, 0, 0)).toEqual([10, 20, 30, 255]) // background corner
+    expect(pixel(out, 1, 1)).toEqual([255, 0, 0, 255]) // centered 2×2 red block
+    expect(pixel(out, 2, 2)).toEqual([255, 0, 0, 255])
+  })
+
+  it('alpha-composites a semi-transparent pixel over the background', () => {
+    const semi: Sprite = {
+      width: 1,
+      height: 1,
+      offsetX: 0,
+      offsetY: 0,
+      rgba: Uint8Array.from([255, 0, 0, 128]),
+    }
+    const out = compositeOnOpaque(semi, [0, 0, 0] as const, 1, 1)
+    // 255 * (128/255) + 0 ≈ 128, and the result is opaque.
+    expect(pixel(out, 0, 0)).toEqual([128, 0, 0, 255])
   })
 })

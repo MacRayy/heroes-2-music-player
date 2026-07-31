@@ -11,6 +11,7 @@ import { PNG } from 'pngjs'
 import { ASSET_THEMES, type AssetRole, ASSETS, type AssetSource, COVERS } from '../src/data/assets'
 import { openAgg } from './agg'
 import {
+  compositeOnOpaque,
   cropSprite,
   decodeIcn,
   keyLumaSprite,
@@ -20,6 +21,7 @@ import {
   scaleSprite,
   type Sprite,
   tintSprite,
+  trimTransparent,
 } from './icn'
 
 const writeSpritePng = (sprite: Sprite, outPath: string): void => {
@@ -27,6 +29,10 @@ const writeSpritePng = (sprite: Sprite, outPath: string): void => {
   png.data.set(sprite.rgba)
   writeFileSync(outPath, PNG.sync.write(png))
 }
+
+// PWA app icons: green dragon (MONS32 #35, the OG brand sprite) on the GOOD `--bg-base` square.
+const PWA_ICON_BG: readonly [number, number, number] = [0x0a, 0x0f, 0x18]
+const PWA_DRAGON_INDEX = 35
 
 // trim → scale → rotate → keyLuma → tint (each step is optional per the source).
 const applyTransforms = (decoded: Sprite, source: AssetSource): Sprite => {
@@ -149,6 +155,21 @@ const main = (): void => {
     writeSpritePng(padToSquare(phoenix), join(repoRoot, 'public', 'favicon-dark.png'))
   }
   console.log('✔ favicons → public/favicon.png (light) + favicon-dark.png (dark)')
+
+  // PWA install icons (green dragon on the themed square). Maskable uses a tighter safe zone so the
+  // sprite survives the platform's circular/squircle mask; `any` icons are near-full-bleed.
+  const rawDragon = spritesOf('MONS32.ICN')[PWA_DRAGON_INDEX]
+  const pwaDragon = rawDragon === undefined ? undefined : trimTransparent(rawDragon)
+  if (pwaDragon !== undefined) {
+    const pub = join(repoRoot, 'public')
+    writeSpritePng(compositeOnOpaque(pwaDragon, PWA_ICON_BG, 192, 0.9), join(pub, 'pwa-192.png'))
+    writeSpritePng(compositeOnOpaque(pwaDragon, PWA_ICON_BG, 512, 0.9), join(pub, 'pwa-512.png'))
+    writeSpritePng(
+      compositeOnOpaque(pwaDragon, PWA_ICON_BG, 512, 0.62),
+      join(pub, 'pwa-maskable-512.png'),
+    )
+    console.log('✔ pwa icons → public/pwa-192.png, pwa-512.png, pwa-maskable-512.png')
+  }
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {

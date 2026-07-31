@@ -35,6 +35,7 @@ public/art/ui/
 public/art/covers/
 public/favicon*.png
 public/og.png
+public/pwa-*.png
 
 # extracted fonts (regenerate with yarn extract:font)
 public/fonts/
