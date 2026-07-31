@@ -206,14 +206,12 @@ describe('padToSquare', () => {
 describe('trimTransparent', () => {
   const withContent = (): Sprite => {
     // 5×5, fully transparent except an opaque 3×2 block at cols 1..3, rows 1..2.
-    const rgba = new Uint8Array(5 * 5 * 4)
-    for (let y = 1; y <= 2; y += 1) {
-      for (let x = 1; x <= 3; x += 1) {
-        const p = (y * 5 + x) * 4
-        rgba[p] = 200
-        rgba[p + 3] = 255
-      }
-    }
+    const rgba = Uint8Array.from(
+      Array.from({ length: 5 * 5 }, (_pixel, i) => {
+        const inBlock = i % 5 >= 1 && i % 5 <= 3 && Math.floor(i / 5) >= 1 && Math.floor(i / 5) <= 2
+        return inBlock ? [200, 0, 0, 255] : [0, 0, 0, 0]
+      }).flat(),
+    )
     return { width: 5, height: 5, offsetX: 0, offsetY: 0, rgba }
   }
 
